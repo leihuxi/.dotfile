@@ -1,0 +1,99 @@
+source ~/.vimrc
+
+nnoremap gcc :action CommentByLineComment<cr>
+nnoremap <leader>fu :action FindUsages<cr>
+nnoremap <leader>su :action ShowUsages<cr>
+nnoremap <leader>cv :action ChangeView<cr>
+nnoremap <leader>bb :action ToggleLineBreakpoint<cr>
+nnoremap <leader>ic :action InspectCode<cr>
+nnoremap <leader>oi :action OptimizeImports<cr>
+nnoremap <leader>re :action RenameElement<cr>
+nnoremap <leader>rf :action RenameFile<cr>
+nnoremap <leader>mv :action ActivateMavenProjectsToolWindow<cr>
+nnoremap <leader>dc :action ChooseDebugConfiguration<cr>
+nnoremap <leader>rc :action ChooseRunConfiguration<cr>
+nnoremap <leader>q  :action CloseActiveTab<cr>
+nnoremap <leader>gi :action GotoImplementation<cr>
+nnoremap <leader>gs :action GotoSuperMethod<cr>
+nnoremap <leader>gd :action GotoDeclaration<cr>
+nnoremap <leader>gc :action GotoClass<cr>
+nnoremap <leader>ga :action GotoAction<CR>
+nnoremap <leader>gt :action GotoTest<cr>
+nnoremap <leader>gf :action GotoFile<cr>
+vnoremap <leader>tl :action ActivateTerminalToolWindow<cr>
+nnoremap <leader>gl :action GotoLine<cr>
+nnoremap ]e :action GotoNextError<cr>
+nnoremap [e :action GotoPreviousError<cr>
+" actions
+nnoremap <leader>q :action CloseContent<cr>
+nnoremap <leader>Q :action ReopenClosedTab<cr>
+nnoremap <leader>\ :action VimFilePrevious<cr>
+nnoremap <leader>e :action SearchEverywhere<cr>
+nnoremap <leader>E :action Switcher<cr>
+nnoremap <leader>t :action FileStructurePopup<cr>
+nnoremap <leader>T :action GotoSymbol<cr>
+" generate
+nnoremap <leader>ct :action GenerateTestMethod<CR>
+nnoremap <leader>cm :action GenerateSetUpMethod<CR>
+nnoremap <leader>cg :action GenerateGetter<CR>
+nnoremap <leader>cs :action GenerateSetter<CR>
+nnoremap <leader>ca :action GenerateGetterAndSetter<CR>
+nnoremap <leader>ce :action GenerateEquals<CR>
+nnoremap <leader>cc :action GenerateConstructor<CR>
+nnoremap <leader>C :action Generate<CR>
+" windows
+nnoremap <leader>wa :action ActivateAntBuildToolWindow<CR>
+nnoremap <leader>we :action ActivateEventLogToolWindow<CR>
+nnoremap <leader>wg :action ActivateGradleToolWindow<CR>
+nnoremap <leader>wd :action ActivateDebugToolWindow<CR>
+nnoremap <leader>wr :action ActivateRunToolWindow<CR>
+nnoremap <leader>wb :action ViewBreakpoints<CR>
+nnoremap <leader>wp :action ActivateProjectToolWindow<CR>
+" code navigation
+nnoremap <leader>k :action HighlightUsagesInFile<cr>
+
+" unimpaired mappings
+nnoremap [<space> O<esc>j
+nnoremap ]<space> o<esc>k
+nnoremap [q :action PreviousOccurence<cr>
+nnoremap ]q :action NextOccurence<cr>
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
+
+" Cursive
+nnoremap <leader>W :action :cursive.actions.paredit/wrap-paren<cr>
+nnoremap <leader>w[ :action :cursive.actions.paredit/wrap-square<cr>
+nnoremap <leader>w{ :action :cursive.actions.paredit/wrap-curly<cr>
+nnoremap <leader>w" :action :cursive.actions.paredit/wrap-quotes<cr>
+nnoremap <leader>< :action :cursive.actions.paredit/barf-forwards<cr>
+nnoremap <leader>> :action :cursive.actions.paredit/slurp-forwards<cr>
+
+" Refactor
+nnoremap <leader>rd :action :refactoring.extract.dependency<cr>
+nnoremap <leader>rp :action :refactoring.introduce.property<cr>
+nnoremap <leader>rm :action :RefactoringMenu<cr>
+nnoremap <leader>r1 :action :RefactoringMenu1<cr>
+nnoremap <leader>r2 :action :RefactoringMenu2<cr>
+nnoremap <leader>r4 :action :RefactoringMenu4<cr>
+nnoremap <leader>r3 :action :RefactoringMenu3<cr>
+nnoremap <leader>rl :action :Refactorings.QuickListPopupAction<cr>
+" built-in navigation to navigated items works better
+nnoremap <c-o> :action Back<cr>
+nnoremap <c-i> :action Forward<cr>
+" but preserve ideavim defaults
+nnoremap <C-S-o> <c-o>
+nnoremap <C-S-i> <c-i>
+" built in search looks better
+nnoremap g/ :action Find<cr>
+
+" easy window navigation
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-h> <c-w>h
+nnoremap <c-k> <c-w>k
+nnoremap <a-h> gT
+nnoremap <a-l> gt
+nnoremap <c-s-tab> gT
+nnoremap <c-tab> gt
