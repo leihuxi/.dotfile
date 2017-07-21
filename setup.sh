@@ -57,6 +57,7 @@ bak_file() {
 
 
 install_dotfile() {
+    install_program curl
     install_program vim
     if [[ ! -d ~/.vim_runtime ]]; then
         bak_file ~/.vimrc

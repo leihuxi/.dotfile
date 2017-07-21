@@ -54,7 +54,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode wd colored-man-pages man mvn command-not-found)
+plugins=(wd mvn)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -93,14 +93,6 @@ export TERM=xterm-256color
 alias chjava='sudo update-alternatives --config java'
 alias reclim='nohup /home/xileihu/work/opensource/eclipse/eclimd > /dev/null 2>&1 &' 
 
-vman() {
-  vim -c "SuperMan $*"
-
-  if [ "$?" != "0" ]; then
-    echo "No manual entry for $*"
-  fi
-}
-
 nman() {
   vim -c "Nman $*"
 
@@ -111,4 +103,4 @@ nman() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [[ ! -z $TMUX ]]; then printf '\n'; fi
+set -o vi
