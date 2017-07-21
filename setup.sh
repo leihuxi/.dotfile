@@ -42,12 +42,10 @@ install_program() {
             yum install ${progam_name}
         fi
         if [[ $? -ne 0 ]]; then
-            warning "${progam_name} install failed!"
+            error "${progam_name} install failed!"
             exit 1
         fi
         info "${progam_name} is install successfully!"
-    else
-        warning "${progam_name} already installed!"
     fi
 }
 
@@ -66,25 +64,37 @@ install_required_program() {
 
 install_dotfile() {
     if [[ ! -d ~/.vim_runtime ]]; then
-        bak_file ~/.vimrc
         git clone git://github.com/leihuxi/vimrc.git ~/.vim_runtime
-        sh ~/.vim_runtime/install_awesome_vimrc.sh
-        info "dotifile:vimrc install successfully!"
+        if [[ $? -eq 0 ]]; then
+            bak_file ~/.vimrc
+            sh ~/.vim_runtime/install_awesome_vimrc.sh
+            info "dotifile:vimrc install successfully!"
+        else
+            error "dotfile:vimrc install failed"
+        fi
     fi
 
     if [[ ! -d ~/.oh-my-zsh ]]; then
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-        bak_file ~/.zshrc
-        cp $PWD/.zshrc ~
-        info "dotfile:zshrc install successfully!"
+        if [[ $? -eq 0 ]]; then
+            bak_file ~/.zshrc
+            cp $PWD/.zshrc ~
+            info "dotfile:zshrc install successfully!"
+        else
+            error "dotfile:zshrc install failed"
+        fi
     fi
 
     if [[ ! -d ~/.tmux ]]; then
         git clone https://github.com/gpakosz/.tmux.git ~/.tmux
-        bak_file ~/.tmux.conf
-        ln -s -f .tmux/.tmux.conf ~/.tmux.conf
-        cp $PWD/.tmux.conf.local ~
-        info "dotfile:tmux.conf install successfully!"
+        if [[ $? -eq 0 ]]; then
+            bak_file ~/.tmux.conf
+            ln -s -f .tmux/.tmux.conf ~/.tmux.conf
+            cp $PWD/.tmux.conf.local ~
+            info "dotfile:tmux.conf install successfully!"
+        else
+            error "dotfile:zshrc install failed"
+        fi
     fi
 
     if [[ ! -f ~/.ssh/config ]]; then
