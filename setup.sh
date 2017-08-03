@@ -11,7 +11,7 @@ is_sudo() {
 
 check_os_type() {
     case "$OSTYPE" in
-        linux*)   echo $(lsb_release -i | awk -F"\t" '{print $2}');;
+        linux*)   lsb_release -i | awk -F"\t" '{print $2}';;
         darwin*)  echo "Mac" ;;
         win*)     echo "Windows" ;;
         cygwin*)  echo "Cygwin" ;;
@@ -22,7 +22,7 @@ check_os_type() {
 }
 
 program_already_installed() {
-    command -v $@ >/dev/null 2>&1
+    command -v "$@" >/dev/null 2>&1
     if [[ $? -eq 0 ]]; then
         return 1
     fi
@@ -32,25 +32,27 @@ program_already_installed() {
 install_program() {
     local progam_name=$1
     local os=$(check_os_type)
-    local is_setup=$(program_already_installed ${progam_name})
+    local is_setup=$(program_already_installed "${progam_name}")
     if [[ $is_setup -ne 0 ]]; then
         if [[ $os = "Ubuntu" ]]; then
-            apt install ${progam_name}
+            apt install "${progam_name}"
         elif [[ $os = "Mac" ]]; then
-            brew install ${progam_name}
+            brew install "${progam_name}"
         elif [[ $os = "CentOS" ]]; then
-            yum install ${progam_name}
+            yum install "${progam_name}"
         fi
         if [[ $? -ne 0 ]]; then
             error "${progam_name} install failed!"
             exit 1
         fi
         info "${progam_name} is install successfully!"
+    else
+        info "${progam_name} is already installed"
     fi
 }
 
 bak_file() {
-    cp $1 $1"_$(date -d now +%Y%m%d%H%M%S)_dotfile"
+    cp "$1" "$1_$(date -d now +%Y%m%d%H%M%S)_dotfile"
 }
 
 
@@ -78,7 +80,7 @@ install_dotfile() {
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
         if [[ $? -eq 0 ]]; then
             bak_file ~/.zshrc
-            cp $PWD/.zshrc ~
+            cp "$PWD/.zshrc" ~
             info "dotfile:zshrc install successfully!"
         else
             error "dotfile:zshrc install failed"
@@ -90,7 +92,7 @@ install_dotfile() {
         if [[ $? -eq 0 ]]; then
             bak_file ~/.tmux.conf
             ln -s -f .tmux/.tmux.conf ~/.tmux.conf
-            cp $PWD/.tmux.conf.local ~
+            cp "$PWD/.tmux.conf.local" ~
             info "dotfile:tmux.conf install successfully!"
         else
             error "dotfile:zshrc install failed"
@@ -99,13 +101,13 @@ install_dotfile() {
 
     if [[ ! -f ~/.ssh/config ]]; then
         bak_file ~/.ssh/config
-        cp $PWD/.sshconfig ~/.ssh/config
+        cp "$PWD/.sshconfig" ~/.ssh/config
         info "dotfile:ssh config install successfully!"
     fi
 
     if [[ ! -f ~/.ideavimrc ]]; then
         bak_file ~/.ideavimrc
-        cp $PWD/.ideavimrc ~/.ideavimrc
+        cp "$PWD/.ideavimrc" ~/.ideavimrc
         info "dotfile:ideavimrc install successfully!"
     fi
 }
