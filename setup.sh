@@ -1,5 +1,5 @@
 #!/bin/bash
-. $PWD/logger.sh
+. "$PWD/logger.sh"
 
 is_sudo() {
     sudo echo
@@ -30,9 +30,12 @@ program_already_installed() {
 }
 
 install_program() {
-    local progam_name=$1
-    local os=$(check_os_type)
-    local is_setup=$(program_already_installed "${progam_name}")
+    local progam_name
+    local os
+    local is_setup
+    progam_name=$1
+    os=$(check_os_type)
+    is_setup=$(program_already_installed "${progam_name}")
     if [[ $is_setup -ne 0 ]]; then
         if [[ $os = "Ubuntu" ]]; then
             apt install "${progam_name}"
@@ -57,6 +60,7 @@ bak_file() {
 
 
 install_required_program() {
+    is_sudo
     install_program curl
     install_program git
     install_program vim
@@ -113,7 +117,6 @@ install_dotfile() {
 }
 
 main() {
-    is_sudo
     install_required_program
     install_dotfile
 }
