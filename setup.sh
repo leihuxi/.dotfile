@@ -104,16 +104,15 @@ install_dotfile() {
     fi
 
     if [[ ! -f ~/.ssh/config ]]; then
-        bak_file ~/.ssh/config
         cp "$PWD/.sshconfig" ~/.ssh/config
         info "dotfile:ssh config install successfully!"
     fi
 
     if [[ ! -f ~/.ideavimrc ]]; then
-        bak_file ~/.ideavimrc
         cp "$PWD/.ideavimrc" ~/.ideavimrc
         info "dotfile:ideavimrc install successfully!"
     fi
+    info "all installed successfully"
 }
 
 main() {
