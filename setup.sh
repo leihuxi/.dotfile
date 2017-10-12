@@ -86,6 +86,7 @@ install_dotfile() {
             bak_file ~/.zshrc
             cp "$PWD/.zshrc" ~
             info "dotfile:zshrc install successfully!"
+            curl -o - https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/install.zsh | zsh
         else
             error "dotfile:zshrc install failed"
         fi
