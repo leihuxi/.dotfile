@@ -7,10 +7,10 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
-# ZSH_THEME="random"
-# ZSH_THEME="tjkirch_mod"
-# ZSH_THEME="agnoster"
+ZSH_THEME="spaceship"
+# ZSH_THEME="spaceship"
+# ZSH_THEME="spaceship"
+# ZSH_THEME="spaceship"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -101,6 +101,23 @@ nman() {
   fi
 }
 
+man() {
+  LESS_TERMCAP_md=$'\e[01;31m' \
+  LESS_TERMCAP_me=$'\e[0m' \
+  LESS_TERMCAP_se=$'\e[0m' \
+  LESS_TERMCAP_so=$'\e[01;44;33m' \
+  LESS_TERMCAP_ue=$'\e[0m' \
+  LESS_TERMCAP_us=$'\e[01;32m' \
+  command man "$@"
+}
+
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 set -o vi
+
+[ -f ~/.sman/sman.rc ] && source ~/.sman/sman.rc
+
+export PATH=$PATH:~/.sman/bin
+
+source "/home/xileihu/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
