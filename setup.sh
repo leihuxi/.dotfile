@@ -62,7 +62,7 @@ bak_file() {
 
 
 install_required_program() {
-    is_sudo
+    # is_sudo
     install_program curl
     install_program git
     install_program vim
