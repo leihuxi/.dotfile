@@ -38,11 +38,11 @@ install_program() {
     is_setup=$(program_already_installed "${progam_name}")
     if [[ $is_setup -ne 0 ]]; then
         if [[ $os = "Ubuntu" ]]; then
-            apt install "${progam_name}"
+            sudo apt install "${progam_name}"
         elif [[ $os = "Mac" ]]; then
             brew install "${progam_name}"
         elif [[ $os = "CentOS" ]]; then
-            yum install "${progam_name}"
+            sudo yum install "${progam_name}"
         fi
         if [[ $? -ne 0 ]]; then
             error "${progam_name} install failed!"
@@ -55,7 +55,9 @@ install_program() {
 }
 
 bak_file() {
-    cp "$1" "$1_$(date -d now +%Y%m%d%H%M%S)_dotfile"
+    if [[ -f "$1" ]]; then
+        cp "$1" "$1_$(date -d now +%Y%m%d%H%M%S)_dotfile"
+    fi
 }
 
 
