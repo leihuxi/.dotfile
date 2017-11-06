@@ -36,7 +36,7 @@ install_program() {
     progam_name=$1
     os=$(check_os_type)
     is_setup=$(program_already_installed "${progam_name}")
-    if [[ $is_setup -ne 0 ]]; then
+    if [[ $is_setup -eq 0 ]]; then
         if [[ $os = "Ubuntu" ]]; then
             sudo apt install "${progam_name}"
         elif [[ $os = "Mac" ]]; then
