@@ -87,11 +87,11 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #####user custom config##############
-export EDITOR='vim'
+export EDITOR='nvim'
 export TERM=xterm-256color
 
-alias chjava='sudo update-alternatives --config java'
-alias reclim='nohup /home/xileihu/work/opensource/eclipse/eclimd > /dev/null 2>&1 &' 
+alias tldr='tldr -t base16 -o linux' 
+alias hi='howdoi -c '
 
 nman() {
   vim -c "Nman $*"
@@ -112,12 +112,32 @@ man() {
 }
 
 
+set -o vi
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-set -o vi
 
 [ -f ~/.sman/sman.rc ] && source ~/.sman/sman.rc
 
 export PATH=$PATH:~/.sman/bin
 
-source "/home/xileihu/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+SPACESHIP_PROMPT_ORDER=(
+  time
+  user
+  host
+  golang
+  dir
+  git
+  jobs
+  exit_code
+  char
+)
+
+source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+function taocl() {
+    curl -s https://raw.githubusercontent.com/jlevy/the-art-of-command-line/master/README.md |
+        pandoc -f markdown -t html |
+        xmlstarlet fo --html --dropdtd |
+        xmlstarlet sel -t -v "(html/body/ul/li[count(p)>0])[$RANDOM mod last()+1]" |
+        xmlstarlet unesc | fmt -80
+}
