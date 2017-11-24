@@ -119,6 +119,7 @@ install_dotfile() {
     fi
 
     if [[ ! -f ~/.gdbinit ]]; then
+        touch ~/.gdbinit.local
         wget https://raw.githubusercontent.com/gdbinit/Gdbinit/master/gdbinit -O ~/.gdbinit
         info "dotfile:gdbinit install successfully!"
     fi
