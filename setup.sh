@@ -117,7 +117,12 @@ install_dotfile() {
         cp "$PWD/.ideavimrc" ~/.ideavimrc
         info "dotfile:ideavimrc install successfully!"
     fi
-    info "all installed successfully"
+
+    if [[ ! -f ~/.gdbinit ]]; then
+        wget https://raw.githubusercontent.com/gdbinit/Gdbinit/master/gdbinit -O ~/.gdbinit
+        info "dotfile:gdbinit install successfully!"
+    fi
+    info "all installed successfully!"
 }
 
 main() {
