@@ -70,6 +70,7 @@ install_required_program() {
     install_program vim
     install_program zsh
     install_program tmux
+    sudo npm install -g tldr --unsafe-perm=true --allow-root
 }
 
 install_dotfile() {
