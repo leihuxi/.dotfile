@@ -71,6 +71,7 @@ install_required_program() {
     install_program zsh
     install_program tmux
     sudo npm install -g tldr --unsafe-perm=true --allow-root
+    sudo gem install lolcat
 }
 
 install_dotfile() {
@@ -91,6 +92,8 @@ install_dotfile() {
             bak_file ~/.zshrc
             cp "$PWD/.zshrc" ~
             info "dotfile:zshrc install successfully!"
+            git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+                "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
             curl -o - https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/install.zsh | zsh
         else
             error "dotfile:zshrc install failed"
