@@ -87,7 +87,7 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #####user custom config##############
-export EDITOR='nvim'
+export EDITOR='vim'
 export TERM=xterm-256color
 
 alias tldr='tldr -t base16 -o linux' 
@@ -102,24 +102,22 @@ nman() {
   fi
 }
 
-man() {
-  LESS_TERMCAP_md=$'\e[01;31m' \
-  LESS_TERMCAP_me=$'\e[0m' \
-  LESS_TERMCAP_se=$'\e[0m' \
-  LESS_TERMCAP_so=$'\e[01;44;33m' \
-  LESS_TERMCAP_ue=$'\e[0m' \
-  LESS_TERMCAP_us=$'\e[01;32m' \
-  command man "$@"
-}
-
+alias diff='diff --color=auto'
+alias diff='dmesg --color=always'
+export GREP_COLOR="1;32"
+export LESS=-R
+export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
+export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
+export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
+export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
 set -o vi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
 [ -f ~/.sman/sman.rc ] && source ~/.sman/sman.rc
-
 export PATH=$PATH:~/.sman/bin
 
 SPACESHIP_PROMPT_ORDER=(

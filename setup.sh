@@ -10,7 +10,8 @@ is_sudo() {
 }
 
 check_os_type() {
-    case "$OSTYPE" in
+    case "${OSTYPE}" in
+        linux-gnu)  echo "Arch";;
         linux*)   lsb_release -i | awk -F"\t" '{print $2}';;
         darwin*)  echo "Mac" ;;
         win*)     echo "Windows" ;;
@@ -39,6 +40,8 @@ install_program() {
     if [[ $is_setup -eq 0 ]]; then
         if [[ $os = "Ubuntu" ]]; then
             sudo apt install "${progam_name}"
+        elif [[ $os = "Arch" ]]; then
+            sudo pacman -Sy "${progam_name}"
         elif [[ $os = "Mac" ]]; then
             brew install "${progam_name}"
         elif [[ $os = "CentOS" ]]; then
@@ -55,8 +58,12 @@ install_program() {
 }
 
 bak_file() {
-    if [[ -f "$1" ]]; then
-        cp "$1" "$1_$(date -d now +%Y%m%d%H%M%S)_dotfile"
+    src_dir="$1"
+    filename="$2"
+    dst_dir="$3"
+    src_file="${src_dir}/${filename}"
+    if [[ -f "${src_file}" || -d "${src_file}" ]]; then
+        mv "${src_file}" "$dst_dir/${filename}_$(date -d now +%Y%m%d%H%M%S)_dotfile"
     fi
 }
 
@@ -70,62 +77,71 @@ install_required_program() {
     install_program vim
     install_program zsh
     install_program tmux
+    install_program wget
+    install_program cmake
+    install_program npm
+    install_program ruby
+    install_program python
     sudo npm install -g tldr --unsafe-perm=true --allow-root
     sudo gem install lolcat
 }
 
+bak_config() {
+    bakdir=~/.bakconfig
+    [[ -d "${bakdir}" ]] || mkdir "${bakdir}"
+    bak_file ~ .vimrc "${bakdir}"
+    bak_file ~ .zshrc "${bakdir}"
+    bak_file ~ .tmux.conf "${bakdir}"
+    bak_file ~ .gdbinit "${bakdir}"
+    bak_file ~ .oh-my-zsh "${bakdir}"
+    bak_file ~ .vim_runtime "${bakdir}"
+}
+
 install_dotfile() {
-    if [[ ! -d ~/.vim_runtime ]]; then
-        git clone git://github.com/leihuxi/vimrc.git ~/.vim_runtime
-        if [[ $? -eq 0 ]]; then
-            bak_file ~/.vimrc
-            sh ~/.vim_runtime/install_awesome_vimrc.sh
-            info "dotifile:vimrc install successfully!"
-        else
-            error "dotfile:vimrc install failed"
-        fi
+    bak_config
+    git clone https://github.com/gpakosz/.tmux.git ~/.tmux
+    if [[ $? -eq 0 ]]; then
+        ln -s -f .tmux/.tmux.conf ~/.tmux.conf
+        cp "$PWD/.tmux.conf.local" ~
+        info "dotfile:tmux.conf install successfully!"
+    else
+        error "dotfile:zshrc install failed"
     fi
 
-    if [[ ! -d ~/.oh-my-zsh ]]; then
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-        if [[ $? -eq 0 ]]; then
-            bak_file ~/.zshrc
-            cp "$PWD/.zshrc" ~
-            info "dotfile:zshrc install successfully!"
-            git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-                "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-            curl -o - https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/install.zsh | zsh
-        else
-            error "dotfile:zshrc install failed"
-        fi
-    fi
+    cp "$PWD/.sshconfig" ~/.ssh/config
+    info "dotfile:ssh config install successfully!"
 
-    if [[ ! -d ~/.tmux ]]; then
-        git clone https://github.com/gpakosz/.tmux.git ~/.tmux
-        if [[ $? -eq 0 ]]; then
-            bak_file ~/.tmux.conf
-            ln -s -f .tmux/.tmux.conf ~/.tmux.conf
-            cp "$PWD/.tmux.conf.local" ~
-            info "dotfile:tmux.conf install successfully!"
-        else
-            error "dotfile:zshrc install failed"
-        fi
-    fi
+    cp "$PWD/.ideavimrc" ~/.ideavimrc
+    info "dotfile:ideavimrc install successfully!"
 
-    if [[ ! -f ~/.ssh/config ]]; then
-        cp "$PWD/.sshconfig" ~/.ssh/config
-        info "dotfile:ssh config install successfully!"
-    fi
-
-    if [[ ! -f ~/.ideavimrc ]]; then
-        cp "$PWD/.ideavimrc" ~/.ideavimrc
-        info "dotfile:ideavimrc install successfully!"
-    fi
-
-    if [[ ! -f ~/.gdbinit ]]; then
-        touch ~/.gdbinit.local
-        wget https://raw.githubusercontent.com/gdbinit/Gdbinit/master/gdbinit -O ~/.gdbinit
+    wget https://raw.githubusercontent.com/gdbinit/Gdbinit/master/gdbinit -O ~/.gdbinit
+    if [[ $? -eq 0 ]]; then
         info "dotfile:gdbinit install successfully!"
+    else
+        error "dotfile:gdbinit install failed!"
+    fi
+
+    git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    if [[ $? -eq 0 ]]; then
+        cp $PWD/.zshrc ~
+	source ~/.zshrc
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+            "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+	git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+	ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+	source ~/.zshrc
+        info "dotfile:zshrc install successfully!"
+    else
+        error "dotfile:zshrc install failed"
+    fi
+    exit
+
+    git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime
+    if [[ $? -eq 0 ]]; then
+        sh ~/.vim_runtime/install_awesome_vimrc.sh
+        info "dotifile:vimrc install successfully!"
+    else
+        error "dotfile:vimrc install failed"
     fi
     info "all installed successfully!"
 }
