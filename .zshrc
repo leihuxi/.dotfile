@@ -89,6 +89,8 @@ fi
 #####user custom config##############
 export EDITOR='vim'
 export TERM=xterm-256color
+export WORK=/home/xileihu/work
+export GOPATH=/home/xileihu/work/go
 
 alias tldr='tldr -t base16 -o linux' 
 alias hi='howdoi -c '
@@ -101,18 +103,6 @@ nman() {
     echo "No manual entry for $*"
   fi
 }
-
-alias diff='diff --color=auto'
-alias diff='dmesg --color=always'
-export GREP_COLOR="1;32"
-export LESS=-R
-export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
-export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
-export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
-export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
-export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
-export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
-export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
 set -o vi
 
