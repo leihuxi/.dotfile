@@ -82,6 +82,10 @@ install_required_program() {
     install_program npm
     install_program ruby
     install_program python
+    #fix ycm arch bug
+    if [[ $OSTYPE -eq "linux-gnu" ]]; then
+        install_program ncurses5-compat-libs
+    fi
     sudo npm install -g tldr --unsafe-perm=true --allow-root
     sudo gem install lolcat
 }
@@ -95,6 +99,7 @@ bak_config() {
     bak_file ~ .gdbinit "${bakdir}"
     bak_file ~ .oh-my-zsh "${bakdir}"
     bak_file ~ .vim_runtime "${bakdir}"
+    bak_file ~ .ssh "${bakdir}"
 }
 
 install_dotfile() {
@@ -108,7 +113,7 @@ install_dotfile() {
         error "dotfile:zshrc install failed"
     fi
 
-    cp "$PWD/.sshconfig" ~/.ssh/config
+    [ ! -d ~/.ssh ] && mkdir -p ~/.ssh && cp "$PWD/.sshconfig" ~/.ssh/config
     info "dotfile:ssh config install successfully!"
 
     cp "$PWD/.ideavimrc" ~/.ideavimrc
