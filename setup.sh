@@ -82,6 +82,8 @@ install_required_program() {
     install_program npm
     install_program ruby
     install_program python
+    install_program the_silver_searcher
+    sudo pip install howdoi
     #fix ycm arch bug
     if [[ $OSTYPE -eq "linux-gnu" ]]; then
         install_program ncurses5-compat-libs
