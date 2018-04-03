@@ -94,7 +94,6 @@ export GOPATH=/home/xileihu/work/go
 
 alias tldr='tldr -t base16 -o linux' 
 alias hi='howdoi -c '
-alias tip='taocl|cowsay|lolcat'
 
 nman() {
   vim -c "Nman $*"
@@ -105,10 +104,7 @@ nman() {
 }
 
 set -o vi
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/.sman/sman.rc ] && source ~/.sman/sman.rc
-export PATH=$PATH:~/.sman/bin
 
 SPACESHIP_PROMPT_ORDER=(
   time
@@ -121,12 +117,4 @@ SPACESHIP_PROMPT_ORDER=(
   exit_code
   char
 )
-
 source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
-function taocl() {
-    curl -s https://raw.githubusercontent.com/jlevy/the-art-of-command-line/master/README.md |
-        pandoc -f markdown -t html |
-        xmlstarlet fo --html --dropdtd |
-        xmlstarlet sel -t -v "(html/body/ul/li[count(p)>0])[$RANDOM mod last()+1]" |
-        xmlstarlet unesc | fmt -80
-}
