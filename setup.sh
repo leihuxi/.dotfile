@@ -102,10 +102,21 @@ bak_config() {
     bak_file ~ .oh-my-zsh "${bakdir}"
     bak_file ~ .vim_runtime "${bakdir}"
     bak_file ~ .ssh "${bakdir}"
+    bak_file ~/.config/alacritty alacritty.yml "${bakdir}"
 }
 
 install_dotfile() {
     bak_config
+    ## alacritty
+    curl https://sh.rustup.rs -sSf | sh
+    git clone https://github.com/jwilm/alacritty.git ~/.alacritty
+    if [[ $? -eq 0 ]]; then
+        (cd ~/.alacritty && rustup override set stable && rustup update stable)
+        cp "$PWD/.alacritty.yml" ~/.config/alacritty
+        info "dotfile:alacritty config install successfully!"
+    fi
+
+    ## tmux
     git clone https://github.com/gpakosz/.tmux.git ~/.tmux
     if [[ $? -eq 0 ]]; then
         ln -s -f .tmux/.tmux.conf ~/.tmux.conf
@@ -115,12 +126,15 @@ install_dotfile() {
         error "dotfile:zshrc install failed"
     fi
 
+    ## zsh
     [ ! -d ~/.ssh ] && mkdir -p ~/.ssh && cp "$PWD/.sshconfig" ~/.ssh/config
     info "dotfile:ssh config install successfully!"
 
+    ## ideavim
     cp "$PWD/.ideavimrc" ~/.ideavimrc
     info "dotfile:ideavimrc install successfully!"
 
+    ## gdbinit
     wget https://raw.githubusercontent.com/gdbinit/Gdbinit/master/gdbinit -O ~/.gdbinit
     if [[ $? -eq 0 ]]; then
         info "dotfile:gdbinit install successfully!"
@@ -128,21 +142,22 @@ install_dotfile() {
         error "dotfile:gdbinit install failed!"
     fi
 
+    ## oh-my-zsh
     git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
     if [[ $? -eq 0 ]]; then
         cp $PWD/.zshrc ~
-	source ~/.zshrc
+        source ~/.zshrc
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
             "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-	git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
-	ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-	source ~/.zshrc
+        git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+        ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+        source ~/.zshrc
         info "dotfile:zshrc install successfully!"
     else
         error "dotfile:zshrc install failed"
     fi
-    exit
 
+    ## vim
     git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime
     if [[ $? -eq 0 ]]; then
         sh ~/.vim_runtime/install_awesome_vimrc.sh
