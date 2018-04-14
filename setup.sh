@@ -135,7 +135,7 @@ install_dotfile() {
     info "dotfile:ideavimrc install successfully!"
 
     ## gdbinit
-    wget https://raw.githubusercontent.com/gdbinit/Gdbinit/master/gdbinit -O ~/.gdbinit
+    wget -P ~ git.io/.gdbinit
     if [[ $? -eq 0 ]]; then
         info "dotfile:gdbinit install successfully!"
     else
