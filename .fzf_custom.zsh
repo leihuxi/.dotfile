@@ -278,67 +278,6 @@ ftpane() {
   fi
 }
 
-# In tmux.conf
-# bind-key 0 run "tmux split-window -l 12 'bash -ci ftpane'"
-# Install one or more versions of specified language
-# e.g. `vmi rust` # => fzf multimode, tab to mark, enter to install
-# if no plugin is supplied (e.g. `vmi<CR>`), fzf will list them for you
-# Mnemonic [V]ersion [M]anager [I]nstall
-vmi() {
-  local lang=${1}
-
-  if [[ ! $lang ]]; then
-    lang=$(asdf plugin-list | fzf)
-  fi
-
-  if [[ $lang ]]; then
-    local versions=$(asdf list-all $lang | fzf -m)
-    if [[ $versions ]]; then
-      for version in $(echo $versions);
-      do; asdf install $lang $version; done;
-    fi
-  fi
-}
-
-# Remove one or more versions of specified language
-# e.g. `vmi rust` # => fzf multimode, tab to mark, enter to remove
-# if no plugin is supplied (e.g. `vmi<CR>`), fzf will list them for you
-# Mnemonic [V]ersion [M]anager [C]lean
-vmc() {
-  local lang=${1}
-
-  if [[ ! $lang ]]; then
-    lang=$(asdf plugin-list | fzf)
-  fi
-
-  if [[ $lang ]]; then
-    local versions=$(asdf list $lang | fzf -m)
-    if [[ $versions ]]; then
-      for version in $(echo $versions);
-      do; asdf uninstall $lang $version; done;
-    fi
-  fi
-}
-
-### v
-#### Inspired by [v](https://github.com/rupa/v). Opens files in ~/.viminfo
-# v - open files in ~/.viminfo
-# fasd & fzf change directory - open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
-v() {
-    [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
-    local file
-    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
-}
-
-### z
-# fasd & fzf change directory - jump using `fasd` if given argument, filter output of `fasd` using `fzf` else
-z() {
-    [ $# -gt 0 ] && fasd_cd -d "$*" && return
-    local dir
-    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
-}
-
-
 ### Google Chrome (OS X/linux)
 #### Browsing history
 # c - browse chrome history
