@@ -167,6 +167,7 @@ install_dotfile() {
     else
         error "dotfile:zshrc install failed"
     fi
+    cp "$PWD/.fzf_custom.zsh" ~
 
     ## vim
     git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime
