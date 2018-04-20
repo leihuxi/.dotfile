@@ -57,6 +57,15 @@ install_program() {
     fi
 }
 
+install_program_list() {
+    str=$1
+    arr=(${str//,/ })
+    for i in ${arr[@]}
+    do
+        install_program $i
+    done
+}
+
 bak_file() {
     src_dir="$1"
     filename="$2"
@@ -147,6 +156,7 @@ install_dotfile() {
     if [[ $? -eq 0 ]]; then
         cp $PWD/.zshrc ~
         source ~/.zshrc
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
             "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
         git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"

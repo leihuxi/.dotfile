@@ -54,7 +54,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(wd zsh-syntax-highlighting)
+plugins=(wd zsh-syntax-highlighting zsh-autosuggestions man)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -90,7 +90,8 @@ fi
 export EDITOR='vim'
 export TERM=xterm-256color
 export WORK=/home/xileihu/work
-export GOPATH=/home/xileihu/work/go
+export GOPATH=$WORK/go
+export PATH=$GOPATH/bin:$PATH
 
 alias tldr='tldr -t base16 -o linux' 
 alias hi='howdoi -c '
