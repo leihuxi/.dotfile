@@ -99,6 +99,7 @@ install_required_program() {
     fi
     sudo npm install -g tldr --unsafe-perm=true --allow-root
     sudo gem install lolcat
+    sudo npm -g install instant-markdown-d
 }
 
 bak_config() {
