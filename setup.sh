@@ -76,6 +76,17 @@ bak_file() {
     fi
 }
 
+install_program_list_required() {
+    install_program_list ctags,global,curl,git,vim,zsh,tmux,wget,cmake,npm,ruby,python,the_silver_searcher,jq,expac
+    #fix ycm arch bug
+    if [[ $OSTYPE -eq "linux-gnu" ]]; then
+        install_program ncurses5-compat-libs
+    fi
+    sudo npm install -g tldr --unsafe-perm=true --allow-root
+    sudo gem install lolcat
+    sudo npm -g install instant-markdown-d
+    sudo pip install howdoi
+}
 
 install_required_program() {
     # is_sudo
@@ -92,7 +103,8 @@ install_required_program() {
     install_program ruby
     install_program python
     install_program the_silver_searcher
-    sudo pip install howdoi
+    install_program jq
+    install_program expac
     #fix ycm arch bug
     if [[ $OSTYPE -eq "linux-gnu" ]]; then
         install_program ncurses5-compat-libs
@@ -100,7 +112,10 @@ install_required_program() {
     sudo npm install -g tldr --unsafe-perm=true --allow-root
     sudo gem install lolcat
     sudo npm -g install instant-markdown-d
+    sudo pip install howdoi
 }
+
+install_program_list
 
 bak_config() {
     bakdir=~/.bakconfig
