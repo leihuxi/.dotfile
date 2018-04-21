@@ -113,6 +113,7 @@ bak_config() {
     bak_file ~ .vim_runtime "${bakdir}"
     bak_file ~ .ssh "${bakdir}"
     bak_file ~/.config/alacritty alacritty.yml "${bakdir}"
+    bak_file ~ .fzf_custom.zsh "${bakdir}"
 }
 
 install_dotfile() {
@@ -167,7 +168,10 @@ install_dotfile() {
     else
         error "dotfile:zshrc install failed"
     fi
+
+    ## fzf
     cp "$PWD/.fzf_custom.zsh" ~
+    git clone https://github.com/DanielFGray/fzf-scripts.git ~/.fzf-scripts
 
     ## vim
     git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime

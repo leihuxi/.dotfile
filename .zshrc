@@ -8,9 +8,6 @@ export ZSH=$HOME/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
-# ZSH_THEME="spaceship"
-# ZSH_THEME="spaceship"
-# ZSH_THEME="spaceship"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -54,7 +51,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(wd zsh-syntax-highlighting zsh-autosuggestions man)
+plugins=(wd zsh-autosuggestions zsh-syntax-highlighting man)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -69,7 +66,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='vim'
 else
-   export EDITOR='mvim'
+   export EDITOR='vim'
 fi
 
 # Compilation flags
@@ -87,14 +84,16 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #####user custom config##############
-export EDITOR='vim'
 export TERM=xterm-256color
-export WORK=/home/xileihu/work
-export GOPATH=$WORK/go
-export PATH=$GOPATH/bin:$PATH
+export WORK=$HOME/work
+export GOPATH=$HOME/work/go
+export FZFSCRIPT=$HOME/.fzf-scripts
+export PATH=$FZFSCRIPT:$GOPATH/bin:$PATH
 
 alias tldr='tldr -t base16 -o linux' 
 alias hi='howdoi -c '
+alias tip='taocl|cowsay|lolcat'
+alias wx='chromium --app=https://wx.qq.com'
 
 nman() {
   vim -c "Nman $*"
@@ -111,7 +110,6 @@ SPACESHIP_PROMPT_ORDER=(
   time
   user
   host
-  golang
   dir
   git
   jobs
