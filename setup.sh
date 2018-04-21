@@ -77,7 +77,8 @@ bak_file() {
 }
 
 install_program_list_required() {
-    install_program_list ctags,global,curl,git,vim,zsh,tmux,wget,cmake,npm,ruby,python,the_silver_searcher,jq,expac
+    applist="ctags,global,curl,git,vim,zsh,tmux,wget,cmake,npm,ruby,python,the_silver_searcher,jq,expac,mpc,mpd"
+    install_program_list $applist
     #fix ycm arch bug
     if [[ $OSTYPE -eq "linux-gnu" ]]; then
         install_program ncurses5-compat-libs
@@ -105,6 +106,8 @@ install_required_program() {
     install_program the_silver_searcher
     install_program jq
     install_program expac
+    install_program mpc
+    install_program mpd
     #fix ycm arch bug
     if [[ $OSTYPE -eq "linux-gnu" ]]; then
         install_program ncurses5-compat-libs
