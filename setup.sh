@@ -83,7 +83,8 @@ install_program_list_required() {
     if [[ $OSTYPE -eq "linux-gnu" ]]; then
         install_program ncurses5-compat-libs
     fi
-    sudo npm install -g tldr --unsafe-perm=true --allow-root
+    install_program tldr
+    # sudo npm install -g tldr --unsafe-perm=true --allow-root
     sudo gem install lolcat
     sudo npm -g install instant-markdown-d
     sudo pip install howdoi
@@ -112,7 +113,8 @@ install_required_program() {
     if [[ $OSTYPE -eq "linux-gnu" ]]; then
         install_program ncurses5-compat-libs
     fi
-    sudo npm install -g tldr --unsafe-perm=true --allow-root
+    install_program tldr
+    # sudo npm install -g tldr --unsafe-perm=true --allow-root
     sudo gem install lolcat
     sudo npm -g install instant-markdown-d
     sudo pip install howdoi

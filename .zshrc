@@ -90,7 +90,7 @@ export GOPATH=$HOME/work/go
 export FZFSCRIPT=$HOME/.fzf-scripts
 export PATH=$FZFSCRIPT:$GOPATH/bin:$PATH
 
-alias tldr='tldr -t base16 -o linux' 
+alias tldr='tldr -o linux' 
 alias hi='howdoi -c '
 alias tip='taocl|cowsay|lolcat'
 alias wx='chromium --app=https://wx.qq.com'
