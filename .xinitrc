@@ -1,4 +1,5 @@
 #!/bin/sh
+
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
@@ -52,3 +53,5 @@ xclock -geometry 50x50-1+1 &
 xterm -geometry 80x50+494+51 &
 xterm -geometry 80x20+494-0 &
 exec xterm -geometry 80x66+0+0 -name login
+
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources

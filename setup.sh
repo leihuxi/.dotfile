@@ -135,6 +135,8 @@ bak_config() {
     bak_file ~/.config/alacritty alacritty.yml "${bakdir}"
     bak_file ~ .fzf_custom.zsh "${bakdir}"
     bak_file ~ .xprofile "${bakdir}"
+    bak_file ~ .xinitrc "${bakdir}"
+    bak_file ~ .Xresources "${bakdir}"
 }
 
 install_dotfile() {
@@ -194,8 +196,10 @@ install_dotfile() {
     cp "$PWD/.fzf_custom.zsh" ~
     git clone https://github.com/DanielFGray/fzf-scripts.git ~/.fzf-scripts
 
-    #xprofile
+    #Xconfig
     cp "$PWD/.xprofile" ~
+    cp "$PWD/.Xresources" ~
+    cp "$PWD/.xinitrc" ~
 
     ## vim
     git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime
