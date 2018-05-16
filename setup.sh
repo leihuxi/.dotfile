@@ -134,6 +134,7 @@ bak_config() {
     bak_file ~ .ssh "${bakdir}"
     bak_file ~/.config/alacritty alacritty.yml "${bakdir}"
     bak_file ~ .fzf_custom.zsh "${bakdir}"
+    bak_file ~ .xprofile "${bakdir}"
 }
 
 install_dotfile() {
@@ -192,6 +193,9 @@ install_dotfile() {
     ## fzf
     cp "$PWD/.fzf_custom.zsh" ~
     git clone https://github.com/DanielFGray/fzf-scripts.git ~/.fzf-scripts
+
+    #xprofile
+    cp "$PWD/.xprofile" ~
 
     ## vim
     git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime
