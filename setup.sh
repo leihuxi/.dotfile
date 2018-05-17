@@ -60,7 +60,7 @@ install_program() {
 install_program_list() {
     str=$1
     arr=(${str//,/ })
-    for i in ${arr[@]}
+    for i in "${arr[@]}"
     do
         install_program $i
     done
@@ -109,6 +109,7 @@ install_required_program() {
     install_program expac
     install_program mpc
     install_program mpd
+    install_program shellcheck
     #fix ycm arch bug
     if [[ $OSTYPE -eq "linux-gnu" ]]; then
         install_program ncurses5-compat-libs
@@ -182,8 +183,7 @@ install_dotfile() {
         cp $PWD/.zshrc ~
         source ~/.zshrc
         git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-            "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
         git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
         ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
         source ~/.zshrc
