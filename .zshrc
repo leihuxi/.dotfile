@@ -118,3 +118,4 @@ SPACESHIP_PROMPT_ORDER=(
 )
 source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 source "$HOME/.fzf_custom.zsh"
+source "$HOME/.pacman_cmd.zsh"

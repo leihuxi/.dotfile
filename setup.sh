@@ -118,7 +118,7 @@ install_required_program() {
     # sudo npm install -g tldr --unsafe-perm=true --allow-root
     sudo gem install lolcat
     sudo npm -g install instant-markdown-d
-    sudo pip install howdoi
+    sudo pip install howdoi pep8 flake8 pyflakes isort yapf
 }
 
 install_program_list
@@ -138,6 +138,7 @@ bak_config() {
     bak_file ~ .xprofile "${bakdir}"
     bak_file ~ .xinitrc "${bakdir}"
     bak_file ~ .Xresources "${bakdir}"
+    bak_file ~ .pacman_cmd.zsh "${bakdir}"
 }
 
 install_dotfile() {
@@ -186,7 +187,6 @@ install_dotfile() {
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
         git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
         ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-        source ~/.zshrc
         info "dotfile:zshrc install successfully!"
     else
         error "dotfile:zshrc install failed"
@@ -201,6 +201,9 @@ install_dotfile() {
     cp "$PWD/.Xresources" ~
     cp "$PWD/.xinitrc" ~
 
+    #pacman cmd
+    cp "$PWD/.pacman_cmd.zsh" ~
+
     ## vim
     git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime
     if [[ $? -eq 0 ]]; then
@@ -209,6 +212,7 @@ install_dotfile() {
     else
         error "dotfile:vimrc install failed"
     fi
+    source ~/.zshrc
     info "all installed successfully!"
 }
 
