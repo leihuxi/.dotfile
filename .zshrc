@@ -51,7 +51,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(wd zsh-autosuggestions zsh-syntax-highlighting man)
+plugins=(wd zsh-autosuggestions zsh-syntax-highlighting man pacman ccat mvn)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -90,10 +90,9 @@ export GOPATH=$HOME/work/go
 export FZFSCRIPT=$HOME/.fzf-scripts
 export PATH=$FZFSCRIPT:$GOPATH/bin:$PATH
 
-alias tldr='tldr -o linux' 
 alias hi='howdoi -c '
-alias tip='taocl|cowsay|lolcat'
-alias wx='chromium --app=https://wx.qq.com'
+alias dmesg='dmesg --color=always '
+alias t='tmux attach'
 
 nman() {
   vim -c "Nman $*"
@@ -104,6 +103,7 @@ nman() {
 }
 
 set -o vi
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 SPACESHIP_PROMPT_ORDER=(
