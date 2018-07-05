@@ -101,23 +101,23 @@ install_required_program() {
     install_program tmux
     install_program wget
     install_program cmake
-    install_program npm
-    install_program ruby
     install_program python
     install_program the_silver_searcher
     install_program jq
     install_program expac
-    install_program mpc
-    install_program mpd
+    # install_program mpc
+    # install_program mpd
     install_program shellcheck
     #fix ycm arch bug
     if [[ $OSTYPE -eq "linux-gnu" ]]; then
         install_program ncurses5-compat-libs
     fi
     install_program tldr
+    # install_program npm
     # sudo npm install -g tldr --unsafe-perm=true --allow-root
-    sudo gem install lolcat
-    sudo npm -g install instant-markdown-d
+    # install_program ruby
+    # sudo gem install lolcat
+    # sudo npm -g install instant-markdown-d
     sudo pip install howdoi pep8 flake8 pyflakes isort yapf
 }
 
