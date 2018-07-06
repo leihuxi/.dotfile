@@ -2,8 +2,7 @@
 . "$PWD/logger.sh"
 
 is_sudo() {
-    sudo echo
-    if [[ $? -ne 0 ]]; then
+    if sudo echo; then
         error "This script must be run by root or a sudo'er"
         exit 1
     fi
@@ -12,7 +11,7 @@ is_sudo() {
 check_os_type() {
     case "${OSTYPE}" in
         linux-gnu)  echo "Arch";;
-        linux*)   lsb_release -i | awk -F"\t" '{print $2}';;
+        linux*)   lsb_release -i | awk -F"\\t" '{print $2}';;
         darwin*)  echo "Mac" ;;
         win*)     echo "Windows" ;;
         cygwin*)  echo "Cygwin" ;;
@@ -23,11 +22,10 @@ check_os_type() {
 }
 
 program_already_installed() {
-    command -v "$@" >/dev/null 2>&1
-    if [[ $? -eq 0 ]]; then
-        return 1
+    if command -v "$@" >/dev/null 2>&1; then
+        return 0
     fi
-    return 0
+    return 1
 }
 
 install_program() {
@@ -59,10 +57,10 @@ install_program() {
 
 install_program_list() {
     str=$1
-    arr=(${str//,/ })
+    arr=("${str//,/ }")
     for i in "${arr[@]}"
     do
-        install_program $i
+        install_program "$i"
     done
 }
 
@@ -80,7 +78,7 @@ install_program_list_required() {
     applist="ctags,global,curl,git,vim,zsh,tmux,wget,cmake,npm,ruby,python,the_silver_searcher,jq,expac,mpc,mpd"
     install_program_list $applist
     #fix ycm arch bug
-    if [[ $OSTYPE -eq "linux-gnu" ]]; then
+    if [[ $OSTYPE == "linux-gnu" ]]; then
         install_program ncurses5-compat-libs
     fi
     install_program tldr
@@ -113,7 +111,7 @@ install_required_program() {
     install_program cowsay
     install_program lolcat
     #fix ycm arch bug
-    if [[ $OSTYPE -eq "linux-gnu" ]]; then
+    if [[ $OSTYPE == "linux-gnu" ]]; then
         install_program ncurses5-compat-libs
     fi
     install_program tldr
@@ -150,21 +148,21 @@ install_dotfile() {
     bak_config
     ## alacritty
     curl https://sh.rustup.rs -sSf | sh
-    git clone https://github.com/jwilm/alacritty.git ~/.alacritty
-    if [[ $? -eq 0 ]]; then
+    if git clone https://github.com/jwilm/alacritty.git ~/.alacritty; then
+        error "dotfile:alacritty install failed"
+    else
         (cd ~/.alacritty && rustup override set stable && rustup update stable)
         cp "$PWD/.alacritty.yml" ~/.config/alacritty
         info "dotfile:alacritty config install successfully!"
     fi
 
     ## tmux
-    git clone https://github.com/gpakosz/.tmux.git ~/.tmux
-    if [[ $? -eq 0 ]]; then
+    if git clone https://github.com/gpakosz/.tmux.git ~/.tmux; then
+        error "dotfile:zshrc install failed"
+    else
         ln -s -f .tmux/.tmux.conf ~/.tmux.conf
         cp "$PWD/.tmux.conf.local" ~
         info "dotfile:tmux.conf install successfully!"
-    else
-        error "dotfile:zshrc install failed"
     fi
 
     ## zsh
@@ -176,25 +174,23 @@ install_dotfile() {
     info "dotfile:ideavimrc install successfully!"
 
     ## gdbinit
-    wget -P ~ git.io/.gdbinit
-    if [[ $? -eq 0 ]]; then
-        info "dotfile:gdbinit install successfully!"
-    else
+    if wget -P ~ git.io/.gdbinit; then
         error "dotfile:gdbinit install failed!"
+    else
+        info "dotfile:gdbinit install successfully!"
     fi
 
     ## oh-my-zsh
-    git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-    if [[ $? -eq 0 ]]; then
-        cp $PWD/.zshrc ~
+    if git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh; then
+        error "dotfile:zshrc install failed"
+    else
+        cp "$PWD"/.zshrc ~
         source ~/.zshrc
-        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
         git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
         ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
         info "dotfile:zshrc install successfully!"
-    else
-        error "dotfile:zshrc install failed"
     fi
 
     ## fzf
@@ -210,12 +206,11 @@ install_dotfile() {
     cp "$PWD/.pacman_cmd.zsh" ~
 
     ## vim
-    git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime
-    if [[ $? -eq 0 ]]; then
+    if git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime; then
+        error "dotfile:vimrc install failed"
+    else
         sh ~/.vim_runtime/install_awesome_vimrc.sh
         info "dotifile:vimrc install successfully!"
-    else
-        error "dotfile:vimrc install failed"
     fi
     source ~/.zshrc
     info "all installed successfully!"
