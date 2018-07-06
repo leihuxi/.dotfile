@@ -108,6 +108,10 @@ install_required_program() {
     # install_program mpc
     # install_program mpd
     install_program shellcheck
+    install_program xmlstarlet
+    install_program pandoc
+    install_program cowsay
+    install_program lolcat
     #fix ycm arch bug
     if [[ $OSTYPE -eq "linux-gnu" ]]; then
         install_program ncurses5-compat-libs
@@ -118,7 +122,8 @@ install_required_program() {
     # install_program ruby
     # sudo gem install lolcat
     # sudo npm -g install instant-markdown-d
-    sudo pip install howdoi pep8 flake8 pyflakes isort yapf
+    sudo pip install pep8 flake8 pyflakes isort yapf
+    sudo pip install cheat howdoi
 }
 
 install_program_list

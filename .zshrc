@@ -89,10 +89,12 @@ export WORK=$HOME/work
 export GOPATH=$HOME/work/go
 export FZFSCRIPT=$HOME/.fzf-scripts
 export PATH=$FZFSCRIPT:$GOPATH/bin:$PATH
+export CHEATCOLORS=true
 
 alias hi='howdoi -c '
 alias dmesg='dmesg --color=always '
 alias t='tmux attach'
+alias tip='taocl|cowsay|lolcat'
 
 nman() {
   vim -c "Nman $*"
@@ -100,6 +102,15 @@ nman() {
   if [ "$?" != "0" ]; then
     echo "No manual entry for $*"
   fi
+}
+
+function taocl() {
+    curl -s https://raw.githubusercontent.com/jlevy/the-art-of-command-line/master/README.md |
+        sed '/cowsay[.]png/d' |
+        pandoc -f markdown -t html |
+        xmlstarlet fo --html --dropdtd |
+        xmlstarlet sel -t -v "(html/body/ul/li[count(p)>0])[$RANDOM mod last()+1]" |
+        xmlstarlet unesc | fmt -80 | iconv -t US
 }
 
 set -o vi
@@ -116,6 +127,7 @@ SPACESHIP_PROMPT_ORDER=(
   exit_code
   char
 )
+
 source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 source "$HOME/.fzf_custom.zsh"
 source "$HOME/.pacman_cmd.zsh"
