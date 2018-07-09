@@ -95,6 +95,7 @@ alias hi='howdoi -c '
 alias dmesg='dmesg --color=always '
 alias t='tmux attach'
 alias tip='taocl|cowsay|lolcat'
+alias cht='~/.cht.sh'
 
 nman() {
   vim -c "Nman $*"

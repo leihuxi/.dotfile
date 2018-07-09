@@ -103,13 +103,21 @@ install_required_program() {
     install_program the_silver_searcher
     install_program jq
     install_program expac
-    # install_program mpc
-    # install_program mpd
     install_program shellcheck
     install_program xmlstarlet
     install_program pandoc
     install_program cowsay
     install_program lolcat
+    install_program xsel
+    install_program rlwrap
+    #python setools
+    install_program python-setuptools
+    install_program python-appdirs
+    install_program python-pyparsing
+    install_program python-setuptools
+    install_program python-six
+    sudo pip install pep8 flake8 pyflakes isort yapf
+    sudo pip install cheat howdoi
     #fix ycm arch bug
     if [[ $OSTYPE == "linux-gnu" ]]; then
         install_program ncurses5-compat-libs
@@ -120,8 +128,8 @@ install_required_program() {
     # install_program ruby
     # sudo gem install lolcat
     # sudo npm -g install instant-markdown-d
-    sudo pip install pep8 flake8 pyflakes isort yapf
-    sudo pip install cheat howdoi
+    # install_program mpc
+    # install_program mpd
 }
 
 install_program_list
@@ -142,6 +150,7 @@ bak_config() {
     bak_file ~ .xinitrc "${bakdir}"
     bak_file ~ .Xresources "${bakdir}"
     bak_file ~ .pacman_cmd.zsh "${bakdir}"
+    bak_file ~ .cht.zsh "${bakdir}"
 }
 
 install_dotfile() {
@@ -204,6 +213,9 @@ install_dotfile() {
 
     #pacman cmd
     cp "$PWD/.pacman_cmd.zsh" ~
+
+    #cheat.sh
+    curl https://cht.sh/:cht.sh > ~/.cht.sh
 
     ## vim
     if git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime; then
