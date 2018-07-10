@@ -34,6 +34,7 @@ install_program() {
     local is_setup
     progam_name=$1
     os=$(check_os_type)
+    info "you os is ${os}, install ${program_name}"
     is_setup=$(program_already_installed "${progam_name}")
     if [[ $is_setup -eq 0 ]]; then
         if [[ $os = "Ubuntu" ]]; then
@@ -150,7 +151,7 @@ bak_config() {
     bak_file ~ .xinitrc "${bakdir}"
     bak_file ~ .Xresources "${bakdir}"
     bak_file ~ .pacman_cmd.zsh "${bakdir}"
-    bak_file ~ .cht.zsh "${bakdir}"
+    bak_file ~ .cht.sh "${bakdir}"
 }
 
 install_dotfile() {
@@ -215,7 +216,9 @@ install_dotfile() {
     cp "$PWD/.pacman_cmd.zsh" ~
 
     #cheat.sh
-    curl https://cht.sh/:cht.sh > ~/.cht.sh
+    mkdir -p ~/.cht.sh/bin
+    curl https://cht.sh/:cht.sh > ~/.cht.sh/bin/cht.sh
+    chmod u+x ~/.cht.sh/bin/cht.sh
 
     ## vim
     if git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime; then
