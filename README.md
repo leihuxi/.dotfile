@@ -1,1 +1,2 @@
 # .dotfile
+Arch linux Tested
