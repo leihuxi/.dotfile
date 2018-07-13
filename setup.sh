@@ -184,9 +184,7 @@ install_dotfile() {
     else
         error "dotfile:vimrc install failed!"
     fi
-    info "all installed successfully!"
-
-    zsh && source ~/.zshrc
+    info "all installed successfully, Please reboot your shell!"
 }
 
 main() {
