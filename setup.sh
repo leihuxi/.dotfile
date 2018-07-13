@@ -68,7 +68,7 @@ bak_file() {
 }
 
 install_program_list_required() {
-    applist_all_os="ctags global curl git vim zsh tmux wget cmake python the_silver_searcher"
+    applist_all_os="ctags global curl git vim zsh tmux wget cmake python the_silver_searcher powerline-fonts"
     applist_all_os="${applist_all_os} jq expac shellcheck xmlstarlet pandoc cowsay lolcat xsel rlwrap tldr"
     applist_all_os="${applist_all_os} python-setuptools python-appdirs python-pyparsing python-setuptools python-six"
     applist_all_os="${applist_all_os} alacritty-git alacritty-terminfo-git"
@@ -170,6 +170,14 @@ install_dotfile() {
     chmod u+x ~/.cht.sh/bin/cht.sh
     info "dotfile:cheat.sh install successfully!"
 
+    #切换到zsh
+    if sudo chsh -s /bin/zsh; then
+        info "change zsh successfully!"
+    else
+        error "change zsh failed!"
+    fi
+    zsh && source ~/.zshrc
+
     ## vim
     if git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime; then
         sh ~/.vim_runtime/install_awesome_vimrc.sh
@@ -179,12 +187,6 @@ install_dotfile() {
     fi
     info "all installed successfully!"
 
-    if sudo chsh -s /bin/zsh; then
-        info "change zsh successfully!"
-    else
-        error "change zsh failed!"
-    fi
-    zsh && source ~/.zshrc
 }
 
 main() {
