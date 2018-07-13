@@ -121,7 +121,7 @@ install_dotfile() {
         error "dotfile:zshrc install failed"
     fi
 
-    ### zsh
+    ### ssh
     [ ! -d ~/.ssh ] && mkdir -p ~/.ssh && cp "$PWD/.sshconfig" ~/.ssh/config
     info "dotfile:ssh config install successfully!"
 
@@ -138,6 +138,7 @@ install_dotfile() {
 
     ## oh-my-zsh
     if git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh; then
+        cp "$PWD"/.zshrc ~
         git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
         git clone https://github.com/denysdovhan/spaceship-prompt.git ~/.oh-my-zsh/themes/spaceship-prompt
@@ -185,6 +186,7 @@ install_dotfile() {
     else
         error "change zsh failed!"
     fi
+    source ~/.zshrc
 }
 
 main() {
