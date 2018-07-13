@@ -106,7 +106,7 @@ bak_config() {
 install_dotfile() {
     bak_config
     ## alacritty
-    if cp "$PWD/.alacritty.yml" ~/.config/alacritty; then
+    if cp "$PWD/.alacritty.yml" ~/.config/alacritty/alacritty.yml; then
         info "dotfile:alacritty install successfully!"
     else
         error "dotfile:alacritty install failed!"
