@@ -186,7 +186,7 @@ install_dotfile() {
     else
         error "change zsh failed!"
     fi
-    source ~/.zshrc
+    zsh && source ~/.zshrc
 }
 
 main() {
