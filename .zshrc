@@ -7,7 +7,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -118,17 +118,5 @@ set -o vi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-SPACESHIP_PROMPT_ORDER=(
-  time
-  user
-  host
-  dir
-  git
-  jobs
-  exit_code
-  char
-)
-
-source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 source "$HOME/.fzf_custom.zsh"
 source "$HOME/.pacman_cmd.zsh"
