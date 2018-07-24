@@ -33,7 +33,7 @@ install_program() {
     local os
     os=$(check_os_type)
     local program_name=$1
-    info "you os is ${os}, install ${program_name[*]}"
+    info "you os is ${os}, install ${program_name}"
     if [ "$os" = "Ubuntu" ]; then
         sudo apt install ${program_name}
     elif [ "$os" = "Arch" ]; then
@@ -184,7 +184,7 @@ install_dotfile() {
 main() {
     #install_required_program
     install_program_list_required
-    # install_dotfile
+    install_dotfile
 }
 
 main
