@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+# shellcheck source=./logger.sh
 . "$PWD/logger.sh"
 
 is_sudo() {
@@ -10,7 +12,6 @@ is_sudo() {
 
 check_os_type() {
     case "${OSTYPE}" in
-        linux-gnu)  echo "Arch";;
         linux*)   lsb_release -i | awk -F"\\t" '{print $2}';;
         darwin*)  echo "Mac" ;;
         win*)     echo "Windows" ;;
@@ -29,31 +30,24 @@ program_already_installed() {
 }
 
 install_program() {
-    local program_name
     local os
-    local is_setup
-    program_name="$1"
     os=$(check_os_type)
-    info "you os is ${os}, install ${program_name}"
-    is_setup=$(program_already_installed "${program_name}")
-    if [[ "$is_setup" -eq 0 ]]; then
-        if [[ "$os" = "Ubuntu" ]]; then
-            sudo apt install ${program_name}
-        elif [[ "$os" = "Arch" ]]; then
-	        sudo pacman -Sy ${program_name}
-        elif [[ "$os" = "Mac" ]]; then
-            brew install ${program_name}
-        elif [[ "$os" = "CentOS" ]]; then
-            sudo yum install ${program_name}
-        fi
-        if [[ $? -ne 0 ]]; then
-            error "${program_name} install failed!"
-            exit 1
-        fi
-        info "${program_name} is install successfully!"
-    else
-        info "${program_name} is already installed"
+    local program_name=$1
+    info "you os is ${os}, install ${program_name[*]}"
+    if [ "$os" = "Ubuntu" ]; then
+        sudo apt install ${program_name}
+    elif [ "$os" = "Arch" ]; then
+        sudo pacman -Sy ${program_name}
+    elif [ "$os" = "Mac" ]; then
+        brew install ${program_name}
+    elif [ "$os" = "CentOS" ]; then
+        sudo yum install ${program_name}
     fi
+    if [ $? -ne 0 ]; then
+        error "${program_name} install failed!"
+        exit 1
+    fi
+    info "${program_name} is install successfully!"
 }
 
 bak_file() {
@@ -61,29 +55,29 @@ bak_file() {
     filename="$2"
     dst_dir="$3"
     src_file="${src_dir}/${filename}"
-    if [[ -f "${src_file}" || -d "${src_file}" ]]; then
-	info "bak ${src_file} to $dst_dir/${filename}_$(date -d now +%Y%m%d%H%M%S)_dotfile"
+    if [ -f "${src_file}" ] || [ -d "${src_file}" ]; then
+        info "bak ${src_file} to $dst_dir/${filename}_$(date -d now +%Y%m%d%H%M%S)_dotfile"
         mv "${src_file}" "$dst_dir/${filename}_$(date -d now +%Y%m%d%H%M%S)_dotfile"
     fi
 }
 
 install_program_list_required() {
-    applist_all_os="go ctags global curl git vim zsh tmux wget cmake python the_silver_searcher powerline-fonts"
-    applist_all_os="${applist_all_os} jq expac shellcheck xmlstarlet pandoc cowsay lolcat xsel rlwrap tldr"
-    applist_all_os="${applist_all_os} python-setuptools python-appdirs python-pyparsing python-setuptools python-six"
-    applist_all_os="${applist_all_os} alacritty-git alacritty-terminfo-git"
+    applist_all_os=( go ctags global curl git vim zsh tmux wget cmake python the_silver_searcher powerline-fonts )
+    applist_all_os+=( jq expac shellcheck xmlstarlet pandoc cowsay lolcat xsel rlwrap tldr )
+    applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six )
+    applist_all_os+=( alacritty-git alacritty-terminfo-git )
     #fix ycm arch bug
-    if [ "$OSTYPE" == "linux-gnu" ]; then
-        applist_all_os="${applist_all_os} ncurses5-compat-libs"
+    if [ "$(check_os_type)" == "Arch" ]; then
+        applist_all_os+=( ncurses5-compat-libs )
     fi
-    install_program "${applist_all_os}"
+    install_program "${applist_all_os[*]}"
     sudo pip install pep8 flake8 pyflakes isort yapf
     sudo pip install cheat howdoi
 }
 
 bak_config() {
     bakdir=~/.bakconfig
-    [[ -d "${bakdir}" ]] || mkdir "${bakdir}"
+    [ -d "${bakdir}" ] || mkdir "${bakdir}"
     bak_file ~ .vimrc "${bakdir}"
     bak_file ~ .zshrc "${bakdir}"
     bak_file ~ .tmux.conf "${bakdir}"
@@ -131,9 +125,9 @@ install_dotfile() {
 
     ### gdbinit
     if wget -P ~ git.io/.gdbinit; then
-       info "dotfile:gdbinit install successfully!"
+        info "dotfile:gdbinit install successfully!"
     else
-       info "dotfile:gdbinit install failed!"
+        info "dotfile:gdbinit install failed!"
     fi
 
     ## oh-my-zsh
@@ -190,7 +184,7 @@ install_dotfile() {
 main() {
     #install_required_program
     install_program_list_required
-    install_dotfile
+    # install_dotfile
 }
 
 main
