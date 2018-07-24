@@ -39,7 +39,7 @@ install_program() {
     elif [ "$os" = "Arch" ]; then
         sudo pacman -Sy ${program_name}
     elif [ "$os" = "Mac" ]; then
-        brew install ${program_name}
+        brew list ${program_name} &>/dev/null || brew install ${program_name}
     elif [ "$os" = "CentOS" ]; then
         sudo yum install ${program_name}
     fi
@@ -62,13 +62,16 @@ bak_file() {
 }
 
 install_program_list_required() {
-    applist_all_os=( go ctags global curl git vim zsh tmux wget cmake python the_silver_searcher powerline-fonts )
-    applist_all_os+=( jq expac shellcheck xmlstarlet pandoc cowsay lolcat xsel rlwrap tldr )
-    applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six )
-    applist_all_os+=( alacritty-git alacritty-terminfo-git )
+    applist_all_os=( go ctags global curl git vim zsh tmux wget cmake python the_silver_searcher jq tldr shellcheck )
     #fix ycm arch bug
     if [ "$(check_os_type)" == "Arch" ]; then
         applist_all_os+=( ncurses5-compat-libs )
+    fi
+
+    if [ "$(check_os_type)" != "Mac" ]; then
+        applist_all_os+=( alacritty-git alacritty-terminfo-git powerline-fonts )
+        applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six )
+        applist_all_os+=( expac xmlstarlet pandoc cowsay lolcat xsel rlwrap )
     fi
     install_program "${applist_all_os[*]}"
     sudo pip install pep8 flake8 pyflakes isort yapf
