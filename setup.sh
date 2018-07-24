@@ -62,16 +62,25 @@ bak_file() {
 }
 
 install_program_list_required() {
-    applist_all_os=( go ctags global curl git vim zsh tmux wget cmake python the_silver_searcher jq tldr shellcheck )
+    applist_all_os=( global curl git vim zsh tmux wget cmake python jq tldr shellcheck rlwrap )
     #fix ycm arch bug
     if [ "$(check_os_type)" == "Arch" ]; then
-        applist_all_os+=( ncurses5-compat-libs )
+        applist_all_os+=( expac ncurses5-compat-libs ctags powerline-fonts the_silver_searcher go )
+        applist_all_os+=( alacritty-git alacritty-terminfo-git )
+    fi
+
+    if [ "$(check_os_type)" == "Ubuntu" ]; then
+        applist_all_os+=( exuberant-ctags fonts-powerline silversearcher-ag golang )
+    fi
+
+    if [ "$(check_os_type)" == "CentOS" ]; then
+        applist_all_os+=( ctags powerline-fonts the_silver_searcher golang )
     fi
 
     if [ "$(check_os_type)" != "Mac" ]; then
-        applist_all_os+=( alacritty-git alacritty-terminfo-git powerline-fonts )
-        applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six )
-        applist_all_os+=( expac xmlstarlet pandoc cowsay lolcat xsel rlwrap )
+        applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six python-pip )
+        //For tip
+        applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
     fi
     install_program "${applist_all_os[*]}"
     sudo pip install pep8 flake8 pyflakes isort yapf
@@ -103,10 +112,18 @@ bak_config() {
 install_dotfile() {
     bak_config
     ## alacritty
-    if cp "$PWD/.alacritty.yml" ~/.config/alacritty/alacritty.yml; then
-        info "dotfile:alacritty install successfully!"
-    else
-        error "dotfile:alacritty install failed!"
+    if program_already_installed alacritty ; then
+        if cp "$PWD/.alacritty.yml" ~/.config/alacritty/alacritty.yml; then
+            info "dotfile:alacritty install successfully!"
+        else
+            error "dotfile:alacritty install failed!"
+        fi
+    fi
+
+    if [ "$(check_os_type)" == "Arch" ]; then
+        #pacman cmd
+        cp "$PWD/.pacman_cmd.zsh" ~
+        info "dotfile:pacman_cmd install successfully!"
     fi
 
     ### tmux
@@ -156,10 +173,6 @@ install_dotfile() {
     cp "$PWD/.Xresources" ~
     cp "$PWD/.xinitrc" ~
     info "dotfile:xconfig install successfully!"
-
-    #pacman cmd
-    cp "$PWD/.pacman_cmd.zsh" ~
-    info "dotfile:pacman_cmd install successfully!"
 
     #cheat.sh
     mkdir -p ~/.cht.sh/bin
