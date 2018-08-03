@@ -65,7 +65,7 @@ install_program_list_required() {
     applist_all_os=( global curl git vim zsh tmux wget cmake python jq tldr shellcheck rlwrap )
     #fix ycm arch bug
     if [ "$(check_os_type)" == "Arch" ]; then
-        applist_all_os+=( expac ncurses5-compat-libs ctags powerline-fonts the_silver_searcher go )
+        applist_all_os+=( arch-audit expac ncurses5-compat-libs ctags powerline-fonts the_silver_searcher go )
         applist_all_os+=( alacritty-git alacritty-terminfo-git )
     fi
 
@@ -78,9 +78,9 @@ install_program_list_required() {
     fi
 
     if [ "$(check_os_type)" != "Mac" ]; then
-        applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six python-pip )
+        applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six python-pip lynis)
         //For tip
-        applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
+        # applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
     fi
     install_program "${applist_all_os[*]}"
     sudo pip install pep8 flake8 pyflakes isort yapf
