@@ -78,9 +78,11 @@ install_program_list_required() {
     fi
 
     if [ "$(check_os_type)" != "Mac" ]; then
-        applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six python-pip lynis netdata)
+        applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six python-pip )
         //For tip
         # applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
+        applist_all_os+=( arpwatch sysstat audit rkhunter progress lynis netdata )
+        applist_all_os+=( xlockmore progress )
     fi
     install_program "${applist_all_os[*]}"
     sudo pip install pep8 flake8 pyflakes isort yapf

@@ -96,6 +96,9 @@ alias dmesg='dmesg --color=always '
 alias t='tmux attach'
 alias tip='taocl|cowsay|lolcat'
 alias cht='~/.cht.sh/bin/cht.sh'
+alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --check"
+alias checkvirus="clamscan --recursive=yes --infected /home"
+alias updateantivirus="sudo freshclam"
 
 nman() {
   vim -c "Nman $*"
