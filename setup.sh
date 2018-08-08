@@ -67,6 +67,7 @@ install_program_list_required() {
     if [ "$(check_os_type)" == "Arch" ]; then
         applist_all_os+=( arch-audit expac ncurses5-compat-libs ctags powerline-fonts the_silver_searcher go )
         applist_all_os+=( alacritty-git alacritty-terminfo-git )
+        applist_all_os+=( flake8 yapf python-isort )
     fi
 
     if [ "$(check_os_type)" == "Ubuntu" ]; then
@@ -83,9 +84,12 @@ install_program_list_required() {
         # applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
         applist_all_os+=( arpwatch sysstat audit rkhunter progress lynis netdata )
         applist_all_os+=( xlockmore progress )
+
     fi
     install_program "${applist_all_os[*]}"
-    sudo pip install pep8 flake8 pyflakes isort yapf
+    if [ "$(check_os_type)" != "Arch" ]; then
+        sudo pip install pep8 flake8 pyflakes isort yapf
+    fi
     sudo pip install cheat howdoi
 }
 
