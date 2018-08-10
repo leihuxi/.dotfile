@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # shellcheck source=./logger.sh
-. "$PWD/logger.sh"
+source "$PWD/logger.sh"
 
 is_sudo() {
     if sudo echo; then
@@ -80,8 +80,10 @@ install_program_list_required() {
 
     if [ "$(check_os_type)" != "Mac" ]; then
         applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six python-pip )
-        //For tip
+        # For tip
         # applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
+        # applist_all_os+=( eslint typescript alex )
+        # applist_all_os+=( bcc-git bcc-tools-git python-bcc-git sysdig)
         applist_all_os+=( arpwatch sysstat audit rkhunter progress lynis netdata )
         applist_all_os+=( xlockmore progress )
 
