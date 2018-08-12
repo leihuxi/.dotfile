@@ -65,9 +65,10 @@ install_program_list_required() {
     applist_all_os=( global curl git vim zsh tmux wget cmake python jq tldr shellcheck rlwrap )
     #fix ycm arch bug
     if [ "$(check_os_type)" == "Arch" ]; then
-        applist_all_os+=( arch-audit expac ncurses5-compat-libs ctags powerline-fonts the_silver_searcher go )
+        applist_all_os+=( expac ncurses5-compat-libs ctags powerline-fonts the_silver_searcher go )
         applist_all_os+=( alacritty-git alacritty-terminfo-git )
         applist_all_os+=( flake8 yapf python-isort )
+	    # applist_all_os+=( arch-audit )
     fi
 
     if [ "$(check_os_type)" == "Ubuntu" ]; then
@@ -83,8 +84,8 @@ install_program_list_required() {
         # For tip
         # applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
         # applist_all_os+=( eslint typescript alex )
-        # applist_all_os+=( bcc-git bcc-tools-git python-bcc-git sysdig)
-        applist_all_os+=( arpwatch sysstat audit rkhunter progress lynis netdata )
+        # applist_all_os+=( sysstat bcc-git bcc-tools-git python-bcc-git sysdig)
+        applist_all_os+=( arpwatch audit rkhunter progress lynis netdata )
         applist_all_os+=( xlockmore progress )
 
     fi
@@ -121,6 +122,7 @@ install_dotfile() {
     bak_config
     ## alacritty
     if program_already_installed alacritty ; then
+        mkdir -p ~/.config/alacritty
         if cp "$PWD/.alacritty.yml" ~/.config/alacritty/alacritty.yml; then
             info "dotfile:alacritty install successfully!"
         else
