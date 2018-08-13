@@ -11,14 +11,18 @@ is_sudo() {
 }
 
 check_os_type() {
-    case "${OSTYPE}" in
-        linux*)   lsb_release -i | awk -F"\\t" '{print $2}';;
-        darwin*)  echo "Mac" ;;
-        win*)     echo "Windows" ;;
-        cygwin*)  echo "Cygwin" ;;
-        bsd*)     echo "Bsd" ;;
-        solaris*) echo "Solaris" ;;
-        *)        echo "Unknown: $OSTYPE" ;;
+    case $(uname) in
+        Linux )
+            command -v yum && { echo "CentOS"; return; }
+            command -v apt-get && { echo "Ubuntu"; return; }
+            command -v pacman && { echo "Arch"; return; }
+            ;;
+        Darwin )
+            echo "Mac"; return;
+            ;;
+        * )
+            # Handle AmgiaOS, CPM, and modified cable modems here.
+            ;;
     esac
 }
 
@@ -68,7 +72,7 @@ install_program_list_required() {
         applist_all_os+=( expac ncurses5-compat-libs ctags powerline-fonts the_silver_searcher go )
         applist_all_os+=( alacritty-git alacritty-terminfo-git )
         applist_all_os+=( flake8 yapf python-isort )
-	    # applist_all_os+=( arch-audit )
+        # applist_all_os+=( arch-audit )
     fi
 
     if [ "$(check_os_type)" == "Ubuntu" ]; then
@@ -82,8 +86,8 @@ install_program_list_required() {
     if [ "$(check_os_type)" != "Mac" ]; then
         applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six python-pip )
         # For tip
-        # applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
-        # applist_all_os+=( eslint typescript alex )
+        applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
+        applist_all_os+=( eslint typescript alex )
         # applist_all_os+=( sysstat bcc-git bcc-tools-git python-bcc-git sysdig)
         applist_all_os+=( arpwatch audit rkhunter progress lynis netdata )
         applist_all_os+=( xlockmore progress )
