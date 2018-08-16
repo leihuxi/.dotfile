@@ -88,7 +88,8 @@ install_program_list_required() {
         # For tip
         applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
         applist_all_os+=( eslint typescript alex )
-        # applist_all_os+=( sysstat bcc-git bcc-tools-git python-bcc-git sysdig)
+        # applist_all_os+=( sysdig sysstat)
+        applist_all_os+=( bcc-git bcc-tools-git python-bcc-git )
         applist_all_os+=( arpwatch audit rkhunter progress lynis netdata )
         applist_all_os+=( xlockmore progress )
 
