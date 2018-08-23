@@ -86,9 +86,11 @@ install_program_list_required() {
     if [ "$(check_os_type)" != "Mac" ]; then
         applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six python-pip )
         # For tip
-        applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
-        applist_all_os+=( eslint typescript alex )
+        # applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
+        # For system
         # applist_all_os+=( sysdig sysstat)
+        # For html js synatic
+        # applist_all_os+=( eslint typescript alex )
         applist_all_os+=( bcc-git bcc-tools-git python-bcc-git )
         applist_all_os+=( arpwatch audit rkhunter progress lynis netdata )
         applist_all_os+=( xlockmore progress )
