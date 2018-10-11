@@ -49,10 +49,11 @@ bar {
         }
 }
 
-# Gap distance
+# i3-Gap Use
 gaps inner 6
 gaps outer 0
 smart_gaps on
+smart_borders on
 
 # System Command
 set $mode_system  Logout(O) Poweroff(S) Reboot(R) Cance(Esc)
@@ -219,7 +220,7 @@ exec xset r rate 200 30
 exec i3-config-wizard
 exec --no-startup-id i3-msg "workspace 1:Info"
 exec pulseaudio --start -D
-exec compton &
+exec compton --config ~/.config/i3/compton.conf &
 exec xrandr --output DP1 --pos 0x0 --output eDP1 --pos 0x1080
 exec fcitx &
 exec sogou-qimpanel &
