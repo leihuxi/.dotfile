@@ -92,6 +92,7 @@ bindsym $mod+Return exec alacritty
 
 # Close Window
 bindsym Control+Mod1+w kill
+bindsym $mod+q kill
 
 # Run App
 # start dmenu (a program launcher)
