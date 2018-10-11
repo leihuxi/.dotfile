@@ -72,6 +72,7 @@ install_program_list_required() {
         applist_all_os+=( expac ncurses5-compat-libs ctags powerline-fonts the_silver_searcher go )
         applist_all_os+=( alacritty-git alacritty-terminfo-git )
         applist_all_os+=( flake8 yapf python-isort )
+        applist_all_os+=( i3-gaps i3lock py3status compton rofi feh ranger )
         # applist_all_os+=( arch-audit )
     fi
 
@@ -189,6 +190,7 @@ install_dotfile() {
     cp "$PWD/.xprofile" ~
     cp "$PWD/.Xresources" ~
     cp "$PWD/.xinitrc" ~
+    cp -rf "$PWD/.config" ~
     info "dotfile:xconfig install successfully!"
 
     #cheat.sh

@@ -1,0 +1,225 @@
+# Color scheme (Gruvbox dark)
+new_window pixel 2
+new_float pixel 2
+set $color_normal_white  #a89984
+set $color_bright_white  #ebdbb2
+set $color_normal_gray   #222222
+set $color_bright_gray   #3c3836
+set $color_bright_yellow #d79921
+set $color_normal_black  #282828
+set $color_unused        #ff0000
+# Colors                  border                 background             text                   indicator       child_border
+client.focused            $color_bright_gray     $color_bright_gray     $color_bright_white    $color_unused   $color_normal_white
+client.focused_inactive   $color_bright_gray     $color_bright_gray     $color_bright_white    $color_unused   $color_normal_black
+client.unfocused          $color_normal_gray     $color_normal_gray     $color_normal_white    $color_unused   $color_normal_black
+client.urgent             $color_bright_yellow   $color_bright_yellow   $color_normal_black    $color_unused   $color_unused
+client.placeholder        $color_unused          $color_normal_black    $color_unused          $color_unused   $color_unused
+
+# Font
+#font pango:Source Code Pro, EmojiOne Color 10
+font pango:monospace
+
+# Mod key Win
+# customized
+set $mod Mod4
+
+# Border
+new_window none
+bindsym $mod+t border normal
+bindsym $mod+y border pixel 1
+bindsym $mod+u border none
+
+
+# Bar
+bindsym $mod+m bar mode toggle
+bar {
+        i3bar_command i3bar -t
+        status_command py3status -c ~/.config/i3/i3status.conf
+        position bottom
+        modifier Shift
+        separator_symbol " | "
+        colors {
+                background #000000CC
+                statusline #000000FF
+                separator #B8F788
+                focused_workspace  #B8F788 #000000AA
+                active_workspace   #FFFFFF #FFFFFFAA
+                inactive_workspace #AAAAAA #000000AA #AAAAAA
+                urgent_workspace   #E57B85 #000000AA
+        }
+}
+
+# Gap distance
+gaps inner 6
+gaps outer 0
+smart_gaps on
+
+# System Command
+set $mode_system  Logout(O) Poweroff(S) Reboot(R) Cance(Esc)
+    bindsym $mod+shift+q mode "$mode_system"
+    mode "$mode_system" {
+            bindsym o exec i3-msg exit
+            bindsym s exec systemctl poweroff
+            bindsym r exec systemctl reboot
+            bindsym Escape mode "default"
+    }
+
+# Focus Follow
+focus_follows_mouse no
+
+# Lock Screen
+# bindsym Mod4+l exec --no-startup-id i3lock -i '/home/huang/Pictures/Wallpapers/universe.png'
+# bindsym Mod4+l exec --no-startup-id i3lock -i 'path/to/lock/screen/wallpaper'
+bindsym Control+Mod4+l exec --no-startup-id xlock
+
+# Start fcitx
+exec --no-startup-id fcitx
+bindsym $mod+e exec thunar
+
+# Sound Control
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%-
+
+# Float Window
+# use Mouse+Mod1 to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Terminal
+# bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec lilyterm
+bindsym $mod+Return exec alacritty
+
+# Close Window
+bindsym Control+Mod1+w kill
+
+# Run App
+# start dmenu (a program launcher)
+# bindsym $mod+d exec dmenu_run
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec rofi -show run
+
+# Switch focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Split Window
+bindsym $mod+Shfit+h split h
+bindsym $mod+Shfit+v split v
+
+# Full Screen
+bindsym $mod+f fullscreen toggle
+
+# Layout change
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym Mod1+e layout toggle split
+
+# Float Window Change
+bindsym $mod+Shift+space floating toggle
+
+# Float or Flat Change
+bindsym $mod+space focus mode_toggle
+
+# Focus Parent
+#bindsym $mod+a focus parent
+
+# Focus Child 
+#bindsym Mod1+d focus child
+
+# Store Window
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym Mod1+minus scratchpad show
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Want exit i3?' -b 'Yes' 'i3-msg exit'"
+
+# Def rise
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # same bindings, but for the arrow keys
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+#Assign
+assign [class="alacritty"] 2
+assign [class="chromium-dev"] 3
+assign [instance="ranger"] 1
+assign [instance="neofech"] 1
+ 
+
+# Workspaces
+focus_follows_mouse no
+
+set $workspace1 workspace number 1
+set $workspace2 workspace number 2
+set $workspace3 workspace number 3
+set $workspace4 workspace number 4
+set $workspace5 workspace number 5
+set $workspace6 workspace number 6
+set $workspace7 workspace number 7
+set $workspace8 workspace number 8
+set $workspace9 workspace number 9
+set $workspace0 workspace number 10
+
+# Switch to workspace using number row
+bindsym $mod+1 $workspace1
+bindsym $mod+2 $workspace2
+bindsym $mod+3 $workspace3
+bindsym $mod+4 $workspace4
+bindsym $mod+5 $workspace5
+bindsym $mod+6 $workspace6
+bindsym $mod+7 $workspace7
+bindsym $mod+8 $workspace8
+bindsym $mod+9 $workspace9
+bindsym $mod+0 $workspace0
+
+# Move window to workspace using number row
+bindsym $mod+Shift+1 move container to $workspace1
+bindsym $mod+Shift+2 move container to $workspace2
+bindsym $mod+Shift+3 move container to $workspace3
+bindsym $mod+Shift+4 move container to $workspace4
+bindsym $mod+Shift+5 move container to $workspace5
+bindsym $mod+Shift+6 move container to $workspace6
+bindsym $mod+Shift+7 move container to $workspace7
+bindsym $mod+Shift+8 move container to $workspace8
+bindsym $mod+Shift+9 move container to $workspace9
+bindsym $mod+Shift+0 move container to $workspace0
+
+# Resize
+bindsym $mod+r mode "resize"
+
+# Auto Start
+# exec_always --no-startup-id feh --bg-fill path/to/background/image
+exec xset r rate 200 30
+exec i3-config-wizard
+exec --no-startup-id i3-msg "workspace 1:Info"
+exec pulseaudio --start -D
+exec compton &
+exec xrandr --output DP1 --pos 0x0 --output eDP1 --pos 0x1080
+exec fcitx &
+exec sogou-qimpanel &
