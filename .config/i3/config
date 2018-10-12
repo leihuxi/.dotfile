@@ -77,9 +77,14 @@ bindsym Control+Mod4+l exec --no-startup-id xlock
 exec --no-startup-id fcitx
 bindsym $mod+e exec thunar
 
-# Sound Control
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%-
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
+bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
+bindsym XF86AudioMute exec amixer sset Master toggle
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 # Float Window
 # use Mouse+Mod1 to drag floating windows to their wanted position
