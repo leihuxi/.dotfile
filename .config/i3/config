@@ -230,3 +230,4 @@ exec --no-startup-id i3-msg "workspace 1:Main"
 exec pulseaudio --start -D
 exec compton --config ~/.config/i3/compton.conf 
 exec xrandr --output DP1 --pos 0x0 --output eDP1 --pos 0x1080 
+exec amixer sset Master on
