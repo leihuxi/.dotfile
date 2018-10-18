@@ -75,7 +75,7 @@ bindsym Control+Mod4+l exec --no-startup-id xlock
 
 # Start fcitx
 exec --no-startup-id fcitx
-bindsym $mod+e exec thunar
+bindsym $mod+e exec pcmanfm
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
@@ -147,7 +147,7 @@ bindsym $mod+Shift+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym Mod1+minus scratchpad show
+bindsym $mod+minus scratchpad show
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
@@ -172,16 +172,10 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-#Assign
-assign [class="alacritty"] 2
-assign [class="chromium-dev"] 3
-assign [instance="ranger"] 1
-assign [instance="neofech"] 1
- 
-
 # Workspaces
 focus_follows_mouse no
 
+## workspaces ##
 set $workspace1 workspace number 1
 set $workspace2 workspace number 2
 set $workspace3 workspace number 3
@@ -224,10 +218,10 @@ bindsym $mod+r mode "resize"
 exec_always --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/arch-linux-minimalism-4k-up.jpg
 exec fcitx 
 exec sogou-qimpanel 
-exec xset r rate 200 30
+exec xset r rate 250 40
 exec i3-config-wizard
 exec --no-startup-id i3-msg "workspace 1:Main"
-exec pulseaudio --start -D
+# exec pulseaudio --start -D
+exec amixer sset Master on
 exec compton --config ~/.config/i3/compton.conf 
 exec xrandr --output DP1 --pos 0x0 --output eDP1 --pos 0x1080 
-exec amixer sset Master on
