@@ -162,6 +162,3 @@ set -o vi
 
 source "$HOME/.fzf_custom.zsh"
 source "$HOME/.pacman_cmd.zsh"
-if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-  exec startx
-fi
