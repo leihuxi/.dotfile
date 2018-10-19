@@ -66,10 +66,11 @@ bak_file() {
 }
 
 install_program_list_required() {
-    applist_all_os=( global curl git vim zsh tmux wget cmake python jq tldr shellcheck rlwrap )
+    applist_all_os=( global curl git vim zsh tmux wget cmake python shellcheck rlwrap )
     #fix ycm arch bug
     if [ "$(check_os_type)" == "Arch" ]; then
-        applist_all_os+=( expac ncurses5-compat-libs ctags powerline-fonts the_silver_searcher go )
+        applist_all_os+=( jq tldr prettyping bat fzf htop diff-so-fancy fd ncdu the_silver_searcher )
+        applist_all_os+=( expac ncurses5-compat-libs ctags powerline-fonts go )
         applist_all_os+=( alacritty-git alacritty-terminfo-git )
         applist_all_os+=( flake8 yapf python-isort )
         applist_all_os+=( i3-gaps i3lock py3status compton rofi feh ranger alsa-utils xorg xorg-init )
@@ -123,6 +124,7 @@ bak_config() {
     bak_file ~ .pacman_cmd.zsh "${bakdir}"
     bak_file ~ .cht.sh "${bakdir}"
     bak_file ~ .fzf-scripts "${bakdir}"
+    bak_file ~ .gitconfig "${bakdir}"
     info "bak all file successfully"
 }
 
@@ -185,6 +187,9 @@ install_dotfile() {
     else
         error "dotfile:fzf_custom install failed!"
     fi
+
+    ##git
+    cp "$PWD/.gitconfig" ~
 
     #Xconfig
     cp "$PWD/.xprofile" ~

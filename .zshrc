@@ -133,6 +133,12 @@ alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhun
 alias checkvirus="clamscan --recursive=yes --infected /home"
 alias updateantivirus="sudo freshclam"
 
+alias cat='bat'
+alias ping='prettyping --nolegend'
+alias top="sudo htop" # alias top and fix high sierra bug
+alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
+alias help='tldr'
+
 nman() {
   vim -c "Nman $*"
 

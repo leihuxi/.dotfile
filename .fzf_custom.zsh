@@ -94,6 +94,10 @@ fco() {
     git checkout $(echo "$target" | awk '{print $2}')
 }
 
+alias preview="fzf --preview 'bat --color \"always\" {}'"
+# add support for ctrl+o to open selected file in VS Code
+export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'"
+
 
 # fco_preview - checkout git branch/tag, with a preview showing the commits between the tag/branch and HEAD
 fco_preview() {
