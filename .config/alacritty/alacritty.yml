@@ -269,7 +269,7 @@ mouse:
     #
     # These are the modifiers that need to be held down for opening URLs when clicking
     # on them. The available modifiers are documented in the key binding section.
-    modifies: Control|Shift
+    modifiers: Control
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"
@@ -277,7 +277,7 @@ selection:
   # When set to `true`, selected text will be copied to both the primary and
   # the selection clipboard. Otherwise, it will only be copied to the selection
   # clipboard.
-  save_to_clipboard: false
+  save_to_clipboard: true
 
 dynamic_title: true
 
