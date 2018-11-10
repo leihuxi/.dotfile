@@ -1,6 +1,21 @@
-# Color scheme (Gruvbox dark)
-new_window pixel 2
-new_float pixel 2
+# Variables
+set $mod Mod4
+set $alt Mod1
+set $mleft   button1
+set $mmiddle button2
+set $mright  button3
+
+set $workspace1 workspace number 1
+set $workspace2 workspace number 2
+set $workspace3 workspace number 3
+set $workspace4 workspace number 4
+set $workspace5 workspace number 5
+set $workspace6 workspace number 6
+set $workspace7 workspace number 7
+set $workspace8 workspace number 8
+set $workspace9 workspace number 9
+set $workspace0 workspace number 10
+
 set $color_normal_white  #a89984
 set $color_bright_white  #ebdbb2
 set $color_normal_gray   #222222
@@ -8,6 +23,10 @@ set $color_bright_gray   #3c3836
 set $color_bright_yellow #d79921
 set $color_normal_black  #282828
 set $color_unused        #ff0000
+
+# Color scheme (Gruvbox dark)
+# new_window pixel 2
+# new_float pixel 2
 # Colors                  border                 background             text                   indicator       child_border
 client.focused            $color_bright_gray     $color_bright_gray     $color_bright_white    $color_unused   $color_normal_white
 client.focused_inactive   $color_bright_gray     $color_bright_gray     $color_bright_white    $color_unused   $color_normal_black
@@ -16,65 +35,33 @@ client.urgent             $color_bright_yellow   $color_bright_yellow   $color_n
 client.placeholder        $color_unused          $color_normal_black    $color_unused          $color_unused   $color_unused
 
 # Font
-#font pango:Source Code Pro, EmojiOne Color 10
-font pango:monospace
+# font <X core font description>
+# font pango:<family list> [<style options>] <size>
+font pango:Source Code Pro, EmojiOne Color 12
 
-# Mod key Win
-# customized
-set $mod Mod4
+# Split Window
+bindsym $alt+h split horizontal
+bindsym $alt+v split vertical
 
-# Border
-new_window none
-bindsym $mod+t border normal
-bindsym $mod+y border pixel 1
-bindsym $mod+u border none
+# bindsym [--release] [<Group>+][<Modifiers>+]<keysym> command
+# bindcode [--release] [<Group>+][<Modifiers>+]<keycode> command
+# Take a screenshot upon pressing $mod+x (select an area)
+# bindsym --release $alt+t exec --no-startup-id import /tmp/latest-screenshot.png
+bindsym --release $alt+t exec --no-startup-id scrot -s /tmp/latest-screenshot.png
 
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Want exit i3?' -b 'Yes' 'i3-msg exit'"
 
-# Bar
-bindsym $mod+m bar mode toggle
-bar {
-        i3bar_command i3bar -t
-        status_command py3status -c ~/.config/i3/i3status.conf
-        position bottom
-        modifier Shift
-        separator_symbol "|"
-        colors {
-                background #000000CC
-                statusline #000000FF
-                separator #B8F788
-                focused_workspace  #B8F788 #000000AA
-                active_workspace   #FFFFFF #FFFFFFAA
-                inactive_workspace #AAAAAA #000000AA #AAAAAA
-                urgent_workspace   #E57B85 #000000AA
-        }
-}
+# Terminal
+bindsym $mod+Return exec alacritty
 
-# i3-Gap Use
-gaps inner 6
-gaps outer 0
-smart_gaps on
-smart_borders on
-
-# System Command
-set $mode_system  Logout(O) Poweroff(S) Reboot(R) Cance(Esc)
-    bindsym $mod+Shift+q mode "$mode_system"
-    mode "$mode_system" {
-            bindsym o exec i3-msg exit
-            bindsym s exec systemctl poweroff
-            bindsym r exec systemctl reboot
-            bindsym Escape mode "default"
-    }
-
-# Focus Follow
-focus_follows_mouse no
+# Start rofi (a program launcher)
+bindsym $mod+d exec rofi -show run
 
 # Lock Screen
-# bindsym Mod4+l exec --no-startup-id i3lock -i '/home/huang/Pictures/Wallpapers/universe.png'
-# bindsym Mod4+l exec --no-startup-id i3lock -i 'path/to/lock/screen/wallpaper'
-bindsym Control+Mod4+l exec --no-startup-id xlock
+bindsym $alt+l exec --no-startup-id xlock
 
-# Start fcitx
-exec --no-startup-id fcitx
+# Start pcmanfm
 bindsym $mod+e exec pcmanfm
 
 # Pulse Audio controls
@@ -86,25 +73,29 @@ bindsym XF86AudioMute exec amixer sset Master toggle
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
-# Float Window
-# use Mouse+Mod1 to drag floating windows to their wanted position
-floating_modifier $mod
+# The right button toggles floating
+bindsym $mod+$mright floating toggle
 
-# Terminal
-# bindsym $mod+Return exec i3-sensible-terminal
-# bindsym $mod+Return exec lilyterm
-bindsym $mod+Return exec alacritty
+# Full Screen
+bindsym $mod+f fullscreen toggle
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
 
 # Close Window
 bindsym Control+Mod1+w kill
 bindsym $mod+q kill
 
-# Run App
-# start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+d exec rofi -show run
+# Layout change
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+x layout toggle split
+
+# Float Window Change
+bindsym $mod+Shift+space floating toggle
+
+# Float or Flat Change
+bindsym $mod+space focus mode_toggle
 
 # Switch focus
 bindsym $mod+h focus left
@@ -117,24 +108,6 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
-
-# Full Screen
-bindsym $mod+f fullscreen toggle
-
-# Layout change
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+x layout toggle split
-
-# Split Window
-bindsym $mod+o split horizontal
-bindsym $mod+p split vertical
-
-# Float Window Change
-bindsym $mod+Shift+space floating toggle
-
-# Float or Flat Change
-bindsym $mod+space focus mode_toggle
 
 # Focus Parent
 #bindsym $mod+a focus parent
@@ -151,41 +124,6 @@ bindsym $mod+minus scratchpad show
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
-
-# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-
-# Exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Want exit i3?' -b 'Yes' 'i3-msg exit'"
-
-# Def rise
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # same bindings, but for the arrow keys
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
-# Workspaces
-focus_follows_mouse no
-
-## workspaces ##
-set $workspace1 workspace number 1
-set $workspace2 workspace number 2
-set $workspace3 workspace number 3
-set $workspace4 workspace number 4
-set $workspace5 workspace number 5
-set $workspace6 workspace number 6
-set $workspace7 workspace number 7
-set $workspace8 workspace number 8
-set $workspace9 workspace number 9
-set $workspace0 workspace number 10
 
 # Switch to workspace using number row
 bindsym $mod+1 $workspace1
@@ -211,18 +149,175 @@ bindsym $mod+Shift+8 move container to $workspace8
 bindsym $mod+Shift+9 move container to $workspace9
 bindsym $mod+Shift+0 move container to $workspace0
 
-# Resize
+# Border
+# border normal|pixel|toggle [<n>]
+# use window title, but no border
+bindsym $mod+t border normal 0
+# use no window title and a thick border
+bindsym $mod+y border pixel 3
+# use neither window title nor border
+bindsym $mod+u border none
+
+# config directive
+# mode [--pango_markup] <name>
+# command
+# mode <name>
+# Press $mod+o followed by either f, t, Escape or Return to launch firefox,
+set $mode_launcher Launch: [c]hromium [i]dea
+bindsym $mod+o mode "$mode_launcher"
+
+mode "$mode_launcher" {
+    bindsym c exec chromium 
+    bindsym i exec idea
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+# System Command
+set $mode_system  Logout(O) Poweroff(S) Reboot(R) Cance(Esc)
+bindsym $mod+Shift+q mode "$mode_system"
+mode "$mode_system" {
+    bindsym o exec i3-msg exit
+    bindsym s exec systemctl poweroff
+    bindsym r exec systemctl reboot
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+# Def rise
+# resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
+mode "resize" {
+    # same bindings, but for the arrow keys
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Float Window
+# floating_modifier <Modifier>
+floating_modifier $mod
+
+# Constraining floating window sizj
+# floating_minimum_size <width> x <height>
+# floating_maximum_size <width> x <height>
+floating_minimum_size 75 x 50
+floating_maximum_size -1 x -1
+
+# Orientation for new workspaces
+# default_orientation horizontal|vertical|auto
+default_orientation vertical
+
+# Layout mode for new containers
+# workspace_layout default|stacking|tabbed
+workspace_layout tabbed
+
+# Window title alignment
+# title_align left|center|right
+title_align left 
+
+# Default border style for new windows
+# default_border normal|none|pixel
+# default_border normal|pixel <px>
+# default_floating_border normal|none|pixel
+# default_floating_border normal|pixel <px>
+default_border pixel 0
+default_floating_border pixel
+
+# Hiding borders adjacent to the screen edges
+# hide_edge_borders none|vertical|horizontal|both|smart
+hide_edge_borders both
+
+# Arbitrary commands for specific windows (for_window)
+# for_window <criteria> <command>
+# for_window [title="~/work"] floating enable
+# for_window [class="XTerm"] floating enable
+
+# Don’t focus window upon opening
+# no_focus <criteria>
+no_focus [window_role="pop-up"]
+
+# Automatically putting clients on specific workspaces
+# assign <criteria> [→] [workspace] [number] <workspace>
+# assign <criteria> [→] output left|right|up|down|primary|<output>
+# assign [class="alacritty"] $workspace1
+# assign [class="chromium"] $workspace2
+
+# Interprocess communication
+ipc-socket ~/.config/i3/i3-ipc.sock
+
+# Focus Follow
+# focus_follows_mouse yes|no
+focus_follows_mouse no
+
+# Mouse warping
+# mouse_warping output|none
+mouse_warping none
+
+# Popups during fullscreen mode
+# popup_during_fullscreen smart|ignore|leave_fullscreen
+popup_during_fullscreen smart
+
+# Focus wrapping
+# focus_wrapping yes|no|force
+
+# Automatic back-and-forth when switching to the current workspace
+# workspace_auto_back_and_forth yes|no
+workspace_auto_back_and_forth yes
+
+# Delaying urgency hint reset on workspace change
+# force_display_urgency_hint <timeout> ms
+force_display_urgency_hint 500 ms
+
+# Focus on window activation
+# focus_on_window_activation smart|urgent|focus|none
+focus_on_window_activation smart
+
+# Drawing marks on window decoration
+# show_marks yes|no
+show_marks yes
+
+# Bar
+bindsym $mod+m bar mode toggle
+bar {
+    i3bar_command i3bar -t
+        status_command py3status -c ~/.config/py3status/py3status.conf
+        position bottom
+        modifier Shift
+        separator_symbol "|"
+        colors {
+            background #000000CC
+            statusline #000000FF
+            separator #B8F788
+            focused_workspace  #B8F788 #000000AA
+            active_workspace   #FFFFFF #FFFFFFAA
+            inactive_workspace #AAAAAA #000000AA #AAAAAA
+            urgent_workspace   #E57B85 #000000AA
+        }
+}
+
+# i3-Gap Use
+gaps inner 0
+gaps outer 0
+smart_gaps on
+smart_borders on
 
 # Auto Start
-exec amixer sset Master on
+# exec pulseaudio --start -D
+# exec --no-startup-id i3-msg "workspace 1:Main"
+# exec_always xrandr --output DP1 --pos 0x0 --output eDP1 --pos 0x1080 
+exec_always xrandr --output eDP1 --auto --top-of DP1 
 exec_always --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/arch-linux-minimalism-4k-up.jpg
+exec amixer sset Master on
 exec fcitx 
 exec sogou-qimpanel 
 exec xset r rate 250 40
 exec xset m 4/1 0
 exec i3-config-wizard
-exec --no-startup-id i3-msg "workspace 1:Main"
-# exec pulseaudio --start -D
-exec compton --config ~/.config/i3/compton.conf 
-exec xrandr --output DP1 --pos 0x0 --output eDP1 --pos 0x1080 
+exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
+exec compton --config ~/.config/compton/compton.conf 

@@ -2,6 +2,9 @@
 !                      ROFI Settings
 ! ------------------------------------------------------------------------------
 
+rofi.modi: window,run,ssh,drun,windowcd,combi,keys
+
+
 ! General
 rofi.fake-transparency:   true
 rofi.hide-scrollbar:      true
