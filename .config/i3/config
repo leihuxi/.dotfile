@@ -53,8 +53,8 @@ bindsym --release $alt+t exec --no-startup-id scrot -s /tmp/latest-screenshot.pn
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Want exit i3?' -b 'Yes' 'i3-msg exit'"
 
 # Terminal
-# bindsym $mod+Return exec alacritty
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec alacritty
+# bindsym $mod+Return exec kitty
 
 # Start rofi (a program launcher)
 bindsym $mod+d exec rofi -show run
