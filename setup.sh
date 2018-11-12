@@ -65,6 +65,16 @@ bak_file() {
     fi
 }
 
+install_program_for_arch() {
+    sudo pacman -S  --needed - < "$PWD/.pkglist.txt"
+    install_program_third_parted
+}
+
+install_program_third_parted() {
+    sudo pip install cheat howdoi
+    sudo npm install -g taskbook --unsafe-perm=true --allow-root
+}
+
 install_program_list_required() {
     applist_all_os=( global curl git vim zsh tmux wget cmake python shellcheck rlwrap )
     #fix ycm arch bug
@@ -74,7 +84,7 @@ install_program_list_required() {
         applist_all_os+=( alacritty-git alacritty-terminfo-git )
         applist_all_os+=( flake8 yapf python-isort )
         applist_all_os+=( i3-gaps i3lock py3status compton rofi feh ranger alsa-utils xorg xorg-init scrot xrand arand dunst )
-        applist_all_os+=( ltrace strace valgrind gdb pmap lsof )
+        applist_all_os+=( ltrace strace valgrind gdb pmap lsof task)
         # applist_all_os+=( arch-audit )
     fi
 
@@ -103,7 +113,7 @@ install_program_list_required() {
     if [ "$(check_os_type)" != "Arch" ]; then
         sudo pip install pep8 flake8 pyflakes isort yapf
     fi
-    sudo pip install cheat howdoi
+    install_program_third_parted
 }
 
 bak_config() {
@@ -223,9 +233,10 @@ install_dotfile() {
 }
 
 main() {
-    #install_required_program
-    install_program_list_required
-    install_dotfile
+    # install_required_program
+    # install_program_list_required
+    install_program_for_arch
+    # install_dotfile
 }
 
 main
