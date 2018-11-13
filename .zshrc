@@ -125,7 +125,7 @@ alias diff='diff --color=auto'
 alias dmesg='dmesg --color=always '
 alias grep='grep --color=auto'
 
-alias hi='howdoi -c '
+alias h='function hdi(){ howdoi $* -c -n 5; }; hdi'
 alias t='tmux attach'
 alias tip='taocl|cowsay|lolcat'
 alias cht='~/.cht.sh/bin/cht.sh'

@@ -70,7 +70,6 @@ install_program_for_arch() {
 }
 
 install_program_third_parted() {
-    sudo pip install cheat howdoi
     sudo npm install -g taskbook --unsafe-perm=true --allow-root
 }
 
