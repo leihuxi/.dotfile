@@ -12,6 +12,7 @@ pach() {
 	echo "pacchg                    \"Listing all changed files from packages\""
 	echo "pacreinstall              \"Reinstalling all packages\""
     echo "pacoldlib                 \"Use old lib app\""
+    echo "allworld                  \"Update all world\""
 }
 
 # Find third party install
@@ -97,4 +98,9 @@ pacreinstall() {
 # Use old lib app
 pacoldlib() {
 	lsof +c 0 | grep -w DEL | awk '1 { print $1 ": " $NF }' | sort -u
+}
+
+# All world
+allworld() {
+    sudo pacman -Syyu
 }
