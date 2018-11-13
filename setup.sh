@@ -67,7 +67,6 @@ bak_file() {
 
 install_program_for_arch() {
     sudo pacman -S  --needed - < "$PWD/.pkglist.txt"
-    install_program_third_parted
 }
 
 install_program_third_parted() {
@@ -113,7 +112,6 @@ install_program_list_required() {
     if [ "$(check_os_type)" != "Arch" ]; then
         sudo pip install pep8 flake8 pyflakes isort yapf
     fi
-    install_program_third_parted
 }
 
 bak_config() {
@@ -236,6 +234,7 @@ main() {
     # install_required_program
     # install_program_list_required
     install_program_for_arch
+    # install_program_third_parted
     # install_dotfile
 }
 
