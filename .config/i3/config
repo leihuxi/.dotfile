@@ -289,7 +289,6 @@ show_marks yes
 # Bar
 bindsym $mod+m bar mode toggle
 bar {
-        # i3bar_command i3bar -t
         status_command py3status -c ~/.config/py3status/py3status.conf
         position bottom
         modifier Shift
