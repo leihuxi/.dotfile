@@ -95,9 +95,6 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+x layout toggle split
 
-# Float Window Change
-bindsym $mod+Shift+space floating toggle
-
 # Float or Flat Change
 bindsym $mod+space focus mode_toggle
 
@@ -113,11 +110,14 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# Focus Parent
-#bindsym $mod+a focus parent
+# Float Window Change
+bindsym $mod+Shift+space floating toggle
 
-# Focus Child 
-#bindsym Mod1+d focus child
+# Focus Parent
+bindsym $mod+p focus parent
+
+# Focus Child
+bindsym $mod+c focus child
 
 # Store Window
 bindsym $mod+Shift+minus move scratchpad
@@ -125,6 +125,9 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
+
+# move all floating windows to the scratchpad
+bindsym $mod+a [floating] move scratchpad
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
@@ -169,9 +172,8 @@ bindsym $mod+u border none
 # Press $mod+o followed by either f, t, Escape or Return to launch firefox,
 set $mode_launcher Launch: [c]hromium [i]dea
 bindsym $mod+o mode "$mode_launcher"
-
 mode "$mode_launcher" {
-    bindsym c exec chromium 
+    bindsym c exec chromium
     bindsym i exec idea
 
     bindsym Escape mode "default"
@@ -191,8 +193,8 @@ mode "$mode_system" {
 
 # Def rise
 # resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize"
-mode "resize" {
+bindsym $mod+r mode "$resize"
+mode "$resize" {
     # same bindings, but for the arrow keys
     bindsym h resize shrink width 10 px or 10 ppt
     bindsym j resize grow height 10 px or 10 ppt
@@ -223,7 +225,7 @@ workspace_layout tabbed
 
 # Window title alignment
 # title_align left|center|right
-title_align left 
+title_align left
 
 # Default border style for new windows
 # default_border normal|none|pixel
@@ -313,15 +315,15 @@ smart_borders on
 
 # Auto Start
 # exec --no-startup-id i3-msg "workspace 1:Main"
-# exec_always xrandr --output DP1 --auto --top-of eDP1 
+# exec_always xrandr --output DP1 --auto --top-of eDP1
 # exec i3-config-wizard
 exec_always pulseaudio --start -D
 exec_always --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/apocalyptic-hipster.jpg
-exec_always xrandr --output DP1 --pos 0x0 --output eDP1 --pos 0x1080 
+exec_always xrandr --output DP1 --pos 0x0 --output eDP1 --pos 0x1080
 exec_always amixer sset Master on
-exec_always fcitx 
-exec_always sogou-qimpanel 
+exec_always fcitx
+exec_always sogou-qimpanel
 exec_always xset r rate 250 40
 exec_always xset m 4/1 0
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
-exec_always compton -b --config ~/.config/compton/compton.conf 
+exec_always compton -b --config ~/.config/compton/compton.conf
