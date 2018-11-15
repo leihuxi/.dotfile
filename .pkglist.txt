@@ -186,6 +186,7 @@ psmisc
 py3status
 python
 python-delegator.py
+python-docopt
 python-isort
 python-markdown
 python-neovim

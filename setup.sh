@@ -71,7 +71,8 @@ install_program_for_arch() {
 
 install_program_third_parted() {
     npm install -g taskbook
-    pip install --user cheat
+    npm install -g fx
+    pip install --user howdoi
 }
 
 install_program_list_required() {
@@ -87,11 +88,11 @@ install_program_list_required() {
         # applist_all_os+=( arch-audit )
     fi
 
-    if [ "$(check_os_type)" == "Ubuntu" ]; then
+    if [ "$(check_os_type)" = "Ubuntu" ]; then
         applist_all_os+=( exuberant-ctags fonts-powerline silversearcher-ag golang )
     fi
 
-    if [ "$(check_os_type)" == "CentOS" ]; then
+    if [ "$(check_os_type)" = "CentOS" ]; then
         applist_all_os+=( ctags powerline-fonts the_silver_searcher golang )
     fi
 
@@ -231,6 +232,10 @@ install_dotfile() {
 }
 
 main() {
+    if [[ "$1" -eq "up" ]]; then
+        pacman -Qqe  > "$PWD/.pkglist.txt"
+        exit
+    fi
     # install_required_program
     # install_program_list_required
     install_program_for_arch
