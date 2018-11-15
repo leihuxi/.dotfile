@@ -70,7 +70,8 @@ install_program_for_arch() {
 }
 
 install_program_third_parted() {
-    sudo npm install -g taskbook --unsafe-perm=true --allow-root
+    npm install -g taskbook
+    pip install --user cheat
 }
 
 install_program_list_required() {
@@ -233,8 +234,8 @@ main() {
     # install_required_program
     # install_program_list_required
     install_program_for_arch
-    # install_program_third_parted
     # install_dotfile
+    install_program_third_parted
 }
 
 main

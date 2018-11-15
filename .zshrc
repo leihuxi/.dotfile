@@ -84,12 +84,20 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #####user custom config##############
-export TERM=xterm-256color
+# export TERM=xterm-256color
 export WORK=$HOME/work
 export GOPATH=$HOME/work/go
 export FZFSCRIPT=$HOME/.fzf-scripts
 export PATH=$FZFSCRIPT:$GOPATH/bin:$PATH
 export CHEATCOLORS=true
+#Neovim true color support
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
+#Neovim cursor shape support
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+export PATH="$HOME/.local/lib/node_modules/bin:$PATH"
+export npm_config_prefix=~/.local/lib/node_modules
+export PYTHONUSERBASE="$HOME/.local"
+export PATH="$HOME/.local/bin:$PATH"
 
 export LESS=-R
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 2) # green
@@ -133,10 +141,9 @@ alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhun
 alias checkvirus="clamscan --recursive=yes --infected /home"
 alias updateantivirus="sudo freshclam"
 
-alias cat='bat'
-alias ping='prettyping --nolegend'
-alias top="sudo htop" # alias top and fix high sierra bug
-alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
+alias ccat='bat'
+alias pping='prettyping --nolegend'
+alias ndu="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
 alias help='tldr'
 
 nman() {
@@ -162,3 +169,7 @@ set -o vi
 
 source "$HOME/.fzf_custom.zsh"
 source "$HOME/.pacman_cmd.zsh"
+
+if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+  exec startx
+fi
