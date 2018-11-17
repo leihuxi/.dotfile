@@ -65,20 +65,17 @@ bak_file() {
     fi
 }
 
-install_program_for_arch() {
-    sudo pacman -S  --needed - < "$PWD/.pkglist.txt"
-}
-
 install_program_third_parted() {
     npm install -g taskbook
     npm install -g fx
     pip install --user howdoi
+    gem install tmuxinator
 }
 
 install_program_list_required() {
     applist_all_os=( global curl git vim zsh tmux wget cmake python shellcheck rlwrap )
     #fix ycm arch bug
-    if [ "$(check_os_type)" == "Arch" ]; then
+    if [ "$(check_os_type)" = "Arch" ]; then
         applist_all_os+=( jq tldr prettyping bat fzf htop diff-so-fancy fd ncdu the_silver_searcher )
         applist_all_os+=( expac ncurses5-compat-libs ctags powerline-fonts go )
         applist_all_os+=( alacritty-git alacritty-terminfo-git )
@@ -150,7 +147,7 @@ install_dotfile() {
         fi
     fi
 
-    if [ "$(check_os_type)" == "Arch" ]; then
+    if [ "$(check_os_type)" = "Arch" ]; then
         #pacman cmd
         cp "$PWD/.pacman_cmd.zsh" ~
         info "dotfile:pacman_cmd install successfully!"
@@ -236,11 +233,15 @@ main() {
         pacman -Qqe  > "$PWD/.pkglist.txt"
         exit
     fi
-    # install_required_program
-    # install_program_list_required
-    install_program_for_arch
-    # install_dotfile
+
+    if [ "$(check_os_type)" = "Arch" ]; then
+        sudo pacman -S  --needed - < "$PWD/.pkglist.txt"
+    else
+        install_program_list_required
+    fi
+
     install_program_third_parted
+    install_dotfile
 }
 
 main

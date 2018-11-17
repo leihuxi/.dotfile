@@ -3,6 +3,8 @@ alacritty-terminfo-git
 alex
 alsa-utils
 altdns
+android-studio
+android-tools
 arachni
 arandr
 arch-audit
@@ -94,6 +96,7 @@ i3blocks
 i3lock
 i3status
 icmpsh
+iease-music
 imagemagick
 inetutils
 intel-ucode
