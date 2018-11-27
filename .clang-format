@@ -1,5 +1,4 @@
 BasedOnStyle: LLVM
-Language: C
 IndentWidth: 4
 UseTab: Never
 BreakBeforeBraces: Linux
