@@ -1,5 +1,6 @@
 alacritty-git
 alacritty-terminfo-git
+albert
 alex
 alsa-utils
 altdns
@@ -156,6 +157,7 @@ netreconn
 network-manager-applet
 networkmanager
 newsboat
+nnn
 noto-fonts-emoji
 npm
 ntfs-3g

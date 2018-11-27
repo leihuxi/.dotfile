@@ -231,6 +231,7 @@ install_dotfile() {
 main() {
     if [[ "$1" -eq "up" ]]; then
         pacman -Qqe  > "$PWD/.pkglist.txt"
+        git diff "$PWD/.pkglist.txt"
         exit
     fi
 
