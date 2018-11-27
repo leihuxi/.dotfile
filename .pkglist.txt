@@ -24,6 +24,8 @@ binutils
 bison
 blackarch-keyring
 blackman
+bluez
+bluez-utils
 boost
 bridge-utils
 bspwm
@@ -188,6 +190,7 @@ prettyping
 procps-ng
 progress
 psmisc
+pulseaudio-bluetooth
 py3status
 python
 python-delegator.py
@@ -195,6 +198,7 @@ python-docopt
 python-isort
 python-markdown
 python-neovim
+python-numpy
 python-pip
 python-protobuf
 python-psutil
@@ -269,8 +273,10 @@ which
 whowatch
 wpa_supplicant
 wqy-microhei
+wrk
 wtf
 xcompmgr
+xf86-input-synaptics
 xf86-video-intel
 xf86-video-vesa
 xfsprogs
