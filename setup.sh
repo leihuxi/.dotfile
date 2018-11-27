@@ -132,6 +132,7 @@ bak_config() {
     bak_file ~ .cht.sh "${bakdir}"
     bak_file ~ .fzf-scripts "${bakdir}"
     bak_file ~ .gitconfig "${bakdir}"
+    bak_file ~ .clang-format "${bakdir}"
     info "bak all file successfully"
 }
 
@@ -204,6 +205,9 @@ install_dotfile() {
     cp "$PWD/.xinitrc" ~
     cp -rf "$PWD/.config" ~
     info "dotfile:xconfig install successfully!"
+
+    ##clang-format
+    cp "$PWD/.clang-format" ~
 
     #cheat.sh
     mkdir -p ~/.cht.sh/bin
