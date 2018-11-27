@@ -326,4 +326,5 @@ exec_always sogou-qimpanel
 exec_always xset r rate 250 40
 exec_always xset m 4/1 0
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
+exec_always --no-startup-id albert
 exec_always compton -b --config ~/.config/compton/compton.conf
