@@ -4,7 +4,6 @@ albert
 alex
 alsa-utils
 altdns
-android-studio
 android-tools
 arachni
 arandr
@@ -80,6 +79,7 @@ ftplib
 fzf
 gawk
 gcc
+gcc-fortran
 gcc-libs
 gdb
 gettext
@@ -87,6 +87,7 @@ git
 gittools
 glibc
 global
+gnu-netcat
 go
 grep
 groff
@@ -165,6 +166,7 @@ npm
 ntfs-3g
 numlockx
 obs-studio
+octave
 openssh
 opensvp
 pacgraph
@@ -264,7 +266,6 @@ valgrind
 vi
 vim
 virtualbox
-vnote-git
 w3m
 wapiti
 weston
