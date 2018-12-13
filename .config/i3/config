@@ -47,7 +47,7 @@ bindsym $alt+v split vertical
 # bindcode [--release] [<Group>+][<Modifiers>+]<keycode> command
 # Take a screenshot upon pressing $mod+x (select an area)
 # bindsym --release $alt+t exec --no-startup-id import /tmp/latest-screenshot.png
-bindsym --release $alt+t exec --no-startup-id scrot -s /tmp/latest-screenshot.png
+bindsym --release $alt+s exec --no-startup-id scrot -s /tmp/latest-screenshot.png
 
 # Exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Want exit i3?' -b 'Yes' 'i3-msg exit'"
@@ -104,6 +104,13 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+bindsym $alt+a [class="Alacritty"] focus
+bindsym $alt+c [class="Chromium"] focus
+bindsym $alt+i [class="jetbrains-idea-ce"] focus
+bindsym $alt+t [title="xileihu.*"] focus
+bindsym $alt+m [title="musicbox"] focus
+bindsym $alt+q [instance="wx.qq.com"] focus
+bindsym $alt+w [title="work@.*"] focus
 
 # Move focused window
 bindsym $mod+Shift+h move left
@@ -271,7 +278,8 @@ no_focus [window_role="pop-up"]
 # assign <criteria> [→] output left|right|up|down|primary|<output>
 # assign [class="alacritty"] $workspace1
 # assign [class="chromium"] $workspace2
-assign [class="Chromium"] $workspace3
+# assign [class="Chromium"] $workspace3
+assign [window_role="browser"] $workspace3
 assign [class="jetbrains-idea-ce"] $workspace4
 
 # Interprocess communication
