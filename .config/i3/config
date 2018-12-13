@@ -259,6 +259,7 @@ for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
 for_window [class="(?i)VirtualBox"] floating enable
 for_window [class="(?i)arand"] floating enable
 for_window [class="(?i)nm-connection-editor"] floating enable
+for_window [class="(?i)pcmanfm"] floating enable
 
 
 # Don’t focus window upon opening
