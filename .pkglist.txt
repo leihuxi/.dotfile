@@ -216,6 +216,7 @@ python2-rpi-gpio
 qemu
 ranger
 rar
+redshift
 reiserfsprogs
 rkhunter
 rlwrap
@@ -233,6 +234,7 @@ shadow
 shellcheck
 sigthief
 sl
+slop
 smali-cfgs
 smtp-vrfy
 stow
