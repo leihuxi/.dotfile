@@ -105,7 +105,7 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 bindsym $alt+a [class="Alacritty"] focus
-bindsym $alt+c [class="Chromium"] focus
+bindsym $alt+b [class="Chromium" window_role="browser"] focus
 bindsym $alt+i [class="jetbrains-idea-ce"] focus
 bindsym $alt+t [title="xileihu.*"] focus
 bindsym $alt+m [title="musicbox"] focus
