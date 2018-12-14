@@ -232,6 +232,7 @@ sddm
 sed
 shadow
 shellcheck
+shfmt
 sigthief
 sl
 slop
@@ -340,4 +341,5 @@ xsel
 xterm
 yaourt
 yapf
+ydcv
 zsh
