@@ -1,6 +1,9 @@
 # Variables
 set $mod Mod4
-set $alt Mod1
+set $mod1 Mod1
+set $mod2 Shift
+set $mod3 Control
+
 set $mleft   button1
 set $mmiddle button2
 set $mright  button3
@@ -40,17 +43,17 @@ client.placeholder        $color_unused          $color_normal_black    $color_u
 font pango:Source Code Pro, EmojiOne Color 12
 
 # Split Window
-bindsym $alt+h split horizontal
-bindsym $alt+v split vertical
+bindsym $mod1+h split horizontal
+bindsym $mod1+v split vertical
 
 # bindsym [--release] [<Group>+][<Modifiers>+]<keysym> command
 # bindcode [--release] [<Group>+][<Modifiers>+]<keycode> command
 # Take a screenshot upon pressing $mod+x (select an area)
-# bindsym --release $alt+t exec --no-startup-id import /tmp/latest-screenshot.png
-bindsym --release $alt+s exec --no-startup-id scrot -s /tmp/latest-screenshot.png
+# bindsym --release $mod1+t exec --no-startup-id import /tmp/latest-screenshot.png
+bindsym --release $mod1+s exec --no-startup-id scrot -s /tmp/latest-screenshot.png
 
 # Exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Want exit i3?' -b 'Yes' 'i3-msg exit'"
+bindsym $mod+$mod2+e exec "i3-nagbar -t warning -m 'Want exit i3?' -b 'Yes' 'i3-msg exit'"
 
 # Terminal
 bindsym $mod+Return exec alacritty
@@ -63,8 +66,8 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+d exec rofi -show run
 
 # Lock Screen
-bindsym $alt+l exec --no-startup-id xlock
-bindsym $alt+Shift+l exec --no-startup-id ~/.config/i3lock/i3lock.sh
+bindsym $mod1+l exec --no-startup-id xlock
+bindsym $mod1+$mod2+l exec --no-startup-id ~/.config/i3lock/i3lock.sh
 
 # Start pcmanfm
 bindsym $mod+e exec pcmanfm
@@ -85,10 +88,10 @@ bindsym $mod+$mright floating toggle
 bindsym $mod+f fullscreen toggle
 
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+$mod2+r restart
 
 # Close Window
-bindsym Control+Mod1+w kill
+bindsym $mod3+$mod1+w kill
 bindsym $mod+q kill
 
 # Layout change
@@ -104,22 +107,22 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
-bindsym $alt+a [class="Alacritty"] focus
-bindsym $alt+b [class="Chromium" window_role="browser"] focus
-bindsym $alt+i [class="jetbrains-idea-ce"] focus
-bindsym $alt+t [title="xileihu.*"] focus
-bindsym $alt+m [title="musicbox"] focus
-bindsym $alt+q [instance="wx.qq.com"] focus
-bindsym $alt+w [title="work@.*"] focus
+bindsym $mod1+a [class="Alacritty"] focus
+bindsym $mod1+b [class="Chromium" window_role="browser"] focus
+bindsym $mod1+i [class="jetbrains-idea-ce"] focus
+bindsym $mod1+t [title="xileihu.*"] focus
+bindsym $mod1+m [title="musicbox"] focus
+bindsym $mod1+w [instance="wx.qq.com"] focus
+bindsym $mod1+k [title="work@.*"] focus
 
 # Move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+$mod2+h move left
+bindsym $mod+$mod2+j move down
+bindsym $mod+$mod2+k move up
+bindsym $mod+$mod2+l move right
 
 # Float Window Change
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+$mod2+space floating toggle
 
 # Focus Parent
 bindsym $mod+p focus parent
@@ -128,7 +131,7 @@ bindsym $mod+p focus parent
 bindsym $mod+c focus child
 
 # Store Window
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+$mod2+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
@@ -138,7 +141,7 @@ bindsym $mod+minus scratchpad show
 bindsym $mod+a [floating] move scratchpad
 
 # Reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+$mod2+c reload
 
 # Switch to workspace using number row
 bindsym $mod+1 $workspace1
@@ -154,16 +157,16 @@ bindsym $mod+0 $workspace0
 bindsym $mod+Tab workspace back_and_forth
 
 # Move window to workspace using number row
-bindsym $mod+Shift+1 move container to $workspace1
-bindsym $mod+Shift+2 move container to $workspace2
-bindsym $mod+Shift+3 move container to $workspace3
-bindsym $mod+Shift+4 move container to $workspace4
-bindsym $mod+Shift+5 move container to $workspace5
-bindsym $mod+Shift+6 move container to $workspace6
-bindsym $mod+Shift+7 move container to $workspace7
-bindsym $mod+Shift+8 move container to $workspace8
-bindsym $mod+Shift+9 move container to $workspace9
-bindsym $mod+Shift+0 move container to $workspace0
+bindsym $mod+$mod2+1 move container to $workspace1
+bindsym $mod+$mod2+2 move container to $workspace2
+bindsym $mod+$mod2+3 move container to $workspace3
+bindsym $mod+$mod2+4 move container to $workspace4
+bindsym $mod+$mod2+5 move container to $workspace5
+bindsym $mod+$mod2+6 move container to $workspace6
+bindsym $mod+$mod2+7 move container to $workspace7
+bindsym $mod+$mod2+8 move container to $workspace8
+bindsym $mod+$mod2+9 move container to $workspace9
+bindsym $mod+$mod2+0 move container to $workspace0
 
 # Border
 # border normal|pixel|toggle [<n>]
@@ -191,7 +194,7 @@ mode "$mode_launcher" {
 
 # System Command
 set $mode_system  Logout(O) Poweroff(S) Reboot(R) Cance(Esc)
-bindsym $mod+Shift+q mode "$mode_system"
+bindsym $mod+$mod2+q mode "$mode_system"
 mode "$mode_system" {
     bindsym o exec i3-msg exit
     bindsym s exec systemctl poweroff
@@ -322,7 +325,7 @@ bar {
         # i3bar_command i3bar -t
         status_command py3status -c ~/.config/py3status/py3status.conf
         position bottom
-        modifier Shift
+        modifier $mod2
         separator_symbol "]["
         strip_workspace_numbers yes
         height 24
@@ -338,10 +341,127 @@ bar {
 }
 
 # i3-Gap Use
-gaps inner 0
-gaps outer 0
-smart_gaps on
-smart_borders on
+# smart_gaps on
+# smart_borders on
+set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_horiz Horizontal Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_verti Vertical Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_top Top Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_right Right Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_bottom Bottom Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_left Left Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+g mode "$mode_gaps"
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym h      mode "$mode_gaps_horiz"
+        bindsym v      mode "$mode_gaps_verti"
+        bindsym t      mode "$mode_gaps_top"
+        bindsym r      mode "$mode_gaps_right"
+        bindsym b      mode "$mode_gaps_bottom"
+        bindsym l      mode "$mode_gaps_left"
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym $mod2+plus  gaps outer all plus 5
+        bindsym $mod2+minus gaps outer all minus 5
+        bindsym $mod2+0     gaps outer all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym $mod2+plus  gaps inner all plus 5
+        bindsym $mod2+minus gaps inner all minus 5
+        bindsym $mod2+0     gaps inner all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_horiz" {
+        bindsym plus  gaps horizontal current plus 5
+        bindsym minus gaps horizontal current minus 5
+        bindsym 0     gaps horizontal current set 0
+
+        bindsym $mod2+plus  gaps horizontal all plus 5
+        bindsym $mod2+minus gaps horizontal all minus 5
+        bindsym $mod2+0     gaps horizontal all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_verti" {
+        bindsym plus  gaps vertical current plus 5
+        bindsym minus gaps vertical current minus 5
+        bindsym 0     gaps vertical current set 0
+
+        bindsym $mod2+plus  gaps vertical all plus 5
+        bindsym $mod2+minus gaps vertical all minus 5
+        bindsym $mod2+0     gaps vertical all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_top" {
+        bindsym plus  gaps top current plus 5
+        bindsym minus gaps top current minus 5
+        bindsym 0     gaps top current set 0
+
+        bindsym $mod2+plus  gaps top all plus 5
+        bindsym $mod2+minus gaps top all minus 5
+        bindsym $mod2+0     gaps top all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_right" {
+        bindsym plus  gaps right current plus 5
+        bindsym minus gaps right current minus 5
+        bindsym 0     gaps right current set 0
+
+        bindsym $mod2+plus  gaps right all plus 5
+        bindsym $mod2+minus gaps right all minus 5
+        bindsym $mod2+0     gaps right all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_bottom" {
+        bindsym plus  gaps bottom current plus 5
+        bindsym minus gaps bottom current minus 5
+        bindsym 0     gaps bottom current set 0
+
+        bindsym $mod2+plus  gaps bottom all plus 5
+        bindsym $mod2+minus gaps bottom all minus 5
+        bindsym $mod2+0     gaps bottom all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_left" {
+        bindsym plus  gaps left current plus 5
+        bindsym minus gaps left current minus 5
+        bindsym 0     gaps left current set 0
+
+        bindsym $mod2+plus  gaps left all plus 5
+        bindsym $mod2+minus gaps left all minus 5
+        bindsym $mod2+0     gaps left all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
 
 # Auto Start
 # exec --no-startup-id i3-msg "workspace 1:Main"
