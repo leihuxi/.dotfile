@@ -342,7 +342,10 @@ bar {
 
 # i3-Gap Use
 # smart_gaps on
-# smart_borders on
+smart_borders on
+gaps outer 0
+gaps inner 10 
+
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
