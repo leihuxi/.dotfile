@@ -29,11 +29,14 @@ boost
 bridge-utils
 bspwm
 bzip2
+cdecl
+cflow
 chromium
 clamav
 clang
 cmake
 compton
+conky
 copyq
 coreutils
 cowsay
@@ -95,7 +98,7 @@ gzip
 htop
 httpie
 hub
-i3-gaps
+i3-wm
 i3blocks
 i3lock
 i3status
@@ -180,6 +183,7 @@ pciutils
 pcmanfm
 pcmciautils
 pdfbook-analyzer
+perf
 perl
 perl-cpan-meta-check
 phantomjs
