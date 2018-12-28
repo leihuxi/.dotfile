@@ -10,6 +10,7 @@ arandr
 arch-audit
 archlinuxcn-keyring
 arpwatch
+atop
 audit
 autoconf
 automake
@@ -39,6 +40,7 @@ copyq
 coreutils
 cowsay
 cpio
+cquery
 cryptsetup
 csrftester
 ctags
@@ -113,6 +115,7 @@ jfsutils
 jq
 kitty
 lantern-bin
+lazygit
 less
 libreoffice-fresh
 libtool

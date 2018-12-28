@@ -327,8 +327,8 @@ bar {
         position bottom
         modifier $mod2
         separator_symbol "]["
-        strip_workspace_numbers yes
-        height 24
+        # strip_workspace_numbers yes
+        # height 24
         colors {
             background #000000CC
             statusline #000000FF
