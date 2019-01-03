@@ -125,6 +125,8 @@ lightdm
 lightdm-gtk-greeter
 linux
 linux-headers
+lldb
+llvm
 logrotate
 lolcat
 lrzsz
@@ -140,6 +142,7 @@ man-pages
 maven
 mdadm
 mdcrack
+mesa-demos
 mibble
 mpc
 mpd
@@ -286,7 +289,9 @@ wrk
 wtf
 xcompmgr
 xf86-input-synaptics
+xf86-video-fbdev
 xf86-video-intel
+xf86-video-nouveau
 xf86-video-vesa
 xfsprogs
 xlockmore

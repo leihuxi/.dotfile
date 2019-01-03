@@ -1,4 +1,5 @@
 # Variables
+#super mod4 , alt Mod1
 set $mod Mod4
 set $mod1 Mod1
 set $mod2 Shift
@@ -344,7 +345,7 @@ bar {
 # smart_gaps on
 # smart_borders on
 gaps outer 3
-gaps inner 5 
+gaps inner 5
 
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
