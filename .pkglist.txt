@@ -29,6 +29,7 @@ bluez-utils
 boost
 bridge-utils
 bspwm
+bumblebee
 bzip2
 chromium
 clamav
@@ -54,6 +55,7 @@ dmenu
 dos2unix
 dunst
 e2fsprogs
+efibootmgr
 eslint
 exa
 exfat-utils
@@ -94,6 +96,7 @@ gnu-netcat
 go
 grep
 groff
+grub
 gzip
 htop
 httpie
@@ -124,6 +127,7 @@ licenses
 lightdm
 lightdm-gtk-greeter
 linux
+linux-docs
 linux-headers
 lldb
 llvm
@@ -172,10 +176,13 @@ noto-fonts-emoji
 npm
 ntfs-3g
 numlockx
+nvidia
+nvidia-utils
 obs-studio
 octave
 openssh
 opensvp
+os-prober
 pacgraph
 pacman
 pandoc
@@ -294,6 +301,7 @@ xf86-video-intel
 xf86-video-nouveau
 xf86-video-vesa
 xfsprogs
+xinit-xsession
 xlockmore
 xmlstarlet
 xorg-bdftopcf
