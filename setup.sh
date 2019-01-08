@@ -12,17 +12,27 @@ is_sudo() {
 
 check_os_type() {
     case $(uname) in
-        Linux )
-            command -v yum && { echo "CentOS"; return; }
-            command -v apt-get && { echo "Ubuntu"; return; }
-            command -v pacman && { echo "Arch"; return; }
-            ;;
-        Darwin )
-            echo "Mac"; return;
-            ;;
-        * )
-            # Handle AmgiaOS, CPM, and modified cable modems here.
-            ;;
+    Linux)
+        command -v yum && {
+            echo "CentOS"
+            return
+        }
+        command -v apt-get && {
+            echo "Ubuntu"
+            return
+        }
+        command -v pacman && {
+            echo "Arch"
+            return
+        }
+        ;;
+    Darwin)
+        echo "Mac"
+        return
+        ;;
+    *)
+        # Handle AmgiaOS, CPM, and modified cable modems here.
+        ;;
     esac
 }
 
@@ -73,37 +83,37 @@ install_program_third_parted() {
 }
 
 install_program_list_required() {
-    applist_all_os=( global curl git vim zsh tmux wget cmake python shellcheck rlwrap )
+    applist_all_os=(global curl git vim zsh tmux wget cmake python shellcheck rlwrap)
     #fix ycm arch bug
     if [ "$(check_os_type)" = "Arch" ]; then
-        applist_all_os+=( jq tldr prettyping bat fzf htop diff-so-fancy fd ncdu the_silver_searcher )
-        applist_all_os+=( expac ncurses5-compat-libs ctags powerline-fonts go )
-        applist_all_os+=( alacritty-git alacritty-terminfo-git )
-        applist_all_os+=( flake8 yapf python-isort )
-        applist_all_os+=( i3-gaps i3lock py3status compton rofi feh ranger alsa-utils xorg xorg-init scrot xrand arand dunst )
-        applist_all_os+=( ltrace strace valgrind gdb pmap lsof task)
+        applist_all_os+=(jq tldr prettyping bat fzf htop diff-so-fancy fd ncdu the_silver_searcher)
+        applist_all_os+=(expac ncurses5-compat-libs ctags powerline-fonts go)
+        applist_all_os+=(alacritty-git alacritty-terminfo-git)
+        applist_all_os+=(flake8 yapf python-isort)
+        applist_all_os+=(i3-gaps i3lock py3status compton rofi feh ranger alsa-utils xorg xorg-init scrot xrand arand dunst)
+        applist_all_os+=(ltrace strace valgrind gdb pmap lsof task)
         # applist_all_os+=( arch-audit )
     fi
 
     if [ "$(check_os_type)" = "Ubuntu" ]; then
-        applist_all_os+=( exuberant-ctags fonts-powerline silversearcher-ag golang )
+        applist_all_os+=(exuberant-ctags fonts-powerline silversearcher-ag golang)
     fi
 
     if [ "$(check_os_type)" = "CentOS" ]; then
-        applist_all_os+=( ctags powerline-fonts the_silver_searcher golang )
+        applist_all_os+=(ctags powerline-fonts the_silver_searcher golang)
     fi
 
     if [ "$(check_os_type)" != "Mac" ]; then
-        applist_all_os+=( python-setuptools python-appdirs python-pyparsing python-setuptools python-six python-pip )
+        applist_all_os+=(python-setuptools python-appdirs python-pyparsing python-setuptools python-six python-pip)
         # For tip
         # applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
         # For system
         # applist_all_os+=( sysdig sysstat)
         # For html js synatic
         # applist_all_os+=( eslint typescript alex )
-        applist_all_os+=( bcc-git bcc-tools-git python-bcc-git )
-        applist_all_os+=( arpwatch audit rkhunter progress lynis netdata )
-        applist_all_os+=( xlockmore progress )
+        applist_all_os+=(bcc-git bcc-tools-git python-bcc-git)
+        applist_all_os+=(arpwatch audit rkhunter progress lynis netdata)
+        applist_all_os+=(xlockmore progress)
 
     fi
     install_program "${applist_all_os[*]}"
@@ -139,7 +149,7 @@ bak_config() {
 install_dotfile() {
     bak_config
     ## alacritty
-    if program_already_installed alacritty ; then
+    if program_already_installed alacritty; then
         mkdir -p ~/.config/alacritty
         if cp "$PWD/.alacritty.yml" ~/.config/alacritty/alacritty.yml; then
             info "dotfile:alacritty install successfully!"
@@ -211,7 +221,7 @@ install_dotfile() {
 
     #cheat.sh
     mkdir -p ~/.cht.sh/bin
-    curl https://cht.sh/:cht.sh > ~/.cht.sh/bin/cht.sh
+    curl https://cht.sh/:cht.sh >~/.cht.sh/bin/cht.sh
     chmod u+x ~/.cht.sh/bin/cht.sh
     info "dotfile:cheat.sh install successfully!"
 
@@ -232,15 +242,24 @@ install_dotfile() {
     info "all installed successfully, Please reboot your shell!"
 }
 
+update_software() {
+    (cd ~/.oh-my-zsh && git pull)
+    (cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git pull)
+    (cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull)
+    (cd ~/.fzf-scripts && git pull)
+    (bak_file ~ .gdbinit ~/.bakconfig && wget -P ~ git.io/.gdbinit)
+}
+
 main() {
     if [[ "$1" -eq "up" ]]; then
-        pacman -Qqe  > "$PWD/.pkglist.txt"
+        update_software
+        pacman -Qqe >"$PWD/.pkglist.txt"
         git diff "$PWD/.pkglist.txt"
         exit
     fi
 
     if [ "$(check_os_type)" = "Arch" ]; then
-        sudo pacman -S  --needed - < "$PWD/.pkglist.txt"
+        sudo pacman -S --needed - <"$PWD/.pkglist.txt"
     else
         install_program_list_required
     fi

@@ -79,6 +79,7 @@ findutils
 fish
 flake8
 flex
+fortune-mod
 four-in-a-row
 ftplib
 fzf
