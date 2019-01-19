@@ -9,8 +9,8 @@
   #
   # This value is used to set the `$TERM` environment variable for
   # each instance of Alacritty. If it is not present, alacritty will
-  # check the local terminfo database and use 'alacritty' if it is
-  # available, otherwise 'xterm-256color' is used.
+  # check the local terminfo database and use `alacritty` if it is
+  # available, otherwise `xterm-256color` is used.
   #TERM: xterm-256color
 
 window:
@@ -38,6 +38,10 @@ window:
   # Values for `decorations`:
   #     - full: Borders and title bar
   #     - none: Neither borders nor title bar
+  #
+  # Values for `decorations` (macOS only):
+  #     - buttonless: Title bar, transparent background and title bar buttons
+  #     - transparent: Title bar, transparent background, but no title bar buttons
   decorations: full
 
   # When true, alacritty starts maximized.
@@ -93,21 +97,38 @@ tabspaces: 8
 font:
   # Normal (roman) font face
   normal:
-    family: monospace
+    # Font family
+    #
+    # Default:
+    #   - (macOS) Menlo
+    #   - (Linux) monospace
+    #   - (Windows) Consolas
+    #family: monospace
+
     # The `style` can be specified to pick a specific face.
-    #style: Regular
+    style: Regular
 
   # Bold font face
   bold:
-    family: monospace
+    # Font family
+    #
+    # If the bold family is not specified, it will fall back to the
+    # value specified for the normal font.
+    #family: monospace
+
     # The `style` can be specified to pick a specific face.
-    #style: Bold
+    style: Bold
 
   # Italic font face
   italic:
-    family: monospace
+    # Font family
+    #
+    # If the italic family is not specified, it will fall back to the
+    # value specified for the normal font.
+    #family: monospace
+
     # The `style` can be specified to pick a specific face.
-    #style: Italic
+    style: Italic
 
   # Point size
   size: 12.0
@@ -124,6 +145,22 @@ font:
   glyph_offset:
     x: 0
     y: 0
+
+  # Thin stroke font rendering (macOS only)
+  #
+  # Thin strokes are suitable for retina displays, but for non-retina screens
+  # it is recommended to set `use_thin_strokes` to `false`
+  #
+  # macOS >= 10.14.x:
+  #
+  # If the font quality on non-retina display looks bad then set
+  # `use_thin_strokes` to `true` and enable font smoothing by running the
+  # following command:
+  #   `defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO`
+  #
+  # This is a global setting and will require a log out or restart to take
+  # effect.
+  use_thin_strokes: true
 
 # Display the time it takes to redraw each frame.
 render_timer: false
@@ -166,8 +203,11 @@ colors:
   #
   # The indexed colors include all colors from 16 to 256.
   # When these are not set, they're filled with sensible defaults.
-  #indexed_colors:
-  #  - { index: 16, color: '0x000000' }
+  #
+  # Example:
+  #   `- { index: 16, color: '0xff00ff' }`
+  #
+  indexed_colors: []
 
 # Visual Bell
 #
@@ -236,6 +276,11 @@ mouse:
     #
     # This program is executed when clicking on a text which is recognized as a URL.
     # The URL is always added to the command as the last parameter.
+    #
+    # Default:
+    #   - (macOS) open
+    #   - (Linux) xdg-open
+    #   - (Windows) explorer
     launcher: xdg-open
 
     # URL modifiers
@@ -252,12 +297,13 @@ selection:
   # clipboard.
   save_to_clipboard: true
 
+# Allow terminal applications to change Alacritty's window title.
 dynamic_title: true
 
 cursor:
   # Cursor style
   #
-  # Values for 'style':
+  # Values for `style`:
   #   - ▇ Block
   #   - _ Underline
   #   - | Beam
@@ -274,19 +320,41 @@ live_config_reload: true
 #
 # You can set `shell.program` to the path of your favorite shell, e.g. `/bin/fish`.
 # Entries in `shell.args` are passed unmodified as arguments to the shell.
+#
+# Default:
+#   - (Linux/macOS) /bin/bash --login
+#   - (Windows) powershell
 #shell:
 #  program: /bin/bash
 #  args:
 #    - --login
 
+# Windows 10 ConPTY backend (Windows only)
+#
+# This will enable better color support and may resolve other issues,
+# however this API and its implementation is still young and so is
+# disabled by default, as stability may not be as good as the winpty
+# backend.
+#
+# Alacritty will fall back to the WinPTY automatically if the ConPTY
+# backend cannot be initialized.
+enable_experimental_conpty_backend: false
+
+# Send ESC (\x1b) before characters when alt is pressed.
+alt_send_esc: true
+
 # Key bindings
 #
-# Key bindings are specified as a list of objects. Each binding will specify
-# a key and modifiers required to trigger it, terminal modes where the binding
-# is applicable, and what should be done when the key binding fires. It can
-# either send a byte sequnce to the running application (`chars`), execute
-# a predefined action (`action`) or fork and execute a specified command plus
+# Key bindings are specified as a list of objects. Each binding will specify a
+# key and modifiers required to trigger it, terminal modes where the binding is
+# applicable, and what should be done when the key binding fires. It can either
+# send a byte sequence to the running application (`chars`), execute a
+# predefined action (`action`) or fork and execute a specified command plus
 # arguments (`command`).
+#
+# Bindings are always filled by default, but will be replaced when a new binding
+# with the same triggers is defined. To unset a default binding, it can be
+# mapped to the `None` action.
 #
 # Example:
 #   `- { key: V, mods: Control|Shift, action: Paste }`
@@ -312,8 +380,9 @@ live_config_reload: true
 #     `showkey --scancodes`
 #
 # Values for `mods`:
-#   - Super
+#   - Command
 #   - Control
+#   - Super
 #   - Shift
 #   - Alt
 #
@@ -345,6 +414,7 @@ live_config_reload: true
 #   - Quit
 #   - ClearLogNotice
 #   - SpawnNewInstance
+#   - None
 #
 # Values for `command`:
 #   The `command` field must be a map containing a `program` string and
@@ -359,14 +429,28 @@ live_config_reload: true
 #   - ~AppKeypad
 #   - AppKeypad
 key_bindings:
+  # (Windows/Linux only)
   - { key: V,        mods: Control|Shift,    action: Paste               }
   - { key: C,        mods: Control|Shift,    action: Copy                }
-  - { key: Paste,                   action: Paste                        }
-  - { key: Copy,                    action: Copy                         }
   - { key: Insert,   mods: Shift,   action: PasteSelection               }
   - { key: Key0,     mods: Control, action: ResetFontSize                }
   - { key: Equals,   mods: Control, action: IncreaseFontSize             }
   - { key: Subtract, mods: Control, action: DecreaseFontSize             }
+
+  # (macOS only)
+  #- { key: Key0,     mods: Command, action: ResetFontSize                }
+  #- { key: Equals,   mods: Command, action: IncreaseFontSize             }
+  #- { key: Minus,    mods: Command, action: DecreaseFontSize             }
+  #- { key: K,        mods: Command, action: ClearHistory                 }
+  #- { key: K,        mods: Command, chars: "\x0c"                        }
+  #- { key: V,        mods: Command, action: Paste                        }
+  #- { key: C,        mods: Command, action: Copy                         }
+  #- { key: H,        mods: Command, action: Hide                         }
+  #- { key: Q,        mods: Command, action: Quit                         }
+  #- { key: W,        mods: Command, action: Quit                         }
+
+  - { key: Paste,                   action: Paste                        }
+  - { key: Copy,                    action: Copy                         }
   - { key: L,        mods: Control, action: ClearLogNotice               }
   - { key: L,        mods: Control, chars: "\x0c"                        }
   - { key: Home,                    chars: "\x1bOH",   mode: AppCursor   }
@@ -464,8 +548,4 @@ key_bindings:
   - { key: F10,      mods: Super,   chars: "\x1b[21;3~"                  }
   - { key: F11,      mods: Super,   chars: "\x1b[23;3~"                  }
   - { key: F12,      mods: Super,   chars: "\x1b[24;3~"                  }
-  - { key: PageUp,   mods: Shift,   action: ScrollPageUp                 }
-  - { key: PageDown, mods: Shift,   action: ScrollPageDown               }
-  - { key: End,      mods: Shift,   action: ScrollToBottom               }
-  - { key: Home,     mods: Shift,   action: ScrollToTop                  }
-
+  - { key: NumpadEnter,             chars: "\n"                          }

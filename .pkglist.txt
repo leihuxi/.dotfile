@@ -29,7 +29,6 @@ bluez-utils
 boost
 bridge-utils
 bspwm
-bumblebee
 bzip2
 chromium
 clamav
@@ -124,6 +123,7 @@ less
 libreoffice-fresh
 libtool
 libvirt
+libzip
 licenses
 lightdm
 lightdm-gtk-greeter
@@ -144,6 +144,7 @@ m4
 make
 man-db
 man-pages
+mariadb
 maven
 mdadm
 mdcrack
@@ -361,4 +362,5 @@ xterm
 yaourt
 yapf
 ydcv
+zip
 zsh
