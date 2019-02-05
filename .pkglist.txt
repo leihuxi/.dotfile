@@ -30,6 +30,7 @@ boost
 bridge-utils
 bspwm
 bzip2
+c
 chromium
 clamav
 clang
@@ -94,6 +95,7 @@ glibc
 global
 gnu-netcat
 go
+goaccess
 grep
 groff
 grub
@@ -127,7 +129,6 @@ libzip
 licenses
 lightdm
 lightdm-gtk-greeter
-linux
 linux-docs
 linux-headers
 lldb

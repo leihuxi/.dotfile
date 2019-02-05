@@ -79,6 +79,7 @@ install_program_third_parted() {
     npm install -g taskbook
     npm install -g fx
     pip install --user howdoi
+    pip install --user gdbgui
     gem install tmuxinator
 }
 
