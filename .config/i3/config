@@ -67,8 +67,8 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+d exec rofi -show run
 
 # Lock Screen
-bindsym $mod1+l exec --no-startup-id xlock
-bindsym $mod1+$mod2+l exec --no-startup-id ~/.config/i3lock/i3lock.sh
+# bindsym $mod1+$mod2+l exec --no-startup-id xlock
+bindsym $mod1+l exec --no-startup-id ~/.config/i3lock/i3lock.sh
 
 # Start pcmanfm
 bindsym $mod+e exec pcmanfm
@@ -474,7 +474,7 @@ mode "$mode_gaps_left" {
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always pulseaudio --start -D
 exec_always --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/apocalyptic-hipster.jpg
-exec_always xrandr --output DP1 --pos 0x0 --output eDP1 --pos 0x1080
+# exec_always xrandr --output DP1 --pos 0x0 --output eDP1 --pos 0x1080
 exec_always xrandr --output DP-1 --pos 0x0 --output eDP-1 --pos 0x1080
 exec_always amixer sset Master on
 exec_always fcitx

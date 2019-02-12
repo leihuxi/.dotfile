@@ -183,6 +183,7 @@ nvidia
 nvidia-utils
 obs-studio
 octave
+openconnect
 openssh
 opensvp
 os-prober
