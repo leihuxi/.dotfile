@@ -118,6 +118,7 @@ iputils
 iw
 jfsutils
 jq
+kchmviewer
 kitty
 lantern-bin
 lazygit
@@ -272,6 +273,7 @@ task
 teardown
 texinfo
 the_silver_searcher
+thrift
 tig
 tldr
 tmux
