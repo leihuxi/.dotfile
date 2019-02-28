@@ -51,7 +51,7 @@ tmux_conf_theme_window_bg='default'
 # highlight focused pane (tmux >= 2.1), possible values are:
 #   - true
 #   - false (default)
-tmux_conf_theme_highlight_focused_pane=true
+tmux_conf_theme_highlight_focused_pane=false
 
 # focused pane colours:
 tmux_conf_theme_focused_pane_fg='default'
@@ -302,3 +302,23 @@ bind-key -n C-j if-shell "$is_vim" "send-keys C-j"  "select-pane -D"
 bind-key -n C-k if-shell "$is_vim" "send-keys C-k"  "select-pane -U"
 bind-key -n C-l if-shell "$is_vim" "send-keys C-l"  "select-pane -R"
 bind-key -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
+
+# List of plugins
+set -g @tpm_plugins '          \
+  tmux-plugins/tpm             \
+  tmux-plugins/tmux-sensible   \
+  tmux-plugins/tmux-resurrect  \
+  tmux-plugins/tmux-yank       \
+  tmux-plugins/tmux-continuum  \
+  tmux-plugins/tmux-copycat    \
+'
+
+#tmux-yank
+set -g @shell_mode 'vi'
+#save session
+set -g @resurrect-save-bash-history 'on'
+set -g @resurrect-capture-pane-contents 'on'
+set -g @resurrect-strategy-vim 'session'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run -b '~/.tmux/plugins/tpm/tpm'

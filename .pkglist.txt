@@ -35,6 +35,7 @@ chromium
 clamav
 clang
 cmake
+code
 compton
 conky
 copyq

@@ -169,6 +169,7 @@ install_dotfile() {
     if git clone https://github.com/gpakosz/.tmux.git ~/.tmux; then
         ln -s -f .tmux/.tmux.conf ~/.tmux.conf
         cp "$PWD/.tmux.conf.local" ~
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
         info "dotfile:tmux.conf install successfully!"
     else
         error "dotfile:zshrc install failed"
