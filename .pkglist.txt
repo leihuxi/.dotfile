@@ -109,7 +109,6 @@ i3blocks
 i3lock
 i3status
 icmpsh
-iease-music
 imagemagick
 inetutils
 intel-ucode
