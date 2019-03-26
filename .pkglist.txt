@@ -5,6 +5,7 @@ alex
 alsa-utils
 altdns
 android-tools
+android-udev
 arachni
 arandr
 arch-audit
@@ -68,6 +69,7 @@ fcitx-configtool
 fcitx-googlepinyin
 fcitx-gtk2
 fcitx-gtk3
+fcitx-libpinyin
 fcitx-qt5
 fcitx-sogoupinyin
 fd
@@ -98,6 +100,7 @@ gnu-netcat
 go
 goaccess
 grep
+grim
 groff
 grub
 gzip
@@ -128,8 +131,10 @@ libtool
 libvirt
 libzip
 licenses
+light
 lightdm
 lightdm-gtk-greeter
+linux
 linux-docs
 linux-headers
 lldb
@@ -144,6 +149,7 @@ lvm2
 lynis
 m4
 make
+mako
 man-db
 man-pages
 mariadb
@@ -180,8 +186,6 @@ noto-fonts-emoji
 npm
 ntfs-3g
 numlockx
-nvidia
-nvidia-utils
 obs-studio
 octave
 openconnect
@@ -256,6 +260,7 @@ shfmt
 sigthief
 sl
 slop
+slurp
 smali-cfgs
 smtp-vrfy
 stow
@@ -263,6 +268,8 @@ strace
 subdomainer
 sudo
 sway
+swayidle
+swaylock
 sxhkd
 sysfsutils
 sysstat
@@ -270,6 +277,7 @@ systemd
 systemd-sysvcompat
 tar
 task
+tcl
 teardown
 texinfo
 the_silver_searcher
@@ -292,10 +300,13 @@ vim
 virtualbox
 w3m
 wapiti
+waybar
 weston
 wget
 which
 whowatch
+wireshark-qt
+wl-clipboard
 wpa_supplicant
 wqy-microhei
 wrk
@@ -318,7 +329,6 @@ xorg-fonts-75dpi
 xorg-fonts-encodings
 xorg-iceauth
 xorg-luit
-xorg-mkfontdir
 xorg-mkfontscale
 xorg-server
 xorg-server-common

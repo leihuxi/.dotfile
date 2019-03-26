@@ -1,0 +1,497 @@
+# Variables
+#super mod4 , alt Mod1
+set $mod Mod4
+set $mod1 Mod1
+set $mod2 Shift
+set $mod3 Control
+
+set $mleft   button1
+set $mmiddle button2
+set $mright  button3
+
+set $workspace1 workspace number 1
+set $workspace2 workspace number 2
+set $workspace3 workspace number 3
+set $workspace4 workspace number 4
+set $workspace5 workspace number 5
+set $workspace6 workspace number 6
+set $workspace7 workspace number 7
+set $workspace8 workspace number 8
+set $workspace9 workspace number 9
+set $workspace0 workspace number 10
+
+set $color_normal_white  #a89984
+set $color_bright_white  #ebdbb2
+set $color_normal_gray   #222222
+set $color_bright_gray   #3c3836
+set $color_bright_yellow #d79921
+set $color_normal_black  #282828
+set $color_unused        #ff0000
+
+# Color scheme (Gruvbox dark)
+# new_window pixel 2
+# new_float pixel 2
+# Colors                  border                 background             text                   indicator       child_border
+client.focused            $color_bright_gray     $color_bright_gray     $color_bright_white    $color_unused   $color_normal_white
+client.focused_inactive   $color_bright_gray     $color_bright_gray     $color_bright_white    $color_unused   $color_normal_black
+client.unfocused          $color_normal_gray     $color_normal_gray     $color_normal_white    $color_unused   $color_normal_black
+client.urgent             $color_bright_yellow   $color_bright_yellow   $color_normal_black    $color_unused   $color_unused
+client.placeholder        $color_unused          $color_normal_black    $color_unused          $color_unused   $color_unused
+
+# Font
+# font <X core font description>
+# font pango:<family list> [<style options>] <size>
+font pango:Source Code Pro, EmojiOne Color 12
+
+# Split Window
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# bindsym [--release] [<Group>+][<Modifiers>+]<keysym> command
+# bindcode [--release] [<Group>+][<Modifiers>+]<keycode> command
+# Take a screenshot upon pressing $mod+x (select an area)
+# bindsym --release $mod1+t exec --no-startup-id import /tmp/latest-screenshot.png
+# bindsym --release $mod1+s exec --no-startup-id scrot -s /tmp/latest-screenshot.png
+bindsym --release $mod1+s exec --no-startup-id grim -g \"$(slurp)" /tmp/latest-screenshot.png
+bindsym --release Print exec grim -g \"$(slurp)" - | wl-copy
+
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+# Terminal
+bindsym $mod+Return exec alacritty
+# bindsym $mod+Return exec kitty
+
+# start neofetch
+# bindsym $mod+i exec neofech
+
+# Start rofi (a program launcher)
+bindsym $mod+d exec rofi -show run
+
+# Lock Screen
+# bindsym $mod1+$mod2+l exec --no-startup-id xlock
+bindsym $mod1+l exec --no-startup-id swaylock --image ~/.config/i3lock/img/background.png
+
+# Start pcmanfm
+bindsym $mod+e exec pcmanfm
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+#bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
+#bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
+#bindsym XF86AudioMute exec amixer sset Master toggle
+
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessDown exec light -A 20
+bindsym XF86MonBrightnessUp exec light -U 20
+
+# The right button toggles floating
+bindsym $mod+$mright floating toggle
+
+# Full Screen
+bindsym $mod+f fullscreen toggle
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+$mod2+r restart
+
+# Close Window
+bindsym $mod3+$mod1+w kill
+bindsym $mod+q kill
+
+# Layout change
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+x layout toggle split
+
+# Float or Flat Change
+bindsym $mod+space focus mode_toggle
+
+# Switch focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod1+a [class="Alacritty"] focus
+bindsym $mod1+b [class="Chromium" window_role="browser"] focus
+bindsym $mod1+i [class="jetbrains-idea-ce"] focus
+bindsym $mod1+t [title="xileihu.*"] focus
+bindsym $mod1+m [title="musicbox"] focus
+bindsym $mod1+e [instance="ieasemusic"] focus
+bindsym $mod1+w [instance="wx.qq.com"] focus
+bindsym $mod1+k [title="work@.*"] focus
+
+# Move focused window
+bindsym $mod+$mod2+h move left
+bindsym $mod+$mod2+j move down
+bindsym $mod+$mod2+k move up
+bindsym $mod+$mod2+l move right
+
+# Float Window Change
+bindsym $mod+$mod2+space floating toggle
+
+# Focus Parent
+bindsym $mod+p focus parent
+
+# Focus Child
+bindsym $mod+c focus child
+
+# Store Window
+bindsym $mod+$mod2+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+# move all floating windows to the scratchpad
+bindsym $mod+a [floating] move scratchpad
+
+# Reload the configuration file
+bindsym $mod+$mod2+c reload
+
+# Switch to workspace using number row
+bindsym $mod+1 $workspace1
+bindsym $mod+2 $workspace2
+bindsym $mod+3 $workspace3
+bindsym $mod+4 $workspace4
+bindsym $mod+5 $workspace5
+bindsym $mod+6 $workspace6
+bindsym $mod+7 $workspace7
+bindsym $mod+8 $workspace8
+bindsym $mod+9 $workspace9
+bindsym $mod+0 $workspace0
+bindsym $mod+Tab workspace back_and_forth
+
+# Move window to workspace using number row
+bindsym $mod+$mod2+1 move container to $workspace1
+bindsym $mod+$mod2+2 move container to $workspace2
+bindsym $mod+$mod2+3 move container to $workspace3
+bindsym $mod+$mod2+4 move container to $workspace4
+bindsym $mod+$mod2+5 move container to $workspace5
+bindsym $mod+$mod2+6 move container to $workspace6
+bindsym $mod+$mod2+7 move container to $workspace7
+bindsym $mod+$mod2+8 move container to $workspace8
+bindsym $mod+$mod2+9 move container to $workspace9
+bindsym $mod+$mod2+0 move container to $workspace0
+
+# Move workspace
+bindsym $mod+$mod3+j move workspace to output down
+bindsym $mod+$mod3+k move workspace to output up
+bindsym $mod+$mod3+h move workspace to output left
+bindsym $mod+$mod3+l move workspace to output right
+# Border
+# border normal|pixel|toggle [<n>]
+# use window title, but no border
+bindsym $mod+t border normal 0
+# use no window title and a thick border
+bindsym $mod+y border pixel 3
+# use neither window title nor border
+bindsym $mod+u border none
+
+# config directive
+# mode [--pango_markup] <name>
+# command
+# mode <name>
+# Press $mod+o followed by either f, t, Escape or Return to launch firefox,
+set $mode_launcher Launch: [c]hromium [i]dea
+bindsym $mod+o mode "$mode_launcher"
+mode "$mode_launcher" {
+    bindsym c exec chromium
+    bindsym i exec idea
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+# System Command
+set $mode_system  Logout(O) Poweroff(S) Reboot(R) Cance(Esc)
+bindsym $mod+$mod2+q mode "$mode_system"
+mode "$mode_system" {
+    bindsym o exec i3-msg exit
+    bindsym s exec systemctl poweroff
+    bindsym r exec systemctl reboot
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+# Def rise
+# resize window (you can also use the mouse for that)
+bindsym $mod+r mode "$resize"
+mode "$resize" {
+    # same bindings, but for the arrow keys
+    bindsym h resize shrink width 10 px or 1 ppt
+    bindsym j resize grow height 10 px or 1 ppt
+    bindsym k resize shrink height 10 px or 1 ppt
+    bindsym l resize grow width 10 px or 1 ppt
+    bindsym s mode "default", exec --no-startup-id ~/.config/i3/scripts/slopsize.sh
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Float Window
+# floating_modifier <Modifier>
+floating_modifier $mod
+
+# Constraining floating window sizj
+# floating_minimum_size <width> x <height>
+# floating_maximum_size <width> x <height>
+floating_minimum_size 75 x 50
+floating_maximum_size -1 x -1
+
+# Orientation for new workspaces
+# default_orientation horizontal|vertical|auto
+default_orientation vertical
+
+# Layout mode for new containers
+# workspace_layout default|stacking|tabbed
+workspace_layout tabbed
+
+# Window title alignment
+# title_align left|center|right
+title_align left
+
+# Default border style for new windows
+# default_border normal|none|pixel
+# default_border normal|pixel <px>
+# default_floating_border normal|none|pixel
+# default_floating_border normal|pixel <px>
+default_border pixel 0
+default_floating_border pixel
+
+# Hiding borders adjacent to the screen edges
+# hide_edge_borders none|vertical|horizontal|both|smart
+hide_edge_borders both
+
+# Arbitrary commands for specific windows (for_window)
+# for_window <criteria> <command>
+# for_window [title="~/work"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+
+# for_window [class="Chromium"] floating enable sticky enable
+for_window [class="(?i)qemu-system"] floating enable
+for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
+for_window [class="(?i)VirtualBox"] floating enable
+for_window [class="(?i)arand"] floating enable
+for_window [class="(?i)nm-connection-editor"] floating enable
+for_window [class="(?i)pcmanfm"] floating enable
+
+
+# Don’t focus window upon opening
+# no_focus <criteria>
+no_focus [window_role="pop-up"]
+
+# Automatically putting clients on specific workspaces
+# assign <criteria> [→] [workspace] [number] <workspace>
+# assign <criteria> [→] output left|right|up|down|primary|<output>
+# assign [class="alacritty"] $workspace1
+# assign [class="chromium"] $workspace2
+# assign [class="Chromium"] $workspace3
+assign [window_role="browser"] $workspace3
+assign [class="jetbrains-idea-ce"] $workspace4
+
+# Interprocess communication
+# ipc-socket ~/.config/i3/i3-ipc.sock
+
+# Focus Follow
+# focus_follows_mouse yes|no
+focus_follows_mouse no
+
+# Mouse warping
+# mouse_warping output|none
+mouse_warping none
+
+# Popups during fullscreen mode
+# popup_during_fullscreen smart|ignore|leave_fullscreen
+popup_during_fullscreen smart
+
+# Focus wrapping
+# focus_wrapping yes|no|force
+
+# Automatic back-and-forth when switching to the current workspace
+# workspace_auto_back_and_forth yes|no
+workspace_auto_back_and_forth yes
+
+# Delaying urgency hint reset on workspace change
+# force_display_urgency_hint <timeout> ms
+force_display_urgency_hint 500 ms
+
+# Focus on window activation
+# focus_on_window_activation smart|urgent|focus|none
+focus_on_window_activation smart
+
+# Drawing marks on window decoration
+# show_marks yes|no
+show_marks yes
+
+# Bar
+bindsym $mod+m bar mode toggle
+bar {
+    position bottom
+    swaybar_command waybar
+}
+
+# i3-Gap Use
+# smart_gaps on
+# smart_borders on
+gaps outer 3
+gaps inner 5
+
+set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_horiz Horizontal Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_verti Vertical Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_top Top Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_right Right Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_bottom Bottom Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_left Left Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+g mode "$mode_gaps"
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym h      mode "$mode_gaps_horiz"
+        bindsym v      mode "$mode_gaps_verti"
+        bindsym t      mode "$mode_gaps_top"
+        bindsym r      mode "$mode_gaps_right"
+        bindsym b      mode "$mode_gaps_bottom"
+        bindsym l      mode "$mode_gaps_left"
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym $mod2+plus  gaps outer all plus 5
+        bindsym $mod2+minus gaps outer all minus 5
+        bindsym $mod2+0     gaps outer all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym $mod2+plus  gaps inner all plus 5
+        bindsym $mod2+minus gaps inner all minus 5
+        bindsym $mod2+0     gaps inner all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_horiz" {
+        bindsym plus  gaps horizontal current plus 5
+        bindsym minus gaps horizontal current minus 5
+        bindsym 0     gaps horizontal current set 0
+
+        bindsym $mod2+plus  gaps horizontal all plus 5
+        bindsym $mod2+minus gaps horizontal all minus 5
+        bindsym $mod2+0     gaps horizontal all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_verti" {
+        bindsym plus  gaps vertical current plus 5
+        bindsym minus gaps vertical current minus 5
+        bindsym 0     gaps vertical current set 0
+
+        bindsym $mod2+plus  gaps vertical all plus 5
+        bindsym $mod2+minus gaps vertical all minus 5
+        bindsym $mod2+0     gaps vertical all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_top" {
+        bindsym plus  gaps top current plus 5
+        bindsym minus gaps top current minus 5
+        bindsym 0     gaps top current set 0
+
+        bindsym $mod2+plus  gaps top all plus 5
+        bindsym $mod2+minus gaps top all minus 5
+        bindsym $mod2+0     gaps top all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_right" {
+        bindsym plus  gaps right current plus 5
+        bindsym minus gaps right current minus 5
+        bindsym 0     gaps right current set 0
+
+        bindsym $mod2+plus  gaps right all plus 5
+        bindsym $mod2+minus gaps right all minus 5
+        bindsym $mod2+0     gaps right all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_bottom" {
+        bindsym plus  gaps bottom current plus 5
+        bindsym minus gaps bottom current minus 5
+        bindsym 0     gaps bottom current set 0
+
+        bindsym $mod2+plus  gaps bottom all plus 5
+        bindsym $mod2+minus gaps bottom all minus 5
+        bindsym $mod2+0     gaps bottom all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_left" {
+        bindsym plus  gaps left current plus 5
+        bindsym minus gaps left current minus 5
+        bindsym 0     gaps left current set 0
+
+        bindsym $mod2+plus  gaps left all plus 5
+        bindsym $mod2+minus gaps left all minus 5
+        bindsym $mod2+0     gaps left all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+
+
+exec initctl set-env --global SWAYSOCK="$SWAYSOCK"
+exec initctl set-env --global I3SOCK="$I3SOCK"
+exec initctl set-env --global WAYLAND_DISPLAY="$WAYLAND_DISPLAY"
+# include only if xwayland is enabled and startup jobs need to access X
+exec initctl set-env --global DISPLAY="$DISPLAY"
+exec initctl emit sway-session
+
+#for sway
+output DP-1 pos 0 0 res 1920x1080
+output eDP-1 pos 1080 0 res 1366x768
+output * bg ~/.config/sway/wallpaper/apocalyptic-hipster.jpg fill
+
+input 1:1:AT_Translated_Set_2_keyboard {
+     xkb_options caps:escape
+     xkb_numlock enabled
+     repeat_delay 250
+     repeat_rate 40
+}
+
+# Auto Start
+# seat seat0 hide_cursor 1000
+#exec_always --no-startup-id copyq
+#exec_always --no-startup-id albert
+exec_always fcitx
+exec_always sogou-qimpanel
+exec startup sway
+#intclude /etc/sway/security.d/*
