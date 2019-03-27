@@ -468,30 +468,29 @@ mode "$mode_gaps_left" {
 }
 
 
-exec initctl set-env --global SWAYSOCK="$SWAYSOCK"
-exec initctl set-env --global I3SOCK="$I3SOCK"
-exec initctl set-env --global WAYLAND_DISPLAY="$WAYLAND_DISPLAY"
+# exec initctl set-env --global SWAYSOCK="$SWAYSOCK"
+# exec initctl set-env --global I3SOCK="$I3SOCK"
+# exec initctl set-env --global WAYLAND_DISPLAY="$WAYLAND_DISPLAY"
 # include only if xwayland is enabled and startup jobs need to access X
-exec initctl set-env --global DISPLAY="$DISPLAY"
-exec initctl emit sway-session
+# exec initctl set-env --global DISPLAY="$DISPLAY"
+# exec initctl emit sway-session
 
 #for sway
 output DP-1 pos 0 0 res 1920x1080
-output eDP-1 pos 1080 0 res 1366x768
+output eDP-1 pos 0 1080 res 1366x768
 output * bg ~/.config/sway/wallpaper/apocalyptic-hipster.jpg fill
 
 input 1:1:AT_Translated_Set_2_keyboard {
      xkb_options caps:escape
-     xkb_numlock enabled
      repeat_delay 250
      repeat_rate 40
 }
 
 # Auto Start
 # seat seat0 hide_cursor 1000
-#exec_always --no-startup-id copyq
+# exec_always --no-startup-id copyq
 #exec_always --no-startup-id albert
-exec_always fcitx
-exec_always sogou-qimpanel
-exec startup sway
+# exec_always fcitx
+# exec_always sogou-qimpanel
+# exec startup sway
 #intclude /etc/sway/security.d/*

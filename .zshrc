@@ -51,7 +51,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(wd zsh-autosuggestions zsh-syntax-highlighting man pacman ccat mvn)
+plugins=(wd zsh-autosuggestions zsh-syntax-highlighting man mvn tmuxinator)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -98,6 +98,8 @@ export PATH="$HOME/.local/lib/node_modules/bin:$PATH"
 export npm_config_prefix=~/.local/lib/node_modules
 export PYTHONUSERBASE="$HOME/.local"
 export PATH="$HOME/.local/bin:$PATH"
+export GEM_HOME=$HOME/.gem
+export PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 
 export LESS=-R
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 2) # green
@@ -144,7 +146,10 @@ alias updateantivirus="sudo freshclam"
 alias ccat='bat'
 alias pping='prettyping --nolegend'
 alias ndu="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
-alias help='tldr'
+alias help='tldr --linux -t base16'
+
+alias ft='find . -type f | ag '
+alias fn='find . -name f | ag '
 
 nman() {
   vim -c "Nman $*"
@@ -172,4 +177,6 @@ source "$HOME/.pacman_cmd.zsh"
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx
+elif [[ ! $DISPLAY && $XDG_VTNR -eq 2 ]]; then
+  XKB_DEFAULT_LAYOUT=us exec sway
 fi

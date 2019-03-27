@@ -55,6 +55,7 @@ diff-so-fancy
 diffutils
 dmenu
 dos2unix
+dstat
 dunst
 e2fsprogs
 efibootmgr
@@ -66,10 +67,8 @@ fakenet-ng
 fakeroot
 fasd
 fcitx-configtool
-fcitx-googlepinyin
 fcitx-gtk2
 fcitx-gtk3
-fcitx-libpinyin
 fcitx-qt5
 fcitx-sogoupinyin
 fd
@@ -186,6 +185,8 @@ noto-fonts-emoji
 npm
 ntfs-3g
 numlockx
+nvidia
+nvidia-utils
 obs-studio
 octave
 openconnect
