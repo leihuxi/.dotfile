@@ -78,6 +78,7 @@ bak_file() {
 install_program_third_parted() {
     npm install -g taskbook
     npm install -g fx
+    npm install -g arch-wiki-man
     pip install --user howdoi
     pip install --user gdbgui
     gem install tmuxinator
@@ -195,6 +196,7 @@ install_dotfile() {
         cp "$PWD"/.zshrc ~
         git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        git clone https://github.com/horosgrisa/mysql-colorize ~/.oh-my-zsh/custom/plugins/mysql-colorize
         info "dotfile:zshrc install successfully!"
     else
         error "dotfile:zshrc install failed!"

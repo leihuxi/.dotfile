@@ -1,3 +1,4 @@
+adobe-source-han-sans-otc-fonts
 alacritty-git
 alacritty-terminfo-git
 albert
@@ -32,6 +33,7 @@ bridge-utils
 bspwm
 bzip2
 c
+ccze
 chromium
 clamav
 clang
@@ -69,8 +71,10 @@ fasd
 fcitx-configtool
 fcitx-gtk2
 fcitx-gtk3
+fcitx-libpinyin
 fcitx-qt5
-fcitx-sogoupinyin
+fcitx-sunpinyin
+fcitx-ui-light
 fd
 feh
 ffmpeg
@@ -98,6 +102,7 @@ global
 gnu-netcat
 go
 goaccess
+gotop-bin
 grep
 grim
 groff
@@ -114,7 +119,6 @@ icmpsh
 imagemagick
 inetutils
 intel-ucode
-intellij-idea-community-edition
 iproute2
 iputils
 iw
@@ -156,6 +160,7 @@ maven
 mdadm
 mdcrack
 mesa-demos
+meson
 mibble
 mpc
 mpd
@@ -164,6 +169,7 @@ mpv
 mtr
 mupdf
 mutt
+namcap
 nano
 ncdu
 ncmpcpp
@@ -207,7 +213,9 @@ pdfbook-analyzer
 perf
 perl
 perl-cpan-meta-check
+pet-git
 phantomjs
+pikaur
 pkgconf
 pmap
 polybar
@@ -239,6 +247,7 @@ python2-oauth2
 python2-pypcap
 python2-rpi-gpio
 qemu
+rainbow
 ranger
 rar
 redshift
@@ -374,7 +383,6 @@ xorg-xwininfo
 xorg-xwud
 xsel
 xterm
-yaourt
 yapf
 ydcv
 zip
