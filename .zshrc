@@ -115,6 +115,7 @@ export LESS_TERMCAP_ZN=$(tput ssubm)
 export LESS_TERMCAP_ZV=$(tput rsubm)
 export LESS_TERMCAP_ZO=$(tput ssupm)
 export LESS_TERMCAP_ZW=$(tput rsupm)
+export ANDROID_HOME=$WORK/Android/Sdk
 
 zmodload zsh/zpty
 pty() {
@@ -140,7 +141,7 @@ alias t='tmux attach'
 alias tip='taocl|cowsay|lolcat'
 alias cht='~/.cht.sh/bin/cht.sh'
 alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --check"
-alias checkvirus="clamscan --recursive=yes --infected /home"
+alias checkvirus="sudo clamscan --recursive=yes --infected /home"
 alias updateantivirus="sudo freshclam"
 
 alias ccat='bat'
@@ -167,6 +168,12 @@ function taocl() {
         xmlstarlet sel -t -v "(html/body/ul/li[count(p)>0])[$RANDOM mod last()+1]" |
         xmlstarlet unesc | fmt -80 | iconv -t US
 }
+
+function prev() {
+    PREV=$(fc -lrn | head -n 1)
+    sh -c "pet new `printf %q "$PREV"`"
+}
+
 
 set -o vi
 
