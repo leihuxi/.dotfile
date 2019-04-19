@@ -304,13 +304,14 @@ bind-key -n C-l if-shell "$is_vim" "send-keys C-l"  "select-pane -R"
 bind-key -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 
 # List of plugins
-set -g @tpm_plugins '          \
-  tmux-plugins/tpm             \
-  tmux-plugins/tmux-sensible   \
-  tmux-plugins/tmux-resurrect  \
-  tmux-plugins/tmux-yank       \
-  tmux-plugins/tmux-continuum  \
-  tmux-plugins/tmux-copycat    \
+set -g @tpm_plugins '           \
+  tmux-plugins/tpm              \
+  tmux-plugins/tmux-sensible    \
+  tmux-plugins/tmux-resurrect   \
+  tmux-plugins/tmux-yank        \
+  tmux-plugins/tmux-continuum   \
+  tmux-plugins/tmux-copycat     \
+  nhdaly/tmux-better-mouse-mode \
 '
 
 #tmux-yank

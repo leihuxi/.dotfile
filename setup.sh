@@ -79,6 +79,7 @@ install_program_third_parted() {
     npm install -g taskbook
     npm install -g fx
     npm install -g arch-wiki-man
+    pip install --user pep8 flake8 pyflakes isort yapf
     pip install --user howdoi
     pip install --user gdbgui
     gem install tmuxinator
@@ -268,8 +269,8 @@ main() {
         install_program_list_required
     fi
 
-    install_program_third_parted
     install_dotfile
+    install_program_third_parted
 }
 
 main

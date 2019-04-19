@@ -108,6 +108,7 @@ grim
 groff
 grub
 gzip
+hdparm
 htop
 httpie
 hub
@@ -122,6 +123,7 @@ intel-ucode
 iproute2
 iputils
 iw
+jdk8-openjdk
 jfsutils
 jq
 kchmviewer
@@ -217,6 +219,7 @@ pet-git
 phantomjs
 pikaur
 pkgconf
+pkgfile
 pmap
 polybar
 postman-bin

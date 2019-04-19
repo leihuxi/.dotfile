@@ -32,7 +32,7 @@ ZSH_THEME="robbyrussell"
 ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -151,6 +151,9 @@ alias help='tldr --linux -t base16'
 
 alias ft='find . -type f | ag '
 alias fn='find . -name f | ag '
+
+alias idea='$WORK/source/idea-IC-191.6183.87/bin/idea.sh'
+alias studio='$WORK/source/android-studio/bin/studio.sh'
 
 nman() {
   vim -c "Nman $*"

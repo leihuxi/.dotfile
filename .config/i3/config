@@ -477,14 +477,16 @@ mode "$mode_gaps_left" {
 # exec i3-config-wizard
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id ~/.screenlayout/xiaomi.sh
-exec_always pulseaudio --start -D
-exec_always --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/apocalyptic-hipster.jpg
-exec_always amixer sset Master on
-exec_always fcitx
-exec_always sogou-qimpanel
-exec_always xset r rate 250 40
-exec_always xset m 4/1 0
-exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
-exec_always --no-startup-id albert
-exec_always --no-startup-id copyq
-exec_always compton -b --config ~/.config/compton/compton.conf
+exec pulseaudio --start -D
+exec --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/apocalyptic-hipster.jpg
+exec amixer sset Master on
+exec --no-startup-id fcitx -d -r
+exec --no-startup-id redshift redshift -l 39.95:116.39
+exec --no-startup-id xset r rate 250 40
+exec --no-startup-id xset m 4/1 0
+exec --no-startup-id xset dpms 600
+exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
+exec --no-startup-id albert
+exec --no-startup-id copyq
+exec compton -b --config ~/.config/compton/compton.conf
+
