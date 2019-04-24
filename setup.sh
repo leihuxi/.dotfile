@@ -82,6 +82,7 @@ install_program_third_parted() {
     pip install --user pep8 flake8 pyflakes isort yapf
     pip install --user howdoi
     pip install --user gdbgui
+    pip install --user cheat
     gem install tmuxinator
 }
 
@@ -137,15 +138,12 @@ bak_config() {
     bak_file ~ .vim_runtime "${bakdir}"
     bak_file ~ .ssh "${bakdir}"
     bak_file ~/.config/alacritty alacritty.yml "${bakdir}"
-    bak_file ~ .fzf_custom.zsh "${bakdir}"
     bak_file ~ .xprofile "${bakdir}"
     bak_file ~ .xinitrc "${bakdir}"
     bak_file ~ .Xresources "${bakdir}"
-    bak_file ~ .pacman_cmd.zsh "${bakdir}"
-    bak_file ~ .cht.sh "${bakdir}"
-    bak_file ~ .fzf-scripts "${bakdir}"
     bak_file ~ .gitconfig "${bakdir}"
     bak_file ~ .clang-format "${bakdir}"
+    bak_file ~ .bin "${bakdir}"
     info "bak all file successfully"
 }
 
@@ -203,13 +201,9 @@ install_dotfile() {
         error "dotfile:zshrc install failed!"
     fi
 
-    ## fzf
-    cp "$PWD/.fzf_custom.zsh" ~
-    if git clone https://github.com/DanielFGray/fzf-scripts.git ~/.fzf-scripts; then
-        info "dotfile:fzf_custom install successfully!"
-    else
-        error "dotfile:fzf_custom install failed!"
-    fi
+    ## bin
+    cp -rf "$PWD/.bin" ~
+    cp -rf "$PWD/.mycheat" ~
 
     ##git
     cp "$PWD/.gitconfig" ~
@@ -225,9 +219,8 @@ install_dotfile() {
     cp "$PWD/.clang-format" ~
 
     #cheat.sh
-    mkdir -p ~/.cht.sh/bin
-    curl https://cht.sh/:cht.sh >~/.cht.sh/bin/cht.sh
-    chmod u+x ~/.cht.sh/bin/cht.sh
+    curl https://cht.sh/:cht.sh > ~/.bin/cht.sh/cht
+    chmod u+x ~/.bin/cht.sh/cht
     info "dotfile:cheat.sh install successfully!"
 
     #切换到zsh
@@ -251,8 +244,12 @@ update_software() {
     (cd ~/.oh-my-zsh && git pull)
     (cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git pull)
     (cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull)
-    (cd ~/.fzf-scripts && git pull)
+    (cd ~/.oh-my-zsh/custom/plugins/mysql-colorize && git pull)
+    (cd ~/.tmux/plugins/tpm && git pull)
     (bak_file ~ .gdbinit ~/.bakconfig && wget -P ~ git.io/.gdbinit)
+    curl https://cht.sh/:cht.sh > ~/.bin/cht.sh/cht
+    cp -rf .bin ~
+    cp -rf .mycheat ~
 }
 
 main() {

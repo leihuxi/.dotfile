@@ -87,8 +87,8 @@ fi
 # export TERM=xterm-256color
 export WORK=$HOME/work
 export GOPATH=$HOME/work/go
-export FZFSCRIPT=$HOME/.fzf-scripts
-export PATH=$FZFSCRIPT:$GOPATH/bin:$PATH
+export BINSCRIPT=$HOME/.bin
+export PATH=$BINSCRIPT:$GOPATH/bin:$PATH
 export CHEATCOLORS=true
 #Neovim true color support
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -100,6 +100,14 @@ export PYTHONUSERBASE="$HOME/.local"
 export PATH="$HOME/.local/bin:$PATH"
 export GEM_HOME=$HOME/.gem
 export PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+export ANDROID_HOME=$WORK/Android/Sdk
+export ANDROID_NDK=$ANDROID_HOME/ndk-bundle
+# Some programs such as gradle ask this as well:
+export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
+export PATH="$ANDROID_NDK:$PATH"
+
+export CHEAT_COLORS=true
+export CHEAT_PATH="$CHEAT_PATH:~/.mycheat"
 
 export LESS=-R
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 2) # green
@@ -115,7 +123,6 @@ export LESS_TERMCAP_ZN=$(tput ssubm)
 export LESS_TERMCAP_ZV=$(tput rsubm)
 export LESS_TERMCAP_ZO=$(tput ssupm)
 export LESS_TERMCAP_ZW=$(tput rsupm)
-export ANDROID_HOME=$WORK/Android/Sdk
 
 zmodload zsh/zpty
 pty() {
@@ -139,7 +146,7 @@ alias grep='grep --color=auto'
 alias h='function hdi(){ howdoi $* -c -n 5; }; hdi'
 alias t='tmux attach'
 alias tip='taocl|cowsay|lolcat'
-alias cht='~/.cht.sh/bin/cht.sh'
+alias cht='~/.bin/cht.sh/cht'
 alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --check"
 alias checkvirus="sudo clamscan --recursive=yes --infected /home"
 alias updateantivirus="sudo freshclam"
@@ -182,8 +189,8 @@ set -o vi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source "$HOME/.fzf_custom.zsh"
-source "$HOME/.pacman_cmd.zsh"
+source "$HOME/.bin/zsh/fzf_custom.zsh"
+source "$HOME/.bin/zsh/pacman_cmd.zsh"
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx
