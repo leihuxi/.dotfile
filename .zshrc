@@ -107,7 +107,7 @@ export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
 export PATH="$ANDROID_NDK:$PATH"
 
 export CHEAT_COLORS=true
-export CHEAT_PATH="$CHEAT_PATH:~/.mycheat"
+export CHEAT_USER_DIR="~/.mycheat"
 
 export LESS=-R
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 2) # green
