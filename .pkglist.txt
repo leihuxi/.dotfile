@@ -73,7 +73,6 @@ fcitx-gtk2
 fcitx-gtk3
 fcitx-libpinyin
 fcitx-qt5
-fcitx-sunpinyin
 fcitx-ui-light
 fd
 feh

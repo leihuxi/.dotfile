@@ -291,6 +291,7 @@ no_focus [window_role="pop-up"]
 # assign [class="Chromium"] $workspace3
 assign [window_role="browser"] $workspace3
 assign [class="jetbrains-idea-ce"] $workspace4
+assign [class="jetbrains-studio"] $workspace5
 
 # Interprocess communication
 # ipc-socket ~/.config/i3/i3-ipc.sock
@@ -349,8 +350,8 @@ bindsym $mod+m bar mode toggle
 # i3-Gap Use
 # smart_gaps on
 # smart_borders on
-gaps outer 3
-gaps inner 5
+gaps outer 14
+gaps inner 6
 
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
