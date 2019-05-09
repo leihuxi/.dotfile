@@ -149,21 +149,6 @@ bak_config() {
 
 install_dotfile() {
     bak_config
-    ## alacritty
-    if program_already_installed alacritty; then
-        mkdir -p ~/.config/alacritty
-        if cp "$PWD/.alacritty.yml" ~/.config/alacritty/alacritty.yml; then
-            info "dotfile:alacritty install successfully!"
-        else
-            error "dotfile:alacritty install failed!"
-        fi
-    fi
-
-    if [ "$(check_os_type)" = "Arch" ]; then
-        #pacman cmd
-        cp "$PWD/.pacman_cmd.zsh" ~
-        info "dotfile:pacman_cmd install successfully!"
-    fi
 
     ### tmux
     if git clone https://github.com/gpakosz/.tmux.git ~/.tmux; then
@@ -184,7 +169,7 @@ install_dotfile() {
     info "dotfile:ideavimrc install successfully!"
 
     ### gdbinit
-    if wget -P ~ git.io/.gdbinit; then
+    if curl git.io/.gdbinit -o ~/.gdbinit --progress; then
         info "dotfile:gdbinit install successfully!"
     else
         info "dotfile:gdbinit install failed!"
@@ -200,6 +185,8 @@ install_dotfile() {
     else
         error "dotfile:zshrc install failed!"
     fi
+    ##code
+    cat $PWD/.vscode-extensions.txt | xargs -L 1 code --install-extension
 
     ## bin
     cp -rf "$PWD/.bin" ~
@@ -219,7 +206,7 @@ install_dotfile() {
     cp "$PWD/.clang-format" ~
 
     #cheat.sh
-    curl https://cht.sh/:cht.sh > ~/.bin/cht.sh/cht
+    curl https://cht.sh/:cht.sh -o ~/.bin/cht.sh/cht --progress
     chmod u+x ~/.bin/cht.sh/cht
     info "dotfile:cheat.sh install successfully!"
 
@@ -241,22 +228,32 @@ install_dotfile() {
 }
 
 update_software() {
+    info "update zsh"
     (cd ~/.oh-my-zsh && git pull)
+    info "update zsh-autosuggestions"
     (cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git pull)
+    info "update zsh-syntax-highlighting"
     (cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull)
+    info "update mysql-colorize"
     (cd ~/.oh-my-zsh/custom/plugins/mysql-colorize && git pull)
+    info "update tmp"
     (cd ~/.tmux/plugins/tpm && git pull)
-    (bak_file ~ .gdbinit ~/.bakconfig && wget -P ~ git.io/.gdbinit)
-    curl https://cht.sh/:cht.sh > ~/.bin/cht.sh/cht
+    info "update gdb"
+    (bak_file ~ .gdbinit ~/.bakconfig && curl git.io/.gdbinit -o ~/.gdbinit --progress)
+    info "update cht.sh"
+    curl https://cht.sh/:cht.sh -o ~/.bin/cht.sh/cht --progress
+    info "update .bin && .mycheat"
     cp -rf .bin ~
     cp -rf .mycheat ~
+    info "update vscode && pacman"
+    pacman -Qqe >"$PWD/.pkglist.txt"
+    code --list-extensions > .vscode-extensions.txt
+    git diff "$PWD/*.txt"
 }
 
 main() {
     if [[ "$1" -eq "up" ]]; then
         update_software
-        pacman -Qqe >"$PWD/.pkglist.txt"
-        git diff "$PWD/.pkglist.txt"
         exit
     fi
 
@@ -265,9 +262,8 @@ main() {
     else
         install_program_list_required
     fi
-
-    install_dotfile
     install_program_third_parted
+    install_dotfile
 }
 
 main

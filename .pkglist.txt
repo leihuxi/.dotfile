@@ -38,7 +38,6 @@ chromium
 clamav
 clang
 cmake
-code
 compton
 conky
 copyq
@@ -62,6 +61,7 @@ dunst
 e2fsprogs
 efibootmgr
 eslint
+ethtool
 exa
 exfat-utils
 expac
@@ -69,9 +69,9 @@ fakenet-ng
 fakeroot
 fasd
 fcitx-configtool
+fcitx-googlepinyin
 fcitx-gtk2
 fcitx-gtk3
-fcitx-libpinyin
 fcitx-qt5
 fcitx-ui-light
 fd
@@ -92,6 +92,7 @@ gawk
 gcc
 gcc-fortran
 gcc-libs
+gcc44
 gdb
 gettext
 git
@@ -119,6 +120,7 @@ icmpsh
 imagemagick
 inetutils
 intel-ucode
+iperf3
 iproute2
 iputils
 iw
@@ -144,6 +146,7 @@ linux-headers
 lldb
 llvm
 logrotate
+logwatch
 lolcat
 lrzsz
 lsof
@@ -303,6 +306,7 @@ tree
 trizen
 ttf-dejavu
 typescript
+ufw
 unzip
 usbutils
 util-linux
@@ -310,6 +314,7 @@ valgrind
 vi
 vim
 virtualbox
+visual-studio-code-bin
 w3m
 wapiti
 waybar
@@ -386,6 +391,7 @@ xorg-xwud
 xsel
 xterm
 yapf
+yarn
 ydcv
 zip
 zsh
