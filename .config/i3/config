@@ -110,10 +110,11 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 bindsym $mod1+a [class="Alacritty"] focus
 bindsym $mod1+b [class="Chromium" window_role="browser"] focus
+bindsym $mod1+c [class="code"] focus
+bindsym $mod1+d [class="jetbrains-studio"] focus
 bindsym $mod1+i [class="jetbrains-idea-ce"] focus
 bindsym $mod1+t [title="xileihu.*"] focus
 bindsym $mod1+m [title="musicbox"] focus
-bindsym $mod1+e [instance="ieasemusic"] focus
 bindsym $mod1+w [instance="wx.qq.com"] focus
 bindsym $mod1+k [title="work@.*"] focus
 
@@ -291,6 +292,7 @@ no_focus [window_role="pop-up"]
 # assign [class="Chromium"] $workspace3
 assign [window_role="browser"] $workspace3
 assign [class="jetbrains-idea-ce"] $workspace4
+assign [class="code"] $workspace4
 assign [class="jetbrains-studio"] $workspace5
 
 # Interprocess communication
