@@ -270,13 +270,17 @@ for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 
 # for_window [class="Chromium"] floating enable sticky enable
-for_window [class="(?i)qemu-system"] floating enable
-for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
-for_window [class="(?i)VirtualBox"] floating enable
-for_window [class="(?i)arand"] floating enable
-for_window [class="(?i)nm-connection-editor"] floating enable
-for_window [class="(?i)pcmanfm"] floating enable
+for_window [class="(?i)qemu-system"]focus floating enable
+for_window [class="(?i)VirtualBox" title="(?i)Manager"] focus floating enable
+for_window [class="(?i)VirtualBox"] focus floating enable
+for_window [class="(?i)arand"] focus floating enable
+for_window [class="(?i)nm-connection-editor"] focus floating enable
+for_window [class="(?i)pcmanfm"] focus floating enable
 
+for_window [window_role="browser" class = "Chromium"] focus
+for_window [class="jetbrains-idea-ce"] focus
+for_window [class="jetbrains-studio"] focus
+for_window [window_role="browser" class = "Code"] focus
 
 # Don’t focus window upon opening
 # no_focus <criteria>
