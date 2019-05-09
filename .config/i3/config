@@ -113,10 +113,8 @@ bindsym $mod1+b [class="Chromium" window_role="browser"] focus
 bindsym $mod1+c [class="code"] focus
 bindsym $mod1+d [class="jetbrains-studio"] focus
 bindsym $mod1+i [class="jetbrains-idea-ce"] focus
-bindsym $mod1+t [title="xileihu.*"] focus
 bindsym $mod1+m [title="musicbox"] focus
 bindsym $mod1+w [instance="wx.qq.com"] focus
-bindsym $mod1+k [title="work@.*"] focus
 
 # Move focused window
 bindsym $mod+$mod2+h move left
