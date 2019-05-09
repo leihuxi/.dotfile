@@ -109,7 +109,7 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 bindsym $mod1+a [class="Alacritty"] focus
-bindsym $mod1+b [class="Chromium" window_role="browser"] focus
+bindsym $mod1+b [class="chromium" ] focus
 bindsym $mod1+c [class="code"] focus
 bindsym $mod1+d [class="jetbrains-studio"] focus
 bindsym $mod1+i [class="jetbrains-idea-ce"] focus
@@ -286,11 +286,10 @@ no_focus [window_role="pop-up"]
 # assign <criteria> [→] [workspace] [number] <workspace>
 # assign <criteria> [→] output left|right|up|down|primary|<output>
 # assign [class="alacritty"] $workspace1
-# assign [class="chromium"] $workspace2
 # assign [class="Chromium"] $workspace3
-assign [window_role="browser"] $workspace3
-assign [class="jetbrains-idea-ce"] $workspace4
+assign [class="chromium"] $workspace3
 assign [class="code"] $workspace4
+assign [class="jetbrains-idea-ce"] $workspace4
 assign [class="jetbrains-studio"] $workspace5
 
 # Interprocess communication
