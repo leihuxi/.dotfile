@@ -69,6 +69,8 @@ fakenet-ng
 fakeroot
 fcitx-configtool
 fcitx-googlepinyin
+fcitx-gtk3
+fcitx-qt5
 fcitx-ui-light
 fd
 feh
@@ -104,7 +106,7 @@ hdparm
 htop
 httpie
 hyperv
-i3-gaps
+i3-gaps-next-git
 i3blocks
 i3lock
 i3status
@@ -294,6 +296,7 @@ vi
 vim
 virtualbox
 visual-studio-code-bin
+w3m
 wapiti
 waybar
 wget
