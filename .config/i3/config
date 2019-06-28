@@ -46,6 +46,10 @@ font pango:Source Code Pro, EmojiOne Color 12
 # Split Window
 bindsym $mod1+h split horizontal
 bindsym $mod1+v split vertical
+bindsym $mod1+t split toggle
+# Toggle between splitv/tabbed
+bindsym $mod1+x layout toggle split tabbed
+
 
 # bindsym [--release] [<Group>+][<Modifiers>+]<keysym> command
 # bindcode [--release] [<Group>+][<Modifiers>+]<keycode> command
@@ -79,8 +83,8 @@ bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
 bindsym XF86AudioMute exec amixer sset Master toggle
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
 
 # The right button toggles floating
 bindsym $mod+$mright floating toggle
@@ -113,8 +117,11 @@ bindsym $mod1+b [class="Chromium" window_role="browser"] focus
 bindsym $mod1+c [class="Code" window_role="browser"] focus
 bindsym $mod1+d [class="jetbrains-studio"] focus
 bindsym $mod1+i [class="jetbrains-idea-ce"] focus
-bindsym $mod1+m [title="musicbox"] focus
+bindsym $mod1+m [class="netease-cloud-music"] focus
+bindsym $mod1+n [class="Alacritty" title="musicbox"] focus
 bindsym $mod1+w [instance="wx.qq.com"] focus
+bindsym $mod1+e [class="TelegramDesktop"] focus 
+bindsym $mod1+f [class="mitalk"] focus 
 
 # Move focused window
 bindsym $mod+$mod2+h move left
@@ -193,6 +200,7 @@ bindsym $mod+o mode "$mode_launcher"
 mode "$mode_launcher" {
     bindsym c exec chromium
     bindsym i exec idea
+    bindsym d exec studio
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -251,16 +259,17 @@ title_align left
 # default_border normal|pixel <px>
 # default_floating_border normal|none|pixel
 # default_floating_border normal|pixel <px>
-default_border pixel 0
-default_floating_border pixel
+default_border pixel 1
+default_floating_border normal
 
 # Hiding borders adjacent to the screen edges
 # hide_edge_borders none|vertical|horizontal|both|smart
-hide_edge_borders both
+hide_edge_borders none
 
 # Arbitrary commands for specific windows (for_window)
 # for_window <criteria> <command>
 # for_window [title="~/work"] floating enable
+for_window [class=".*"] border pixel 0
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
 for_window [window_role="task_dialog"] floating enable
@@ -281,6 +290,12 @@ for_window [window_role="browser" class = "Chromium"] focus
 for_window [class="jetbrains-idea-ce"] focus
 for_window [class="jetbrains-studio"] focus
 for_window [window_role="browser" class = "Code"] focus
+for_window [class="TelegramDesktop"] focus floating enable
+for_window [class="netease-cloud-music"] focus floating enable
+for_window [class="mitalk"] focus floating enable
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
 
 # Don’t focus window upon opening
 # no_focus <criteria>
@@ -349,10 +364,11 @@ bindsym $mod+m bar mode toggle
 # }
 
 # i3-Gap Use
-# smart_gaps on
-# smart_borders on
 gaps outer 14
-gaps inner 6
+gaps inner 3
+
+smart_gaps on
+smart_borders on
 
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
@@ -475,15 +491,19 @@ mode "$mode_gaps_left" {
 }
 
 # Auto Start
-# exec --no-startup-id i3-msg "workspace 1:Main"
+exec --no-startup-id i3-msg "workspace 1:Main"
+exec --no-startup-id i3-msg "workspace 2:Work"
+exec --no-startup-id i3-msg "workspace 3:Browser"
+exec --no-startup-id i3-msg "workspace 4:IDE"
 # exec i3-config-wizard
+exec --no-startup-id xautolock -time 10 -locker ~/.config/i3lock/i3lock.sh
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id ~/.screenlayout/xiaomi.sh
-exec pulseaudio --start -D
 exec --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/apocalyptic-hipster.jpg
+exec pulseaudio --start -D
 exec amixer sset Master on
 exec --no-startup-id fcitx -d -r
-exec --no-startup-id redshift redshift -l 39.95:116.39
+# exec --no-startup-id ibus-daemon -d -x 
 exec --no-startup-id xset r rate 250 40
 exec --no-startup-id xset m 4/1 0
 exec --no-startup-id xset dpms 600
@@ -491,4 +511,4 @@ exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id albert
 exec --no-startup-id copyq
 exec compton -b --config ~/.config/compton/compton.conf
-
+exec --no-startup-id redshift redshift -l 39.95:116.39

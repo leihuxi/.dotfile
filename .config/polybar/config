@@ -20,7 +20,7 @@
 ;background = ${xrdb:color0:#222}
 background = #222
 background-alt = #444
-;foreground = ${xrdb:color7:#222}
+;foreground = ${xrdb:color7:#dfdfdf}
 foreground = #dfdfdf
 foreground-alt = #555
 primary = #ffb52a
@@ -182,13 +182,11 @@ icon-next = 
 label-song-maxlen = 25
 label-song-ellipsis = true
 
-[module/backlight]
-type = internal/backlight
-card = intel_backlight
+[module/xbacklight]
+type = internal/xbacklight
 
-format = <label> <bar> <ramp>
-format-underline = #f90000
-label = %percentage%%
+format = <label> <bar>
+label = BL
 
 bar-width = 10
 bar-indicator = |
@@ -201,11 +199,10 @@ bar-empty = ─
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
 
-ramp-0 = 🌕
-ramp-1 = 🌔
-ramp-2 = 🌓
-ramp-3 = 🌒
-ramp-4 = 🌑
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
 
 [module/cpu]
 type = internal/cpu
@@ -301,8 +298,6 @@ interval = 5
 date =
 date-alt = " %Y-%m-%d"
 
-
-
 time = "%a %b %d, %I:%M %p "
 time-alt = %H:%M:%S
 
@@ -342,15 +337,13 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 [module/alsa]
 type = internal/alsa
 
-format-volume = <ramp-volume> <label-volume>
-format-underline = #f50a4d
-label-volume = %percentage%%
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL
 label-volume-foreground = ${root.foreground}
 
 format-muted-prefix = " "
 format-muted-foreground = ${colors.foreground-alt}
-; label-muted = sound muted
-label-muted = 🔇 muted
+label-muted = sound muted
 
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
@@ -368,13 +361,6 @@ bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
-
-ramp-volume-0 = 🔈
-ramp-volume-1 = 🔉
-ramp-volume-2 = 🔊
-
-ramp-headphones-0 = 
-ramp-headphones-1 = 
 
 [module/battery]
 type = internal/battery
