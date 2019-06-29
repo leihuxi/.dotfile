@@ -6,6 +6,8 @@
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
+
+export QT_QPA_PLATFORMTHEME="qt5ct"
 # export GTK_IM_MODULE=ibus
 # export QT_IM_MODULE=ibus
 # export XMODIFIERS=@im=ibus
@@ -15,10 +17,7 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
-DEFAULT_SESSION='i3 --shmlog-size 0'
-
 # merge in defaults and keymaps
-
 if [ -f $sysresources ]; then
     xrdb -merge $sysresources
 fi
@@ -54,4 +53,5 @@ get_session() {
     echo "dbus-launch ${dbus_args[*]}"
 }
 
-exec $(get_session)
+# exec $(get_session)
+exec i3
