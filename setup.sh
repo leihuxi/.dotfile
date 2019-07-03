@@ -156,6 +156,7 @@ install_program_third_parted() {
     pip install --user howdoi
     pip install --user gdbgui
     pip install --user cheat
+    pip install --user six
     gem install tmuxinator
 }
 
