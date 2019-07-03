@@ -10,60 +10,6 @@ is_sudo() {
     fi
 }
 
-check_os_type() {
-    case $(uname) in
-    Linux)
-        command -v yum && {
-            echo "CentOS"
-            return
-        }
-        command -v apt-get && {
-            echo "Ubuntu"
-            return
-        }
-        command -v pacman && {
-            echo "Arch"
-            return
-        }
-        ;;
-    Darwin)
-        echo "Mac"
-        return
-        ;;
-    *)
-        # Handle AmgiaOS, CPM, and modified cable modems here.
-        ;;
-    esac
-}
-
-program_already_installed() {
-    if command -v "$@" >/dev/null 2>&1; then
-        return 0
-    fi
-    return 1
-}
-
-install_program() {
-    local os
-    os=$(check_os_type)
-    local program_name=$1
-    info "you os is ${os}, install ${program_name}"
-    if [ "$os" = "Ubuntu" ]; then
-        sudo apt install ${program_name}
-    elif [ "$os" = "Arch" ]; then
-        sudo pacman -Sy ${program_name}
-    elif [ "$os" = "Mac" ]; then
-        brew list ${program_name} &>/dev/null || brew install ${program_name}
-    elif [ "$os" = "CentOS" ]; then
-        sudo yum install ${program_name}
-    fi
-    if [ $? -ne 0 ]; then
-        error "${program_name} install failed!"
-        exit 1
-    fi
-    info "${program_name} is install successfully!"
-}
-
 bak_file() {
     src_dir="$1"
     filename="$2"
@@ -75,67 +21,14 @@ bak_file() {
     fi
 }
 
-install_program_third_parted() {
-    npm install -g taskbook
-    npm install -g fx
-    npm install -g arch-wiki-man
-    pip install --user pep8 flake8 pyflakes isort yapf
-    pip install --user howdoi
-    pip install --user gdbgui
-    pip install --user cheat
-    gem install tmuxinator
-}
-
-install_program_list_required() {
-    applist_all_os=(global curl git vim zsh tmux wget cmake python shellcheck rlwrap)
-    #fix ycm arch bug
-    if [ "$(check_os_type)" = "Arch" ]; then
-        applist_all_os+=(jq tldr prettyping bat fzf htop diff-so-fancy fd ncdu the_silver_searcher)
-        applist_all_os+=(expac ncurses5-compat-libs ctags powerline-fonts go)
-        applist_all_os+=(alacritty-git alacritty-terminfo-git)
-        applist_all_os+=(flake8 yapf python-isort)
-        applist_all_os+=(i3-gaps i3lock py3status compton rofi feh ranger alsa-utils xorg xorg-init scrot xrand arand dunst)
-        applist_all_os+=(ltrace strace valgrind gdb pmap lsof task)
-        # applist_all_os+=( arch-audit )
-    fi
-
-    if [ "$(check_os_type)" = "Ubuntu" ]; then
-        applist_all_os+=(exuberant-ctags fonts-powerline silversearcher-ag golang)
-    fi
-
-    if [ "$(check_os_type)" = "CentOS" ]; then
-        applist_all_os+=(ctags powerline-fonts the_silver_searcher golang)
-    fi
-
-    if [ "$(check_os_type)" != "Mac" ]; then
-        applist_all_os+=(python-setuptools python-appdirs python-pyparsing python-setuptools python-six python-pip)
-        # For tip
-        # applist_all_os+=( xmlstarlet pandoc cowsay lolcat xsel )
-        # For system
-        # applist_all_os+=( sysdig sysstat)
-        # For html js synatic
-        # applist_all_os+=( eslint typescript alex )
-        applist_all_os+=(bcc-git bcc-tools-git python-bcc-git)
-        applist_all_os+=(arpwatch audit rkhunter progress lynis netdata)
-        applist_all_os+=(xlockmore progress)
-
-    fi
-    install_program "${applist_all_os[*]}"
-    if [ "$(check_os_type)" != "Arch" ]; then
-        sudo pip install pep8 flake8 pyflakes isort yapf
-    fi
-}
-
 bak_config() {
     bakdir=~/.bakconfig
     [ -d "${bakdir}" ] || mkdir "${bakdir}"
-    bak_file ~ .vimrc "${bakdir}"
     bak_file ~ .zshrc "${bakdir}"
     bak_file ~ .tmux.conf "${bakdir}"
     bak_file ~ .tmux "${bakdir}"
     bak_file ~ .gdbinit "${bakdir}"
     bak_file ~ .oh-my-zsh "${bakdir}"
-    bak_file ~ .vim_runtime "${bakdir}"
     bak_file ~ .ssh "${bakdir}"
     bak_file ~/.config/alacritty alacritty.yml "${bakdir}"
     bak_file ~ .xprofile "${bakdir}"
@@ -144,6 +37,8 @@ bak_config() {
     bak_file ~ .gitconfig "${bakdir}"
     bak_file ~ .clang-format "${bakdir}"
     bak_file ~ .bin "${bakdir}"
+    bak_file ~ .vim_runtime "${bakdir}"
+    bak_file ~ .vimrc "${bakdir}"
     info "bak all file successfully"
 }
 
@@ -217,7 +112,7 @@ install_dotfile() {
         error "change zsh failed!"
     fi
 
-    ## vim
+    # vim
     if git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime; then
         sh ~/.vim_runtime/install_awesome_vimrc.sh
         info "dotifile:vimrc install successfully!"
@@ -246,24 +141,36 @@ update_software() {
     cp -rf .bin ~
     cp -rf .mycheat ~
     info "update vscode && pacman"
-    pacman -Qqe >"$PWD/.pkglist.txt"
-    code --list-extensions > .vscode-extensions.txt
-    git diff "$PWD/*.txt"
+    info "update official pkg list"
+    pacman -Qqe | grep -vx "$(pacman -Qqg base)" | grep -vx "$(pacman -Qqm)" >"$PWD/.arch-pkglist-official"
+    info "update local pkg list"
+    pacman -Qqm >"$PWD/.arch-pkglist-local"
+    code --list-extensions >.vscode-extensions.txt
+}
+
+install_program_third_parted() {
+    npm install -g taskbook
+    npm install -g fx
+    npm install -g arch-wiki-man
+    pip install --user pep8 flake8 pyflakes isort yapf
+    pip install --user howdoi
+    pip install --user gdbgui
+    pip install --user cheat
+    gem install tmuxinator
 }
 
 main() {
-    if [[ "$1" -eq "up" ]]; then
+    if [[ "$1" == "up" ]]; then
         update_software
         exit
     fi
 
-    if [ "$(check_os_type)" = "Arch" ]; then
-        sudo pacman -S --needed - <"$PWD/.pkglist.txt"
-    else
-        install_program_list_required
-    fi
+    info "install arch package"
+    sudo pacman -S --needed $(cat "$PWD/.arch-pkglist-official")
+    pikaur -S $(cat "$PWD/.arch-pkglist-local" | grep -vx "$(pacman -Qqm)")
+
     install_program_third_parted
     install_dotfile
 }
 
-main
+main $1

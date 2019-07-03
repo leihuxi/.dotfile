@@ -491,11 +491,11 @@ mode "$mode_gaps_left" {
 }
 
 # Auto Start
-exec --no-startup-id i3-msg "workspace 1:Main"
-exec --no-startup-id i3-msg "workspace 2:Work"
-exec --no-startup-id i3-msg "workspace 3:Browser"
-exec --no-startup-id i3-msg "workspace 4:IDE"
-# exec i3-config-wizard
+# exec --no-startup-id i3-msg "workspace 1:Main"
+# exec --no-startup-id i3-msg "workspace 2:Work"
+# exec --no-startup-id i3-msg "workspace 3:Browser"
+# exec --no-startup-id i3-msg "workspace 4:IDE"
+exec i3-config-wizard
 exec --no-startup-id xautolock -time 10 -locker ~/.config/i3lock/i3lock.sh
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id ~/.screenlayout/xiaomi.sh

@@ -59,7 +59,7 @@ font-2 = siji:pixelsize=10;1
 modules-left = i3
 modules-center = date
 ; modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
-modules-right = filesystem backlight alsa memory cpu wlan eth battery temperature powermenu
+modules-right = filesystem memory cpu battery temperature powermenu
 
 tray-position = right
 tray-padding = 2
