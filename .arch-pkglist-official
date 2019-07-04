@@ -139,6 +139,7 @@ ngrep
 nitrogen
 nmap
 npm
+npm-check-updates
 ntfs-3g
 openconnect
 openssh
@@ -291,5 +292,6 @@ xsel
 xterm
 yapf
 yarn
+zeronet
 zip
 zsh

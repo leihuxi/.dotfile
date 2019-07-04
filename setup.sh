@@ -42,6 +42,16 @@ bak_config() {
     info "bak all file successfully"
 }
 
+install_all_package() {
+    info "install arch package"
+    sudo pacman -S --needed $(cat "$PWD/.arch-pkglist-official")
+    pikaur -S $(cat "$PWD/.arch-pkglist-local" | grep -vx "$(pacman -Qqm)")
+    info "install pip package"
+    pip install --user -r "$PWD/.requirements.txt"
+    cat $PWD/.vscode-extensions.txt | xargs -L 1 code --install-extension
+    xargs npm install --global <"$PWD/.npm_package"
+}
+
 install_dotfile() {
     bak_config
 
@@ -80,8 +90,6 @@ install_dotfile() {
     else
         error "dotfile:zshrc install failed!"
     fi
-    ##code
-    cat $PWD/.vscode-extensions.txt | xargs -L 1 code --install-extension
 
     ## bin
     cp -rf "$PWD/.bin" ~
@@ -145,19 +153,12 @@ update_software() {
     pacman -Qqe | grep -vx "$(pacman -Qqg base)" | grep -vx "$(pacman -Qqm)" >"$PWD/.arch-pkglist-official"
     info "update local pkg list"
     pacman -Qqm >"$PWD/.arch-pkglist-local"
-    code --list-extensions >.vscode-extensions.txt
-}
-
-install_program_third_parted() {
-    npm install -g taskbook
-    npm install -g fx
-    npm install -g arch-wiki-man
-    pip install --user pep8 flake8 pyflakes isort yapf
-    pip install --user howdoi
-    pip install --user gdbgui
-    pip install --user cheat
-    pip install --user six
-    gem install tmuxinator
+    info "update code "
+    code --list-extensions >"$PWD/.vscode-extensions.txt"
+    info "update pip package"
+    pip freeze >"$PWD/.requirements.txt"
+    info "update npm package"
+    npm list --global --parseable --depth=0 | sed '1d' | awk -F'/' '{print $NF }' > "$PWD/.npm_package"
 }
 
 main() {
@@ -165,13 +166,8 @@ main() {
         update_software
         exit
     fi
-
-    info "install arch package"
-    sudo pacman -S --needed $(cat "$PWD/.arch-pkglist-official")
-    pikaur -S $(cat "$PWD/.arch-pkglist-local" | grep -vx "$(pacman -Qqm)")
-
-    install_program_third_parted
-    install_dotfile
+    install_all_package
+    # install_dotfile
 }
 
 main $1
