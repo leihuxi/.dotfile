@@ -17,7 +17,12 @@ bak_file() {
     src_file="${src_dir}/${filename}"
     if [ -f "${src_file}" ] || [ -d "${src_file}" ]; then
         info "bak ${src_file} to $dst_dir/${filename}_$(date -d now +%Y%m%d%H%M%S)_dotfile"
-        mv "${src_file}" "$dst_dir/${filename}_$(date -d now +%Y%m%d%H%M%S)_dotfile"
+        if [[ -L "${src_file}" ]]; then
+            cp -l "${src_file}" "$dst_dir/${filename}_$(date -d now +%Y%m%d%H%M%S)_dotfile"
+            unlink "${src_file}"
+        else
+            mv "${src_file}" "$dst_dir/${filename}_$(date -d now +%Y%m%d%H%M%S)_dotfile"
+        fi
     fi
 }
 
