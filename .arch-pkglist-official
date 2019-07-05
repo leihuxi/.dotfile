@@ -34,6 +34,7 @@ clang
 cmake
 compton
 conky
+connman
 copyq
 cowsay
 cpio
@@ -115,6 +116,7 @@ mako
 mari0
 mariadb
 maven
+mesa-demos
 meson
 mpc
 mpd
@@ -141,6 +143,7 @@ nmap
 npm
 npm-check-updates
 ntfs-3g
+oblogout
 openconnect
 openssh
 os-prober
@@ -230,6 +233,7 @@ wtf
 x86_energy_perf_policy
 xautolock
 xcompmgr
+xdg-user-dirs
 xf86-input-synaptics
 xf86-video-fbdev
 xf86-video-intel
@@ -289,7 +293,9 @@ xorg-xwd
 xorg-xwininfo
 xorg-xwud
 xsel
+xss-lock
 xterm
+xtrlock
 yapf
 yarn
 zeronet

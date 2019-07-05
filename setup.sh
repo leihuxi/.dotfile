@@ -155,13 +155,13 @@ update_software() {
     cp -rf .mycheat ~
     info "update vscode && pacman"
     info "update official pkg list"
-    pacman -Qqe | grep -vx "$(pacman -Qqg base)" | grep -vx "$(pacman -Qqm)" >"$PWD/.arch-pkglist-official"
+    pacman -Qqe | grep -vx "$(pacman -Qqg base)" | grep -vx "$(pacman -Qqm)" > "$PWD/.arch-pkglist-official"
     info "update local pkg list"
     pacman -Qqm >"$PWD/.arch-pkglist-local"
     info "update code "
-    code --list-extensions >"$PWD/.vscode-extensions.txt"
+    code --list-extensions > "$PWD/.vscode-extensions.txt"
     info "update pip package"
-    pip freeze >"$PWD/.requirements.txt"
+    pip freeze | sed 's/=.*//' > "$PWD/.requirements.txt"
     info "update npm package"
     npm list --global --parseable --depth=0 | sed '1d' | awk -F'/' '{print $NF }' > "$PWD/.npm_package"
 }
