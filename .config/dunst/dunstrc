@@ -142,10 +142,10 @@
     startup_notification = false
     
     # dmenu path.
-    dmenu = /usr/bin/dmenu -p dunst:
+    dmenu = /usr/bin/rofi -dmenu -p rofi:
     
     # Browser for opening urls in context menu.
-    browser = palemoon
+    browser = xdg-open
 
     # Align icons left/right/off
     icon_position = left
@@ -154,7 +154,7 @@
     icon_path = /usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/
 
     # Limit icons size.
-    max_icon_size=128
+    max_icon_size = 128
 
 [shortcuts]
 
@@ -164,19 +164,19 @@
     # Xev might be helpful to find names for keys.
     
     # Close notification.
-    close = mod1+space
+    close = ctrl+space
     
     # Close all notifications.
     # close_all = ctrl+shift+space
-    close_all = ctrl+mod1+space
+    close_all = ctrl+shift+space
 
     # Redisplay last message(s).
     # On the US keyboard layout "grave" is normally above TAB and left
     # of "1".
-    history = ctrl+mod4+h 
+    history = ctrl+shift+h 
     
     # Context menu.
-    context = ctrl+mod1+c
+    context = ctrl+shift+c
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
@@ -271,32 +271,9 @@
 #    background = "#A8EB41"
 #    foreground = "#FFFFFF"
 #
-[irc]
-        appname = weechat
-        timeout = 0
-        background = "#0033bb"
-        foreground = "#dddddd"
-#
-[weechat hl]
-     appname = weechat
-     category = weechat.HL
-     background = "#FF5C47"
-     foreground = "#FFFFFF"
-#
-[weechat pn]
-     appname = weechat
-     category = weechat.PM
-     background = "#D53B84"
-     foreground = "#FFFFFF"
-#
 #[CMUS]
 #    appname = CMUS
 #    category = cmus
 #    background = "#6C4AB7"
 #    foreground = "#FFE756"
-#
-#
-#     background = "#30AB70"
-#     foreground = "#F67245"
-#
 # vim: ft=cfg

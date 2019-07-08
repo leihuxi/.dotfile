@@ -67,7 +67,17 @@ window:
   #title: Alacritty
 
   # Window class (Linux only):
-  #class: Alacritty
+  class:
+    # Application instance name
+    instance: Alacritty
+    # General application class
+    general: Alacritty
+
+  # GTK theme variant (Linux only)
+  #
+  # Override the variant of the GTK theme. Commonly supported values are `dark` and `light`.
+  # Set this to `None` to use the default theme variant.
+  gtk_theme_variant: dark
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -176,71 +186,31 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Default colors
   primary:
-    background: "0x222324"
-    foreground: "0xBABABA"
-
-    # Bright and dim foreground colors
-    #
-    # The dimmed foreground color is calculated automatically if it is not present.
-    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-    # is `false`, the normal foreground color will be used.
-    #dim_foreground: '0x9a9a9a'
-    #bright_foreground: '0xffffff'
-
-  # Cursor colors
-  #
-  # Colors which should be used to draw the terminal cursor. If these are unset,
-  # the cursor color will be the inverse of the cell color.
-  #cursor:
-  #  text: '0x000000'
-  #  cursor: '0xffffff'
-
-  # Selection colors
-  #
-  # Colors which should be used to draw the selection area. If selection
-  # background is unset, selection color will be the inverse of the cell colors.
-  # If only text is unset the cell text color will remain the same.
-  #selection:
-  #  text: '0xeaeaea'
-  #  background: '0x404040'
+    background: '0x10100E'
+    foreground: '0xC6C6C4'
 
   # Normal colors
   normal:
-    black:    "0x000000"
-    red:      "0xE8341C"
-    green:    "0x68C256"
-    yellow:   "0xF2D42C"
-    blue:     "0x1C98E8"
-    magenta:  "0x8E69C9"
-    cyan:     "0x1C98E8"
-    white:    "0xBABABA"
+    black:   '0x10100E'
+    red:     '0xC40233'
+    green:   '0x009F6B'
+    yellow:  '0xFFD700'
+    blue:    '0x0087BD'
+    magenta: '0x9A4EAE'
+    cyan:    '0x20B2AA'
+    white:   '0xC6C6C4'
 
   # Bright colors
   bright:
-    black:    "0x666666"
-    red:      "0xE05A4F"
-    green:    "0x77B869"
-    yellow:   "0xEFD64B"
-    blue:     "0x387CD3"
-    magenta:  "0x957BBE"
-    cyan:     "0x3D97E2"
-    white:    "0xBABABA"
+    black:   '0x696969'
+    red:     '0xFF2400'
+    green:   '0x03C03C'
+    yellow:  '0xFDFF00'
+    blue:    '0x007FFF'
+    magenta: '0xFF1493'
+    cyan:    '0x00CCCC'
+    white:   '0xFFFAFA'
 
-  # Dim colors
-  #
-  # If the dim colors are not set, they will be calculated automatically based
-  # on the `normal` colors.
-  #dim:
-  #  black:   '0x000000'
-  #  red:     '0x8c3336'
-  #  green:   '0x7a8530'
-  #  yellow:  '0x97822e'
-  #  blue:    '0x506d8f'
-  #  magenta: '0x80638e'
-  #  cyan:    '0x497e7a'
-  #  white:   '0x9a9a9a'
-
-  # Indexed Colors
   #
   # The indexed colors include all colors from 16 to 256.
   # When these are not set, they're filled with sensible defaults.

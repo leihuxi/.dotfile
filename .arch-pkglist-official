@@ -42,6 +42,7 @@ cpupower
 ctags
 dhclient
 diff-so-fancy
+dmenu
 dos2unix
 drive
 dstat
@@ -239,6 +240,7 @@ xf86-video-fbdev
 xf86-video-intel
 xf86-video-nouveau
 xf86-video-vesa
+xfce4-terminal
 xinit-xsession
 xlockmore
 xmlstarlet
@@ -298,6 +300,7 @@ xterm
 xtrlock
 yapf
 yarn
+yay
 zeronet
 zip
 zsh
