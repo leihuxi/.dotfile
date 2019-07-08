@@ -176,7 +176,7 @@
     history = ctrl+shift+h 
     
     # Context menu.
-    context = ctrl+shift+c
+    context = ctrl+shift+g
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
