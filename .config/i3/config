@@ -68,7 +68,7 @@ bindsym $mod+Return exec alacritty
 # bindsym $mod+i exec neofech
 
 # Start rofi (a program launcher)
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec "rofi -modi drun,run -show drun -show-icons"
 
 # Lock Screen
 # bindsym $mod1+$mod2+l exec --no-startup-id xlock
@@ -148,6 +148,10 @@ bindsym $mod+minus scratchpad show
 # move all floating windows to the scratchpad
 bindsym $mod+a [floating] move scratchpad
 
+#con mark to have multiple scratch pads
+bindsym $mod+$mod2+b mark "scratchterm", move scratchpad
+bindsym $mod+b [con_mark="scratchterm"] scratchpad show sticky enable
+
 # Reload the configuration file
 bindsym $mod+$mod2+c reload
 
@@ -163,6 +167,8 @@ bindsym $mod+8 $workspace8
 bindsym $mod+9 $workspace9
 bindsym $mod+0 $workspace0
 bindsym $mod+Tab workspace back_and_forth
+bindsym $mod1+Tab move container to workspace back_and_forth; workspace back_and_forth
+
 
 # Move window to workspace using number row
 bindsym $mod+$mod2+1 move container to $workspace1
@@ -181,6 +187,7 @@ bindsym $mod+$mod3+j move workspace to output down
 bindsym $mod+$mod3+k move workspace to output up
 bindsym $mod+$mod3+h move workspace to output left
 bindsym $mod+$mod3+l move workspace to output right
+
 # Border
 # border normal|pixel|toggle [<n>]
 # use window title, but no border

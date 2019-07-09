@@ -1,20 +1,20 @@
 # If you come from bash you might have to change your $PATH.
-    # export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
-    # it'll load a random theme each time that oh-my-zsh is loaded.
-    # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-    ZSH_THEME="robbyrussell"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
-    # CASE_SENSITIVE="true"
+# CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
-    # sensitive completion must be off. _ and - will be interchangeable.
-    # HYPHEN_INSENSITIVE="true"
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -32,17 +32,17 @@ export ZSH=$HOME/.oh-my-zsh
 ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-    COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
-    # under VCS as dirty. This makes repository status check for large repositories
-        # much, much faster.
-        # DISABLE_UNTRACKED_FILES_DIRTY="true"
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
-    # stamp shown in the history command output.
-    # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-    # HIST_STAMPS="mm/dd/yyyy"
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -63,11 +63,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-    if [[ -n $SSH_CONNECTION ]]; then
-        export EDITOR='vim'
-    else
-        export EDITOR='vim'
-    fi
+if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+else
+   export EDITOR='vim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -79,71 +79,41 @@ source $ZSH/oh-my-zsh.sh
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-    #
-    # Example aliases
-    # alias zshconfig="mate ~/.zshrc"
-    # alias ohmyzsh="mate ~/.oh-my-zsh"
-    #####user custom config##############
-    # export TERM=xterm-256color
-    export WORK=$HOME/work
-    export GOPATH=$HOME/work/go
-    export BINSCRIPT=$HOME/.bin
-    export PATH=$BINSCRIPT:$GOPATH/bin:$PATH
-    export CHEATCOLORS=true
-    #Neovim true color support
-    export NVIM_TUI_ENABLE_TRUE_COLOR=1
-    #Neovim cursor shape support
-    export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-    export PATH="$HOME/.local/lib/node_modules/bin:$PATH"
-    export npm_config_prefix=~/.local/lib/node_modules
-    export PYTHONUSERBASE="$HOME/.local"
-    export PATH="$HOME/.local/bin:$PATH"
-    export GEM_HOME=$HOME/.gem
-    export PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
-    export ANDROID_HOME=$WORK/Android/Sdk
-    export ANDROID_NDK=$ANDROID_HOME/ndk-bundle
-    # Some programs such as gradle ask this as well:
-    export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
-    export PATH="$ANDROID_NDK:$PATH"
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-    export CHEAT_COLORS=true
-    export CHEAT_USER_DIR="~/.mycheat"
+#####user custom config##############
+# export TERM=xterm-256color
+export WORK=$HOME/work
+export GOPATH=$HOME/work/go
+export BINSCRIPT=$HOME/.bin
+export PATH=$BINSCRIPT:$GOPATH/bin:$PATH
+export CHEATCOLORS=true
+#Neovim true color support
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
+#Neovim cursor shape support
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+export PATH="$HOME/.local/lib/node_modules/bin:$PATH"
+export npm_config_prefix=~/.local/lib/node_modules
+export PYTHONUSERBASE="$HOME/.local"
+export PATH="$HOME/.local/bin:$PATH"
+export GEM_HOME=$HOME/.gem
+export PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+export ANDROID_HOME=$WORK/Android/Sdk
+export ANDROID_NDK=$ANDROID_HOME/ndk-bundle
+# Some programs such as gradle ask this as well:
+export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
+export PATH="$ANDROID_NDK:$PATH"
 
-    export LESS=-R
-    export LESS_TERMCAP_mb=$(tput bold; tput setaf 2) # green
-    export LESS_TERMCAP_md=$(tput bold; tput setaf 6) # cyan
-    export LESS_TERMCAP_me=$(tput sgr0)
-    export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4) # yellow on blue
-    export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
-    export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 7) # white
-    export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
-    export LESS_TERMCAP_mr=$(tput rev)
-    export LESS_TERMCAP_mh=$(tput dim)
-    export LESS_TERMCAP_ZN=$(tput ssubm)
-    export LESS_TERMCAP_ZV=$(tput rsubm)
-    export LESS_TERMCAP_ZO=$(tput ssupm)
-    export LESS_TERMCAP_ZW=$(tput rsupm)
-
-    zmodload zsh/zpty
-    pty() {
-        zpty pty-${UID} ${1+$@}
-        if [[ ! -t 1 ]];then
-            setopt local_traps
-            trap '' INT
-        fi
-        zpty -r pty-${UID}
-        zpty -d pty-${UID}
-    }
-
-ptyless() {
-    pty $@ | less
-}
+export CHEAT_COLORS=true
+export CHEAT_USER_DIR="~/.mycheat"
 
 alias diff='diff --color=auto'
 alias dmesg='dmesg --color=always '
 alias grep='grep --color=auto'
 
-alias h='function hdi(){ howdoi $* -c -n 5; }; hdi'
+alias h='function hdi(){ howdoi "$*" -c -n 5; }; hdi'
 alias t='tmux attach'
 alias tip='taocl|cowsay|lolcat'
 alias cht='~/.bin/cht.sh/cht'
@@ -176,7 +146,7 @@ function taocl() {
         xmlstarlet fo --html --dropdtd |
         xmlstarlet sel -t -v "(html/body/ul/li[count(p)>0])[$RANDOM mod last()+1]" |
         xmlstarlet unesc | fmt -80 | iconv -t US
-    }
+}
 
 function prev() {
     PREV=$(fc -lrn | head -n 1)
