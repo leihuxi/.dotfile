@@ -4,6 +4,7 @@ alacritty-git
 alacritty-terminfo-git
 albert
 alex
+alsa-firmware
 alsa-utils
 android-tools
 android-udev
@@ -26,6 +27,7 @@ bluez-utils
 boost
 bpf
 bridge-utils
+caps
 ccze
 cgroup_event_listener
 chromium
@@ -133,6 +135,7 @@ ncurses5-compat-libs
 neofetch
 neovim
 netdata
+netease-cloud-music
 netease-musicbox
 nethogs
 network-manager-applet

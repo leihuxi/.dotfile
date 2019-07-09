@@ -277,7 +277,7 @@ for_window [window_type="menu"] floating enable
 for_window [window_role="pop-up"] floating enable, move absolute center
 for_window [window_role="bubble"] floating enable, move position center
 
-for_window [title="alsamixer"] floating enable border pixel 1
+for_window [title="alsamixer"] border pixel 1
 for_window [class="feh"] floating enable border pixel 1 move position center
 for_window [class="(?i)arand"] floating enable border pixel 1
 for_window [class="netease-cloud-music"] floating enable
@@ -292,6 +292,7 @@ for_window [class="(?i)nm-connection-editor"] floating enable
 for_window [class="(?i)qemu-system"] floating enable
 for_window [class="albert"] floating enable move position center
 for_window [class="copyq"] floating enable move position center
+for_window [class="Input Method Configuration"] floating enable move position center
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus

@@ -1,3 +1,4 @@
+alsaequal
 altdns
 arachni
 bashbullet
@@ -6,6 +7,7 @@ blackman
 c
 cegui-0.7
 csrftester
+dbus-x11
 fakenet-ng
 find-dns
 ftplib

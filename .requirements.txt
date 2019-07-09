@@ -66,6 +66,7 @@ lit
 lockfile
 lxml
 Mako
+mallard-ducktype
 Markdown
 MarkupSafe
 matplotlib
