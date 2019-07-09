@@ -27,6 +27,7 @@ bluez-utils
 boost
 bpf
 bridge-utils
+bspwm
 caps
 ccze
 cgroup_event_listener
