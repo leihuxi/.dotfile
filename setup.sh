@@ -34,7 +34,7 @@ bak_config() {
     bak_file ~ .tmux "${bakdir}"
     bak_file ~ .gdbinit "${bakdir}"
     bak_file ~ .oh-my-zsh "${bakdir}"
-    bak_file ~ .ssh "${bakdir}"
+    bak_file ~/.ssh config "${bakdir}"
     bak_file ~/.config/alacritty alacritty.yml "${bakdir}"
     bak_file ~ .xprofile "${bakdir}"
     bak_file ~ .xinitrc "${bakdir}"
@@ -71,7 +71,7 @@ install_dotfile() {
     fi
 
     ### ssh
-    [ ! -d ~/.ssh ] && mkdir -p ~/.ssh && cp "$PWD/.sshconfig" ~/.ssh/config
+    [ ! -d ~/.ssh ] && mkdir -p ~/.ssh && cp "$PWD/.ssh/config" ~/.ssh/config
     info "dotfile:ssh config install successfully!"
 
     ### ideavim
@@ -102,6 +102,9 @@ install_dotfile() {
 
     ##git
     cp "$PWD/.gitconfig" ~
+
+    ## screen
+    cp -rf "$PWD/.screenlayout" ~
 
     #Xconfig
     cp "$PWD/.xprofile" ~
