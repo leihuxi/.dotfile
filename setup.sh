@@ -79,7 +79,7 @@ install_dotfile() {
     info "dotfile:ideavimrc install successfully!"
 
     ### gdbinit
-    if curl git.io/.gdbinit -o ~/.gdbinit --progress; then
+    if curl -o ~/.gdbinit -O -L -C - git.io/.gdbinit --progress; then
         info "dotfile:gdbinit install successfully!"
     else
         info "dotfile:gdbinit install failed!"
@@ -117,7 +117,7 @@ install_dotfile() {
     cp "$PWD/.clang-format" ~
 
     #cheat.sh
-    curl https://cht.sh/:cht.sh -o ~/.bin/cht.sh/cht --progress
+    curl -o ~/.bin/cht.sh/cht -O -L -C - https://cht.sh/:cht.sh --progress
     chmod u+x ~/.bin/cht.sh/cht
     info "dotfile:cheat.sh install successfully!"
 
@@ -150,9 +150,9 @@ update_software() {
     info "update tmp"
     (cd ~/.tmux/plugins/tpm && git pull)
     info "update gdb"
-    (bak_file ~ .gdbinit ~/.bakconfig && curl git.io/.gdbinit -o ~/.gdbinit --progress)
+    (bak_file ~ .gdbinit ~/.bakconfig && curl -o ~/.gdbinit -O -L -C - git.io/.gdbinit --progress)
     info "update cht.sh"
-    curl https://cht.sh/:cht.sh -o ~/.bin/cht.sh/cht --progress
+    curl -o ~/.bin/cht.sh/cht -O -L -C - https://cht.sh/:cht.sh --progress
     info "update .bin && .mycheat"
     cp -rf .bin ~
     cp -rf .mycheat ~
