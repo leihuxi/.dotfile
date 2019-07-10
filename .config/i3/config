@@ -112,16 +112,17 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
-bindsym $mod1+a [class="Alacritty"] focus
-bindsym $mod1+b [class="Chromium" window_role="browser"] focus
-bindsym $mod1+c [class="Code" window_role="browser"] focus
-bindsym $mod1+d [class="jetbrains-studio"] focus
-bindsym $mod1+i [class="jetbrains-idea-ce"] focus
-bindsym $mod1+m [class="netease-cloud-music"] focus
-bindsym $mod1+n [class="Alacritty" title="musicbox"] focus
+bindsym $mod1+a [class="(?i)Alacritty"] focus
+bindsym $mod1+b [class="(?i)Chromium" window_role="browser"] focus
+bindsym $mod1+c [class="(?i)Code" window_role="browser"] focus
+bindsym $mod1+d [class="(?i)jetbrains-studio"] focus
+bindsym $mod1+i [class="(?i)jetbrains-idea-ce"] focus
+bindsym $mod1+m [class="(?i)netease-cloud-music"] focus
+bindsym $mod1+n [class="(?i)Alacritty" title="musicbox"] focus
 bindsym $mod1+w [instance="wx.qq.com"] focus
-bindsym $mod1+e [class="TelegramDesktop"] focus
-bindsym $mod1+f [class="mitalk"] focus
+bindsym $mod1+e [class="(?i)TelegramDesktop"] focus
+bindsym $mod1+f [class="(?i)mitalk"] focus
+bindsym $mod1+p [class="(?i)evince"] focus
 
 # Move focused window
 bindsym $mod+$mod2+h move left
@@ -281,25 +282,27 @@ for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
-for_window [window_role="pop-up"] floating enable, move absolute center
-for_window [window_role="bubble"] floating enable, move position center
+for_window [window_role="pop-up"] floating enable, move to position center
+for_window [window_role="bubble"] floating enable, move to position center
 
 for_window [title="alsamixer"] border pixel 1
-for_window [class="feh"] floating enable border pixel 1 move position center
-for_window [class="(?i)arand"] floating enable border pixel 1
-for_window [class="netease-cloud-music"] floating enable
-for_window [class="mitalk"] floating enable
-for_window [class="(?i)VirtualBox"] floating enable
-for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
-for_window [class="vlc"] floating enable move to position center
-for_window [class="Wireshark"] floating enable
-for_window [class="(?i)pcmanfm"] floating enable, move position center
-for_window [class="TelegramDesktop"] floating enable
-for_window [class="(?i)nm-connection-editor"] floating enable
-for_window [class="(?i)qemu-system"] floating enable
-for_window [class="albert"] floating enable move position center
-for_window [class="copyq"] floating enable move position center
-for_window [class="Input Method Configuration"] floating enable move position center
+for_window [class="(?i)feh"] floating enable, border pixel 1, resize set 800 600, move to position center,
+for_window [class="(?i)arand"] floating enable, border pixel 1, move to position center
+for_window [class="(?i)netease-cloud-music"] floating enable, move to position center
+for_window [class="(?i)mitalk"] floating enable, move to position center
+for_window [class="(?i)VirtualBox"] floating enable, move to position center
+for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable, move to position center
+for_window [class="(?i)vlc"] floating enable, move to position center
+for_window [class="(?i)Wireshark"] floating enable, move to position center
+for_window [class="(?i)pcmanfm"] floating enable, move to position center, resize set 800 600
+for_window [class="(?i)TelegramDesktop"] floating enable, move to position center
+for_window [class="(?i)nm-connection-editor"] floating enable, move to position center
+for_window [class="(?i)qemu-system"] floating enable, move to position center
+for_window [class="(?i)albert"] floating enable, move to position center
+for_window [class="(?i)copyq"] floating enable, move to position center
+for_window [class="(?i)fcitx-config-gtk3"] floating enable, move to position center
+for_window [class="(?i)evince"] floating enable, move to position center
+for_window [class="(?i)Alacritty" title="musicbox"] floating enable, border pixel 1, resize set 600 500, move to position center
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus

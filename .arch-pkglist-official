@@ -52,6 +52,7 @@ dstat
 dunst
 efibootmgr
 ethtool
+evince
 exa
 exfat-utils
 expac
@@ -127,7 +128,6 @@ mpd
 mpg123
 mpv
 mtr
-mupdf
 mutt
 namcap
 ncdu
