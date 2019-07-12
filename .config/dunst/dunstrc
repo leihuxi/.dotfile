@@ -164,19 +164,18 @@
     # Xev might be helpful to find names for keys.
     
     # Close notification.
-    close = ctrl+space
+    close = ctrl+space+semicolon
     
     # Close all notifications.
-    # close_all = ctrl+shift+space
-    close_all = ctrl+shift+space
+    close_all = ctrl+shift+apostrophe
 
     # Redisplay last message(s).
     # On the US keyboard layout "grave" is normally above TAB and left
     # of "1".
-    history = ctrl+shift+h 
+    history = ctrl+shift+comma
     
     # Context menu.
-    context = ctrl+shift+g
+    context = ctrl+shift+period
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
