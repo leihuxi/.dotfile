@@ -66,7 +66,6 @@ fcitx-ui-light
 fd
 feh
 ffmpeg
-flake8
 flex
 fortune-mod
 fzf
@@ -169,7 +168,6 @@ prettyping
 pulseaudio-bluetooth
 py3status
 python
-python-isort
 python-markdown
 python-neovim
 python-numpy
@@ -303,8 +301,7 @@ xsel
 xss-lock
 xterm
 xtrlock
-yapf
-yarn
+yaourt
 yay
 zeronet
 zip

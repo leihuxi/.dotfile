@@ -1,7 +1,6 @@
 alsaequal
 altdns
 arachni
-bashbullet
 blackarch-keyring
 blackman
 c
@@ -53,4 +52,3 @@ smtp-vrfy
 subdomainer
 teardown
 wapiti
-wscat

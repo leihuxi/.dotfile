@@ -36,7 +36,6 @@ distlib
 distro
 docopt
 docutils
-entrypoints
 eyeD3
 flake8
 Flask
@@ -71,7 +70,6 @@ Markdown
 MarkupSafe
 matplotlib
 maxminddb
-mccabe
 merkletools
 meson
 msgpack
@@ -95,7 +93,6 @@ pyAIRtools
 pyalpm
 pyasn1
 pycairo
-pycodestyle
 pycparser
 pycryptodome
 pycryptodomex
