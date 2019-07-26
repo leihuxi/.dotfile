@@ -3,9 +3,9 @@
 # shellcheck source=./logger.sh
 source "$PWD/logger.sh"
 # 设置包的安装目录
-export npm_config_prefix=~/.local/lib/node_modules
+export npm_config_prefix="~/.local/lib/node_modules"
 export PYTHONUSERBASE="~/.local"
-export GEM_HOME=$HOME/.gem
+export GEM_HOME="~/.gem"
 
 is_sudo() {
     if sudo echo; then

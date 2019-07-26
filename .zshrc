@@ -153,7 +153,6 @@ function prev() {
     sh -c "pet new `printf %q "$PREV"`"
 }
 
-
 set -o vi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
