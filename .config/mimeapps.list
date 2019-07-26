@@ -1,0 +1,30 @@
+[Added Associations]
+x-scheme-handler/http=exo-web-browser.desktop
+x-scheme-handler/https=exo-web-browser.desktop
+application/x-java-archive=sun-java-jdk8.desktop;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop;
+application/pdf=chromium.desktop;chromium-dev.desktop;gcr-viewer.desktop;google-chrome.desktop;libreoffice-draw.desktop;okularApplication_pdf.desktop;org.gnome.Evince.desktop;
+text/x-python=mousepad.desktop;vim.desktop;nvim.desktop;libreoffice-writer.desktop;
+text/markdown=mousepad.desktop;libreoffice-writer.desktop;
+text/plain=nvim.desktop;vim.desktop;libreoffice-writer.desktop;visual-studio-code.desktop;
+application/x-shellscript=mousepad.desktop;nvim.desktop;vim.desktop;
+video/x-flv=vlc.desktop;org.xfce.Parole.desktop;
+video/mp4=vlc.desktop;org.xfce.Parole.desktop;
+image/jpeg=feh.desktop;ristretto.desktop;
+application/sql=mousepad.desktop;nvim.desktop;
+text/x-chdr=vim.desktop;
+image/gif=feh.desktop;ristretto.desktop;
+image/svg+xml=feh.desktop;ristretto.desktop;
+image/png=feh.desktop;ristretto.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice-writer.desktop;
+application/zip=userapp-"unzip"-F0PWPZ.desktop;
+text/x-c++src=libreoffice-startcenter.desktop;idea.desktop;
+
+[Default Applications]
+text/html=chromium-dev.desktop
+x-scheme-handler/http=chromium-dev.desktop
+x-scheme-handler/https=chromium-dev.desktop
+x-scheme-handler/about=chromium-dev.desktop
+x-scheme-handler/unknown=chromium-dev.desktop
+application/pdf=org.gnome.Evince.desktop
+text/plain=visual-studio-code.desktop

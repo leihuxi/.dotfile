@@ -107,9 +107,6 @@ install_dotfile() {
     ##git
     cp "$PWD/.gitconfig" ~
 
-    ## screen
-    cp -rf "$PWD/.screenlayout" ~
-
     #Xconfig
     cp "$PWD/.xprofile" ~
     cp "$PWD/.Xresources" ~

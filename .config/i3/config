@@ -210,6 +210,7 @@ mode "$mode_launcher" {
     bindsym c exec chromium
     bindsym i exec idea
     bindsym d exec studio
+    bindsym m exec alacritty -e 
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -509,7 +510,7 @@ mode "$mode_gaps_left" {
 exec i3-config-wizard
 exec --no-startup-id xautolock -time 10 -locker ~/.config/i3lock/i3lock.sh
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id ~/.screenlayout/xiaomi.sh
+exec_always --no-startup-id ~/.bin/xiaomi.sh
 exec --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/apocalyptic-hipster.jpg
 exec pulseaudio --start -D
 exec amixer sset Master on
