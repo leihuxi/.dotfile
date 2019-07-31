@@ -3,50 +3,58 @@
     show = diff-so-fancy | less --tabs=1,5 -RFX
 
 [user]
-	name = leihu xi
-	email = leihuxi@gmail.com
+    name = leihu xi
+    email = leihuxi@gmail.com
 [alias]
-	st = status -sb
-	ci = commit
-	all = commit -am
-	br = branch
-	co = checkout
-	di = diff
-	dic = diff --cached
-	lg = log -p
-	lol = log --graph --decorate --pretty=oneline --abbrev-commit
-	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	ls = ls-files
-	# Show files ignored by git:
-	ign = ls-files -o -i --exclude-standard
+    st = status -sb
+    ci = commit
+    all = commit -am
+    br = branch
+    co = checkout
+    di = diff
+    dic = diff --cached
+    lg = log -p
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    ls = ls-files
+    # Show files ignored by git:
+    ign = ls-files -o -i --exclude-standard
 
-	shoot = push origin --delete
-	unstage = reset HEAD --
-	prev = checkout -
-	discard = checkout -- 
+    
+    shoot = push origin --delete
+    unstage = reset HEAD --
+    prev = checkout -
+    discard = checkout --
+
+    a = add 
+    up = pull --rebase=merges
+    g = grep --break --heading --line-number
+    fa = fetch --all
+    p = push
+    pf = push -f
 
 [color]
-	ui = auto
+    ui = auto
 [color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
+    current = yellow reverse
+    local = yellow
+    remote = green
 [color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
+    added = yellow
+    changed = green
+    untracked = cyan
 [core]
-	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-	editor = vim
-	quotepath = false
-	excludesfile = ~/.gitignore_global
-	autocrlf = input
+    whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    editor = vim
+    quotepath = false
+    excludesfile = ~/.gitignore_global
+    autocrlf = input
 [github]
-	user = leihuxi
+    user = leihuxi
 [mergetool]
-	keepBackup = true
+    keepBackup = true
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+    clean = git-media-clean %f
+    smudge = git-media-smudge %f
 [push]
-	default = current
+    default = current

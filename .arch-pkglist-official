@@ -70,6 +70,7 @@ flex
 fortune-mod
 fzf
 gcc
+gconf
 gdb
 git
 global
@@ -97,6 +98,7 @@ jdk8-openjdk
 jq
 kchmviewer
 kitty
+libappindicator-gtk3
 libreoffice-fresh
 libtool
 libtraceevent
