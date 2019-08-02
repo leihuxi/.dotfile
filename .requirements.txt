@@ -23,7 +23,6 @@ Jinja2
 lit
 lockfile
 Mako
-mallard-ducktype
 Markdown
 MarkupSafe
 meson
@@ -32,7 +31,6 @@ namcap
 NetEase-MusicBox
 numpy
 packaging
-pandas
 pep517
 pikaur
 progress
@@ -48,7 +46,6 @@ PyGObject
 pynvim
 pyparsing
 PySocks
-python-dateutil
 pytoml
 pytz
 PyYAML

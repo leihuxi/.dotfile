@@ -4,7 +4,6 @@ arachni
 blackarch-keyring
 blackman
 c
-cegui-0.7
 csrftester
 dbus-x11
 fakenet-ng
@@ -46,7 +45,6 @@ ruby2.3
 ruby2.3-bundler
 ruby2.3-text-table
 sigthief
-silly
 smali-cfgs
 smtp-vrfy
 subdomainer
