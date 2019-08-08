@@ -1,4 +1,5 @@
 adobe-source-han-sans-otc-fonts
+aide
 aircrack-ng
 alacritty-git
 alacritty-terminfo-git
@@ -167,7 +168,9 @@ pkgconf
 pkgfile
 powerline-fonts
 prettyping
+progress
 pulseaudio-bluetooth
+puppet
 py3status
 python
 python-markdown
