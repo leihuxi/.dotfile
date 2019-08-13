@@ -320,6 +320,7 @@ set -g @shell_mode 'vi'
 set -g @resurrect-save-bash-history 'on'
 set -g @resurrect-capture-pane-contents 'on'
 set -g @resurrect-strategy-vim 'session'
+set -g @resurrect-dir '$HOME/work/resurrect/'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run -b '~/.tmux/plugins/tpm/tpm'

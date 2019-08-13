@@ -1,6 +1,7 @@
 alabaster
 appdirs
 arandr
+attrs
 Babel
 bcc
 Beaker
@@ -8,6 +9,7 @@ beautifulsoup4
 CacheControl
 chardet
 colorama
+decorator
 delegator.py
 distlib
 distro
@@ -20,6 +22,7 @@ idna
 imagesize
 isc
 Jinja2
+libvirt-python
 lit
 lockfile
 Mako
@@ -55,6 +58,8 @@ requests
 requests-cache
 retrying
 six
+slip
+slip.dbus
 snowballstemmer
 soupsieve
 Sphinx

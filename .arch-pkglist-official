@@ -48,11 +48,16 @@ ctags
 dhclient
 diff-so-fancy
 dmenu
+dmidecode
+dnsmasq
+docker
 dos2unix
 drive
 dstat
 dunst
+ebtables
 efibootmgr
+etcd
 ethtool
 evince
 exa
@@ -67,6 +72,7 @@ fcitx-ui-light
 fd
 feh
 ffmpeg
+firewalld
 flex
 fortune-mod
 fzf
@@ -99,6 +105,8 @@ jdk8-openjdk
 jq
 kchmviewer
 kitty
+kubectl
+kubernetes-helm
 libappindicator-gtk3
 libreoffice-fresh
 libtool
@@ -227,6 +235,8 @@ unzip
 usbip
 valgrind
 vim
+virt-manager
+virt-viewer
 virtualbox
 visual-studio-code-bin
 vlc
