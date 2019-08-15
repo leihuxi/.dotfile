@@ -2,6 +2,7 @@ adobe-source-han-sans-otc-fonts
 aide
 aircrack-ng
 alacritty
+alacritty-terminfo
 albert
 alex
 alsa-firmware
@@ -160,6 +161,7 @@ pcmanfm
 perf
 pkgconf
 pkgfile
+polybar
 powerline-fonts
 prettyping
 progress
