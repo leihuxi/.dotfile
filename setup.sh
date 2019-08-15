@@ -52,6 +52,9 @@ bak_config() {
 }
 
 install_all_package() {
+    info "install yay"
+    git clone https://aur.archlinux.org/yay.git /tmp/yay
+    (cd /tmp/yay && makepkg -si)
     info "install arch package"
     sudo pacman -S --needed $(cat "$PWD/.arch-pkglist-official")
     yay -S $(cat "$PWD/.arch-pkglist-local" | grep -vx "$(pacman -Qqm)")

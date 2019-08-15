@@ -1,9 +1,12 @@
+alacritty-terminfo-git
 alsaequal
 altdns
 arachni
+bear
 blackarch-keyring
 blackman
 c
+cloog
 csrftester
 dbus-x11
 fakenet-ng
@@ -12,12 +15,14 @@ ftplib
 gcc44
 gittools
 icmpsh
+isl
 lsdesktopf
 mdcrack
 mibble
 netattack
 netreconn
 opensvp
+osl
 pcmciautils
 pdfbook-analyzer
 pet-git
@@ -50,3 +55,4 @@ smtp-vrfy
 subdomainer
 teardown
 wapiti
+yay

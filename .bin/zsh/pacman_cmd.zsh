@@ -13,6 +13,7 @@ pach() {
 	echo "pacreinstall              \"Reinstalling all packages\""
     echo "pacoldlib                 \"Use old lib app\""
     echo "allworld                  \"Update all world\""
+    echo "remove_not_base           \"Remove not base\""
 }
 
 # Find third party install
@@ -104,3 +105,8 @@ pacoldlib() {
 allworld() {
     sudo pacman -Syyu
 }
+
+remove_not_base {
+    pacman -R $(comm -23 <(pacman -Qq | sort) <((for i in $(pacman -Qqg base); do pactree -ul "$i"; done) | sort -u))
+}
+

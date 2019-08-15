@@ -1,8 +1,7 @@
 adobe-source-han-sans-otc-fonts
 aide
 aircrack-ng
-alacritty-git
-alacritty-terminfo-git
+alacritty
 albert
 alex
 alsa-firmware
@@ -11,15 +10,11 @@ android-tools
 android-udev
 arandr
 arch-audit
-archlinuxcn-keyring
 arpwatch
 audit
 autoconf
 automake
 bat
-bcc-git
-bcc-tools-git
-bear
 bind-tools
 binutils
 bison
@@ -36,6 +31,7 @@ chromium
 clamav
 clang
 cmake
+code
 compton
 conky
 connman
@@ -43,7 +39,6 @@ copyq
 cowsay
 cpio
 cpupower
-crow-translate
 ctags
 dhclient
 diff-so-fancy
@@ -52,12 +47,10 @@ dmidecode
 dnsmasq
 docker
 dos2unix
-drive
 dstat
 dunst
 ebtables
 efibootmgr
-etcd
 ethtool
 evince
 exa
@@ -80,7 +73,6 @@ gcc
 gconf
 gdb
 git
-global
 gnu-netcat
 go
 goaccess
@@ -91,7 +83,7 @@ hdparm
 htop
 httpie
 hyperv
-i3-gaps-next-git
+i3-gaps
 i3blocks
 i3lock
 i3status
@@ -102,11 +94,11 @@ intel-ucode
 iperf3
 iw
 jdk8-openjdk
+jenkins
 jq
 kchmviewer
 kitty
 kubectl
-kubernetes-helm
 libappindicator-gtk3
 libreoffice-fresh
 libtool
@@ -114,9 +106,6 @@ libtraceevent
 libvirt
 libzip
 light
-linux-mainline
-linux-mainline-docs
-linux-mainline-headers
 lldb
 llvm
 logwatch
@@ -143,12 +132,9 @@ mutt
 namcap
 ncdu
 ncmpcpp
-ncurses5-compat-libs
 neofetch
 neovim
 netdata
-netease-cloud-music
-netease-musicbox
 nethogs
 network-manager-applet
 networkmanager
@@ -171,7 +157,6 @@ pass
 patch
 pcmanfm
 perf
-pikaur
 pkgconf
 pkgfile
 powerline-fonts
@@ -193,7 +178,6 @@ python2
 qemu
 qt5-wayland
 ranger
-rar
 redshift
 rkhunter
 rlwrap
@@ -226,7 +210,6 @@ tmon
 tmux
 tor
 tree
-trizen
 ttf-dejavu
 ttf-font-awesome
 turbostat
@@ -238,7 +221,6 @@ vim
 virt-manager
 virt-viewer
 virtualbox
-visual-studio-code-bin
 vlc
 w3m
 waybar
@@ -248,7 +230,6 @@ wireshark-qt
 wl-clipboard
 wpa_supplicant
 wqy-microhei
-wrk
 wtf
 x86_energy_perf_policy
 xautolock
@@ -260,7 +241,6 @@ xf86-video-intel
 xf86-video-nouveau
 xf86-video-vesa
 xfce4-terminal
-xinit-xsession
 xlockmore
 xmlstarlet
 xorg-bdftopcf
@@ -317,8 +297,5 @@ xsel
 xss-lock
 xterm
 xtrlock
-yaourt
-yay
-zeronet
 zip
 zsh

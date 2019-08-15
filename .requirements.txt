@@ -3,7 +3,6 @@ appdirs
 arandr
 attrs
 Babel
-bcc
 Beaker
 beautifulsoup4
 CacheControl
@@ -31,11 +30,9 @@ MarkupSafe
 meson
 msgpack
 namcap
-NetEase-MusicBox
 numpy
 packaging
 pep517
-pikaur
 progress
 protobuf
 psutil
