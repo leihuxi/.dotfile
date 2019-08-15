@@ -150,6 +150,7 @@ openconnect
 openssh
 os-prober
 pacgraph
+pacman-contrib
 pandoc
 parcellite
 parted
