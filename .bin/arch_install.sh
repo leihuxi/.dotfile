@@ -49,6 +49,7 @@ tmpfile=$(mktemp --suffix=-mirrorlist)
 echo ${tmpfile}
 curl -so "${tmpfile}" "https://www.archlinux.org/mirrorlist/?country=CN&use_mirror_status=on"
 sed -i 's/^#Server/Server/g' ${tmpfile}
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.orig
 cp ${tmpfile} /etc/pacman.d/mirrorlist
 pacman -Sy pacman-contrib
 rankmirrors ${tmpfile} > /etc/pacman.d/mirrorlist
