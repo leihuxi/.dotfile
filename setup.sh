@@ -200,12 +200,12 @@ update_software() {
 }
 
 main() {
-    if [[ "$1" == "up" ]]; then
-        update_software
+    if [[ "$1" == "install" ]]; then
+    	install_all_package
+    	install_dotfile
         exit
     fi
-    #install_all_package
-    install_dotfile
+    update_software
 }
 
 main $1
