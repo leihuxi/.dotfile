@@ -11,6 +11,12 @@ LOCALE_UTF8_CN=zh_CN.UTF-8
 HOST_NAME=archlinux
 USERNAME=xileihu
 
+trap 'custom_exit; exit' SIGINT SIGQUIT
+custom_exit()
+{
+    echo "you hit Ctrl-C/Ctrl-\, now exiting.."
+}
+
 function arch_chroot() {
     arch-chroot /mnt /bin/bash -c "$1"
 }
