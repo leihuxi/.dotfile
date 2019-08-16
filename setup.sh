@@ -53,16 +53,21 @@ bak_config() {
 
 install_all_package() {
     info "install arch package"
-    sudo pacman -S --needed $(cat "$PWD/.arch-pkglist-official")
+    sudo pacman -S --needed - < "$PWD/.arch-pkglist-official"
     #yay -S $(cat "$PWD/.arch-pkglist-local" | grep -vx "$(pacman -Qqm)")
-    info "install pip package"
-    pip install --user -r "$PWD/.requirements.txt"
+    #info "install pip package"
+    pip install --ignore-installed --upgrade --user -r "$PWD/.requirements.txt"
     cat $PWD/.vscode-extensions.txt | xargs -L 1 code --install-extension
     xargs npm install --global <"$PWD/.npm_package"
 }
 
 install_dotfile() {
     bak_config
+
+    ## polybar
+    if git clone https://github.com/polybar/polybar.git /tmp/polybar; then
+    	(cd /tmp/polybar &&  ./build.sh)
+    fi
 
     ### tmux
     if git clone https://github.com/gpakosz/.tmux.git ~/.tmux; then
@@ -177,6 +182,7 @@ main() {
     fi
     install_all_package
     install_dotfile
+    install_third_pkg
 }
 
 main $1
