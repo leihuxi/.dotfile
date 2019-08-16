@@ -62,7 +62,7 @@ pacman -Sy archlinux-keyring
 pacstrap /mnt base iw grub efibootmgr zsh vim iw wireless_tools wpa_supplicant dhclient sudo
 genfstab -U /mnt >/mnt/etc/fstab
 
-cp /mnt/etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist.orig
+cp /etc/pacman.d/mirrorlist.orig /mnt/etc/pacman.d/mirrorlist.orig
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
 echo "set localtime"
