@@ -30,9 +30,12 @@ parted -a optimal $disk mkpart primary ext4 82051Mib 100%
 parted -a optimal $disk name 5 home
 parted -a optimal $disk set 2 boot on
 
-echo "swapon"
+echo "format disk"
+mkfs.fat -F 32 "$disk"p2
 mkswap "$disk"p3
 swapon "$disk"p3
+mkfs.ext4 "$disk"p4
+mkfs.ext4 "$disk"p5
 
 echo "mount disk"
 mount "$disk"p4 /mnt
