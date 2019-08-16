@@ -54,11 +54,11 @@ bak_config() {
 install_all_package() {
     info "install arch package"
     sudo pacman -S --needed - < "$PWD/.arch-pkglist-official"
-    #yay -S $(cat "$PWD/.arch-pkglist-local" | grep -vx "$(pacman -Qqm)")
-    #info "install pip package"
-    pip install --ignore-installed --upgrade --user -r "$PWD/.requirements.txt"
-    cat $PWD/.vscode-extensions.txt | xargs -L 1 code --install-extension
-    xargs npm install --global <"$PWD/.npm_package"
+    # yay -S $(cat "$PWD/.arch-pkglist-local" | grep -vx "$(pacman -Qqm)")
+    # info "install pip package"
+    # pip install --ignore-installed --upgrade --user -r "$PWD/.requirements.txt"
+    # cat $PWD/.vscode-extensions.txt | xargs -L 1 code --install-extension
+    # xargs npm install --global <"$PWD/.npm_package"
 }
 
 install_dotfile() {
