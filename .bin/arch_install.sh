@@ -9,6 +9,7 @@ SUBZONE=Shanghai
 LOCALE_UTF8_US=en_US.UTF-8
 LOCALE_UTF8_CN=zh_CN.UTF-8
 HOST_NAME=archlinux
+USERNAME=xileihu
 
 umount -R /mnt
 parted -a optimal $disk mklabel gpt
@@ -59,9 +60,19 @@ arch_chroot "sed -i 's/#\('${LOCALE_UTF8_CN}'\)/\1/' /etc/locale.gen"
 arch_chroot "sed -i 's/#\('${LOCALE_UTF8_US}'\)/\1/' /etc/locale.gen"
 arch_chroot "locale-gen"
 
+echo "install bootloader and linux kernel"
 arch_chroot "mkinitcpio -p linux"
 arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck"
 arch_chroot "grub-mkconfig -o /boot/grub/grub.cfg"
+
+echo "create ${USERNAME}"
+arch_chroot "useradd -m -g users -G wheel -s /bin/bash ${USERNAME}"
+arch_chroot "sed -i '/%wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers"
+echo "password for ${USERNAME}"
+arch_chroot "passwd ${USERNAME}"
+
+echo "password for root"
 arch_chroot "passwd"
 
+echo "unmount /mnt"
 mount -R /mnt
