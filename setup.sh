@@ -88,6 +88,7 @@ install_dotfile() {
     bak_config
 
     ## polybar
+    rm -rf /tmp/polybar
     if git clone https://github.com/polybar/polybar.git /tmp/polybar; then
         (cd /tmp/polybar && ./build.sh)
     fi
