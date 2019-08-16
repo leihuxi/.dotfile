@@ -74,7 +74,7 @@ arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader
 arch_chroot "grub-mkconfig -o /boot/grub/grub.cfg"
 
 echo "create ${USERNAME}"
-arch_chroot "useradd -m -g users -G wheel -s /bin/bash ${USERNAME}"
+arch_chroot "useradd -m -g users -G wheel -s /bin/zsh ${USERNAME}"
 arch_chroot "sed -i '/%wheel ALL=(ALL) ALL/s/^# //' /etc/sudoers"
 echo "password for ${USERNAME}"
 arch_chroot "passwd ${USERNAME}"
