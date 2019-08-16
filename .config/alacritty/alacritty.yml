@@ -67,11 +67,7 @@ window:
   #title: Alacritty
 
   # Window class (Linux only):
-  class:
-    # Application instance name
-    instance: Alacritty
-    # General application class
-    general: Alacritty
+  class: Alacritty
 
   # GTK theme variant (Linux only)
   #
@@ -182,7 +178,7 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (Darkside)
+# Colors (Blood Moon)
 colors:
   # Default colors
   primary:
