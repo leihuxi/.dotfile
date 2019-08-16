@@ -6,6 +6,10 @@ source "$PWD/logger.sh"
 export npm_config_prefix="~/.local/lib/node_modules"
 export PYTHONUSERBASE="~/.local"
 export GEM_HOME="~/.gem"
+trap 'custom_exit; exit' SIGINT SIGQUIT
+custom_exit() {
+    echo "you hit Ctrl-C/Ctrl-\, now exiting.."
+}
 
 is_sudo() {
     if sudo echo; then
@@ -135,6 +139,7 @@ install_dotfile() {
     fi
 
     # vim
+    info "vim: may take long time...., Ctrl+C to install manualy"
     if git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime; then
         sh ~/.vim_runtime/install_awesome_vimrc.sh
         info "dotifile:vimrc install successfully!"
@@ -180,9 +185,8 @@ main() {
         update_software
         exit
     fi
-    install_all_package
+    #install_all_package
     install_dotfile
-    install_third_pkg
 }
 
 main $1
