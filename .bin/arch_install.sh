@@ -12,8 +12,7 @@ HOST_NAME=archlinux
 USERNAME=xileihu
 
 trap 'custom_exit; exit' SIGINT SIGQUIT
-custom_exit()
-{
+custom_exit() {
     echo "you hit Ctrl-C/Ctrl-\, now exiting.."
 }
 
@@ -58,22 +57,25 @@ sed -i 's/^#Server/Server/g' ${tmpfile}
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.orig
 cp ${tmpfile} /etc/pacman.d/mirrorlist
 pacman -Sy pacman-contrib
-rankmirrors ${tmpfile} > /etc/pacman.d/mirrorlist
+rankmirrors ${tmpfile} >/etc/pacman.d/mirrorlist
 pacman -Sy archlinux-keyring
-pacstrap /mnt base iw grub efibootmgr zsh vim iw wireless_tools wpa_supplicant dhclient
-genfstab -U /mnt > /mnt/etc/fstab
+pacstrap /mnt base iw grub efibootmgr zsh vim iw wireless_tools wpa_supplicant dhclient sudo
+genfstab -U /mnt >/mnt/etc/fstab
+
+cp /mnt/etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist.orig
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
 echo "set localtime"
 arch_chroot "ln -sf /usr/share/zoneinfo/${ZONE}/${SUBZONE} /etc/localtime"
 arch_chroot "hwclock --systohc --utc"
 
 echo "set hostname"
-echo "${HOST_NAME}" > /mnt/etc/hostname
+echo "${HOST_NAME}" >/mnt/etc/hostname
 arch_chroot "sed -i '/127.0.0.1/s/$/ '${HOST_NAME}'/' /etc/hosts"
 arch_chroot "sed -i '/::1/s/$/ '${HOST_NAME}'/' /etc/hosts"
 
 echo "locale-gen"
-echo "LANG=$LOCALE_UTF8_US" > /mnt/etc/locale.conf
+echo "LANG=$LOCALE_UTF8_US" >/mnt/etc/locale.conf
 arch_chroot "sed -i 's/#\('${LOCALE_UTF8_CN}'\)/\1/' /etc/locale.gen"
 arch_chroot "sed -i 's/#\('${LOCALE_UTF8_US}'\)/\1/' /etc/locale.gen"
 arch_chroot "locale-gen"
@@ -91,6 +93,3 @@ arch_chroot "passwd ${USERNAME}"
 
 echo "password for root"
 arch_chroot "passwd"
-
-echo "unmount /mnt"
-mount -R /mnt
