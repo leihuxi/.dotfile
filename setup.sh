@@ -6,9 +6,28 @@ source "$PWD/logger.sh"
 export npm_config_prefix="~/.local/lib/node_modules"
 export PYTHONUSERBASE="~/.local"
 export GEM_HOME="~/.gem"
+export GOPATH="~/work/go"
+
 trap 'custom_exit; exit' SIGINT SIGQUIT
 custom_exit() {
     echo "you hit Ctrl-C/Ctrl-\, now exiting.."
+}
+
+is_install() {
+    while true; do
+        read -p "Do you wish to install $1[Y/n]?" yn
+        case $yn in
+        [Yy]*)
+            return 0
+            ;;
+        [Nn]*)
+            return 1
+            ;;
+        *)
+            return 0
+            ;;
+        esac
+    done
 }
 
 is_sudo() {
@@ -57,7 +76,7 @@ bak_config() {
 
 install_all_package() {
     info "install arch package"
-    sudo pacman -S --needed - < "$PWD/.arch-pkglist-official"
+    sudo pacman -S --needed - <"$PWD/.arch-pkglist-official"
     # yay -S $(cat "$PWD/.arch-pkglist-local" | grep -vx "$(pacman -Qqm)")
     # info "install pip package"
     # pip install --ignore-installed --upgrade --user -r "$PWD/.requirements.txt"
@@ -70,7 +89,7 @@ install_dotfile() {
 
     ## polybar
     if git clone https://github.com/polybar/polybar.git /tmp/polybar; then
-    	(cd /tmp/polybar &&  ./build.sh)
+        (cd /tmp/polybar && ./build.sh)
     fi
 
     ### tmux
@@ -140,7 +159,7 @@ install_dotfile() {
 
     # vim
     info "vim: may take long time...., Ctrl+C to install manualy"
-    if git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime; then
+    if $(is_install vim) && git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime; then
         sh ~/.vim_runtime/install_awesome_vimrc.sh
         info "dotifile:vimrc install successfully!"
     else
@@ -169,15 +188,15 @@ update_software() {
     cp -rf .mycheat ~
     info "update vscode && pacman"
     info "update official pkg list"
-    pacman -Qqe | grep -vx "$(pacman -Qqg base)" | grep -vx "$(pacman -Qqm)" > "$PWD/.arch-pkglist-official"
+    pacman -Qqe | grep -vx "$(pacman -Qqg base)" | grep -vx "$(pacman -Qqm)" >"$PWD/.arch-pkglist-official"
     info "update local pkg list"
     pacman -Qqm >"$PWD/.arch-pkglist-local"
     info "update code "
-    code --list-extensions > "$PWD/.vscode-extensions.txt"
+    code --list-extensions >"$PWD/.vscode-extensions.txt"
     info "update pip package"
-    pip freeze | sed 's/=.*//' > "$PWD/.requirements.txt"
+    pip freeze | sed 's/=.*//' >"$PWD/.requirements.txt"
     info "update npm package"
-    npm list --global --parseable --depth=0 | sed '1d' | awk -F'/' '{print $NF }' > "$PWD/.npm_package"
+    npm list --global --parseable --depth=0 | sed '1d' | awk -F'/' '{print $NF }' >"$PWD/.npm_package"
 }
 
 main() {
