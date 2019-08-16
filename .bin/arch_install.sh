@@ -11,6 +11,10 @@ LOCALE_UTF8_CN=zh_CN.UTF-8
 HOST_NAME=archlinux
 USERNAME=xileihu
 
+function arch_chroot() {
+    arch-chroot /mnt /bin/bash -c "$1"
+}
+
 umount -R /mnt
 parted -a optimal $disk mklabel gpt
 parted -a optimal $disk mkpart primary fat32 1Mib 3Mib
@@ -26,6 +30,10 @@ parted -a optimal $disk mkpart primary ext4 82051Mib 100%
 parted -a optimal $disk name 5 home
 parted -a optimal $disk set 2 boot on
 
+echo "swapon"
+mkswap "$disk"p3
+swapon "$disk"p3
+
 echo "mount disk"
 mount "$disk"p4 /mnt
 mkdir -p /mnt/boot
@@ -40,10 +48,10 @@ curl -so "${tmpfile}" "https://www.archlinux.org/mirrorlist/?country=CN&use_mirr
 sed -i 's/^#Server/Server/g' ${tmpfile}
 cp ${tmpfile} /etc/pacman.d/mirrorlist
 pacman -Sy pacman-contrib
-rankmirrors ${tmpfile} >/etc/pacman.d/mirrorlist
+rankmirrors ${tmpfile} > /etc/pacman.d/mirrorlist
 pacman -Sy archlinux-keyring
 pacstrap /mnt base iw grub efibootmgr zsh vim iw wireless_tools wpa_supplicant dhclient
-genfstab -U >>/mnt/etc/fstab
+genfstab -U /mnt > /mnt/etc/fstab
 
 echo "set localtime"
 arch_chroot "ln -sf /usr/share/zoneinfo/${ZONE}/${SUBZONE} /etc/localtime"
