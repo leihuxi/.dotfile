@@ -74,16 +74,6 @@ bak_config() {
     info "bak all file successfully"
 }
 
-install_all_package() {
-    info "install arch package"
-    sudo pacman -S --needed - <"$PWD/.arch-pkglist-official"
-    # yay -S $(cat "$PWD/.arch-pkglist-local" | grep -vx "$(pacman -Qqm)")
-    # info "install pip package"
-    # pip install --ignore-installed --upgrade --user -r "$PWD/.requirements.txt"
-    # cat $PWD/.vscode-extensions.txt | xargs -L 1 code --install-extension
-    # xargs npm install --global <"$PWD/.npm_package"
-}
-
 install_dotfile() {
     bak_config
 
@@ -104,7 +94,10 @@ install_dotfile() {
     fi
 
     ### ssh
-    [ ! -d ~/.ssh ] && mkdir -p ~/.ssh && cp "$PWD/.ssh/config" ~/.ssh/config
+    if [[ ! -d ~/.ssn ]]; then
+        mkdir -p ~/.ssh
+    fi
+    cp "$PWD/.ssh/config" ~/.ssh/config
     info "dotfile:ssh config install successfully!"
 
     ### ideavim
@@ -169,7 +162,34 @@ install_dotfile() {
     info "all installed successfully, Please reboot your shell!"
 }
 
-update_software() {
+install_pkg() {
+    info "install arch package"
+    sudo pacman -S --needed - <"$PWD/.arch-pkglist-official"
+}
+
+install_third_pkg() {
+    rm -rf /tmp/yay
+    if git clone https://aur.archlinux.org/yay.git /tmp/yay; then
+        (cd /tmp/yay && makepkg -si)
+    fi
+
+    yay -S $(cat "$PWD/.arch-pkglist-local" | grep -vx "$(pacman -Qqm)")
+    info "install pip package"
+    pip install --ignore-installed --upgrade --user -r "$PWD/.requirements.txt"
+    cat $PWD/.vscode-extensions.txt | xargs -L 1 code --install-extension
+    xargs npm install --global <"$PWD/.npm_package"
+}
+
+update_third_pkg() {
+    info "update local pkg list"
+    pacman -Qqm >"$PWD/.arch-pkglist-local"
+    info "update pip package"
+    pip freeze | sed 's/=.*//' >"$PWD/.requirements.txt"
+    info "update npm package"
+    npm list --global --parseable --depth=0 | sed '1d' | awk -F'/' '{print $NF }' >"$PWD/.npm_package"
+}
+
+update_pkg() {
     info "update zsh"
     (cd ~/.oh-my-zsh && git pull)
     info "update zsh-autosuggestions"
@@ -187,26 +207,20 @@ update_software() {
     info "update .bin && .mycheat"
     cp -rf .bin ~
     cp -rf .mycheat ~
-    info "update vscode && pacman"
-    info "update official pkg list"
+    info "export official pkg list"
     pacman -Qqe | grep -vx "$(pacman -Qqg base)" | grep -vx "$(pacman -Qqm)" >"$PWD/.arch-pkglist-official"
-    info "update local pkg list"
-    pacman -Qqm >"$PWD/.arch-pkglist-local"
-    info "update code "
+    info "export vscode "
     code --list-extensions >"$PWD/.vscode-extensions.txt"
-    info "update pip package"
-    pip freeze | sed 's/=.*//' >"$PWD/.requirements.txt"
-    info "update npm package"
-    npm list --global --parseable --depth=0 | sed '1d' | awk -F'/' '{print $NF }' >"$PWD/.npm_package"
 }
 
 main() {
     if [[ "$1" == "install" ]]; then
-    	install_all_package
-    	install_dotfile
+        install_pkg_
+        install_dotfile
         exit
     fi
-    update_software
+    update_pkg
+    update_third_pkg
 }
 
 main $1

@@ -12,10 +12,10 @@ android-udev
 arandr
 arch-audit
 arpwatch
-audit
 autoconf
 automake
 bat
+bbswitch
 bind-tools
 binutils
 bison
@@ -25,7 +25,9 @@ boost
 bpf
 bridge-utils
 bspwm
+bumblebee
 caps
+cbatticon
 ccze
 cgroup_event_listener
 chromium
@@ -78,7 +80,6 @@ gnu-netcat
 go
 goaccess
 grim
-groff
 grub
 hdparm
 htop
@@ -86,12 +87,13 @@ httpie
 hyperv
 i3-gaps
 i3blocks
-i3lock
+i3lock-color
 i3status
 ibus-googlepinyin
 iftop
 imagemagick
 intel-ucode
+intellij-idea-community-edition
 iperf3
 iw
 jdk8-openjdk
@@ -146,6 +148,7 @@ nmap
 npm
 npm-check-updates
 ntfs-3g
+nvidia
 oblogout
 openconnect
 openssh
@@ -180,6 +183,7 @@ python2
 qemu
 qt5-wayland
 ranger
+rdesktop
 redshift
 rkhunter
 rlwrap
@@ -189,6 +193,8 @@ ruby
 rustup
 screenfetch
 scrot
+shadowsocks-libev
+shadowsocks-qt5
 shellcheck
 shfmt
 sl
@@ -203,7 +209,6 @@ swaylock
 sxhkd
 sysdig
 sysstat
-systemd
 telegram-desktop
 the_silver_searcher
 tig
@@ -223,11 +228,13 @@ vim
 virt-manager
 virt-viewer
 virtualbox
+virtualbox-host-modules-arch
 vlc
 w3m
 waybar
 wget
 whowatch
+wireless_tools
 wireshark-qt
 wl-clipboard
 wpa_supplicant
@@ -240,7 +247,6 @@ xdg-user-dirs
 xf86-input-synaptics
 xf86-video-fbdev
 xf86-video-intel
-xf86-video-nouveau
 xf86-video-vesa
 xfce4-terminal
 xlockmore
