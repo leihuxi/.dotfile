@@ -114,7 +114,7 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 bindsym $mod1+a [class="(?i)Alacritty"] focus
 bindsym $mod1+b [class="(?i)Chromium" window_role="browser"] focus
-bindsym $mod1+c [class="(?i)Code" window_role="browser"] focus
+bindsym $mod1+c [class="(?i)code-oss" window_role="browser"] focus
 bindsym $mod1+d [class="(?i)jetbrains-studio"] focus
 bindsym $mod1+e [class="(?i)TelegramDesktop"] focus
 bindsym $mod1+f [class="(?i)mitalk"] focus
@@ -319,7 +319,7 @@ for_window [urgent=latest] focus
 assign [window_role="browser" class = "Chromium"] $workspace3
 assign [class="jetbrains-idea-ce"] $workspace4
 assign [class="jetbrains-studio"] $workspace4
-assign [window_role="browser" class = "Code"] $workspace5
+assign [window_role="browser" class = "code-oss"] $workspace5
 
 # Interprocess communication
 ipc-socket ~/.config/i3/i3-ipc.sock
@@ -510,7 +510,7 @@ mode "$mode_gaps_left" {
 exec i3-config-wizard
 exec --no-startup-id xautolock -time 10 -locker ~/.config/i3lock/i3lock.sh
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id ~/.bin/xiaomi.sh
+exec_always --no-startup-id ~/.bin/miarch.sh
 exec --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/apocalyptic-hipster.jpg
 exec pulseaudio --start -D
 exec amixer sset Master on
