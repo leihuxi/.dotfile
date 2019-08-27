@@ -7,6 +7,7 @@ colorama
 decorator
 distlib
 distro
+future
 greenlet
 html5lib
 httpie
@@ -18,16 +19,21 @@ lockfile
 Markdown
 meson
 msgpack
+mutagen
 namcap
+netease-cloud-music-dl
+NetEase-MusicBox
 numpy
 packaging
 pep517
+Pillow
 progress
 protobuf
 psutil
 py3status
 pyalpm
 pycairo
+pycryptodomex
 pyelftools
 Pygments
 PyGObject
@@ -37,6 +43,7 @@ pytoml
 PyYAML
 ranger-fm
 requests
+requests-cache
 retrying
 six
 slip

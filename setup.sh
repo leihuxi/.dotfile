@@ -215,7 +215,7 @@ update_pkg() {
 
 main() {
     if [[ "$1" == "install" ]]; then
-        install_pkg_
+        install_pkg
         install_dotfile
         exit
     fi

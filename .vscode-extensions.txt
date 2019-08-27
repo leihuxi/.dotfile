@@ -1,0 +1,7 @@
+eamodio.gitlens
+HookyQR.beautify
+ms-vscode.cpptools
+ms-vscode.Go
+redhat.java
+vscjava.vscode-maven
+vscodevim.vim

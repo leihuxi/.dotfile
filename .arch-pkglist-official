@@ -14,6 +14,7 @@ arch-audit
 arpwatch
 autoconf
 automake
+axel
 bat
 bbswitch
 bind-tools
@@ -33,6 +34,7 @@ cgroup_event_listener
 chromium
 clamav
 clang
+cloc
 cmake
 code
 compton
@@ -79,6 +81,7 @@ git
 gnu-netcat
 go
 goaccess
+gradle
 grim
 grub
 hdparm
@@ -131,6 +134,7 @@ mpd
 mpg123
 mpv
 mtr
+multitail
 mutt
 namcap
 ncdu
