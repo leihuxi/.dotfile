@@ -123,7 +123,7 @@ bindsym $mod1+i [class="(?i)jetbrains-idea-ce"] focus
 bindsym $mod1+m [class="(?i)netease-cloud-music"] focus
 bindsym $mod1+n [class="(?i)Alacritty" title="musicbox"] focus
 bindsym $mod1+p [class="(?i)evince"] focus
-bindsym $mod1+w [instance="wx.qq.com"] focus
+bindsym $mod1+w [class="(?i)electronic-wechat"] focus
 
 # Move focused window
 bindsym $mod+$mod2+h move left
@@ -305,6 +305,7 @@ for_window [class="(?i)copyq"] floating enable, move to position center
 for_window [class="(?i)fcitx-config-gtk3"] floating enable, move to position center
 for_window [class="(?i)evince"] floating enable, move to position center
 for_window [class="(?i)Alacritty" title="musicbox"] floating enable, border pixel 1, resize set 600 500, move to position center
+for_window [class="(?i)electronic-wechat"] floating enable, border pixel 1, resize set 800 600, move to position center
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
