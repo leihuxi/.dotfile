@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ $# -ne 1 ]; then
     exit
 fi
@@ -9,32 +10,50 @@ custom_exit() {
 
 disk="$1"
 disksplit="p"
+boot_order=1
+swap_order=2
+rootfs_order=3
+home_order=4
+boot_size=260
+swap_size=16
+rootfs_size=128
+
+diskprefix="${disk}${disksplit}"
+home="${diskprefix}${home_order}"
+rootfs="${diskprefix}${rootfs_order}"
+swap="${diskprefix}${swap_order}"
+boot="${diskprefix}${boot_order}"
+
+boot_end=$boot_size
+swap_end=$(($boot_end + $swap_size * 1024))
+rootfs_end=$(($swap_end + $rootfs_size * 1024))
+
+echo "home=${home}, boot=${boot}, rootfs=${rootfs}, swap=${swap}"
+echo "boot=1Mib, ${boot_end}Mib"
+echo "swap=${boot_end}Mib, ${swap_end}Mib"
+echo "rootfs=${swap_end}Mib, ${rootfs_end}Mib"
+echo "home=${rootfs_end}Mib, 100%"
 
 umount -R /mnt
-parted -a optimal $disk mklabel gpt
-parted -a optimal $disk mkpart primary fat32 1Mib 3Mib
-parted -a optimal $disk name 1 grub
-parted -a optimal $disk set 1 bios_grub on
-parted -a optimal $disk mkpart primary fat32 3Mib 131Mib
-parted -a optimal $disk name 2 boot
-parted -a optimal $disk mkpart primary linux-swap 131Mib 16515Mib
-parted -a optimal $disk name 3 swap
-parted -a optimal $disk mkpart primary ext4 16515Mib 82051Mib
-parted -a optimal $disk name 4 rootfs
-parted -a optimal $disk mkpart primary ext4 82051Mib 100%
-parted -a optimal $disk name 5 home
-parted -a optimal $disk set 2 boot on
+parted -a optimal "${disk}" mklabel gpt
+parted -a optimal "${disk}" mkpart primary fat32 1Mib "${boot_end}"Mib
+parted -a optimal "${disk}" set "${boot_order}" esp on
+parted -a optimal "${disk}" mkpart primary linux-swap ${boot_end}Mib ${swap_end}Mib
+parted -a optimal "${disk}" name "${swap_order}" swap
+parted -a optimal "${disk}" mkpart primary ext4 "${swap_end}"Mib "${rootfs_end}"Mib
+parted -a optimal "${disk}" name "${rootfs_order}" rootfs
+parted -a optimal "${disk}" mkpart primary ext4 "${rootfs_end}"Mib 100%
+parted -a optimal "${disk}" name "${home_order}" home
 
 echo "format disk"
-mkfs.fat -F 32 "$disk$disksplit"2
-mkswap "$disk$disksplit"3
-swapon "$disk$disksplit"3
-mkfs.ext4 "$disk$disksplit"4
-mkfs.ext4 "$disk$disksplit"5
+mkfs.fat -F 32 "${boot}"
+mkswap "${swap}"
+swapon "${swap}"
+mkfs.ext4 "${rootfs}"
+mkfs.ext4 "${home}"
 
 echo "mount disk"
-mount "$disk$disksplit"4 /mnt
-mkdir -p /mnt/boot
-mkdir -p /mnt/home
-mount "$disk$disksplit"2 /mnt/boot
-mount "$disk$disksplit"5 /mnt/home
+mount "${rootfs}" /mnt
+mkdir -p /mnt/{boot,home}
+mount "${boot}" /mnt/boot
+mount "${home}" /mnt/home
