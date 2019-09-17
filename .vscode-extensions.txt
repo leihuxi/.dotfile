@@ -5,3 +5,4 @@ ms-vscode.Go
 redhat.java
 vscjava.vscode-maven
 vscodevim.vim
+zxh404.vscode-proto3

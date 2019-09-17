@@ -12,12 +12,15 @@ greenlet
 html5lib
 httpie
 idna
+importlib-metadata
 isc
 libvirt-python
 lit
 lockfile
+louis
 Markdown
 meson
+more-itertools
 msgpack
 mutagen
 namcap
@@ -55,3 +58,4 @@ tornado
 ufw
 urllib3
 webencodings
+zipp

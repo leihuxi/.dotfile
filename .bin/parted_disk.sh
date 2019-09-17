@@ -7,7 +7,7 @@ trap 'custom_exit; exit' SIGINT SIGQUIT
 custom_exit() {
     echo "you hit Ctrl-C/Ctrl-\, now exiting.."
 }
-
+##安装参数,适合一个硬盘
 disk="$1"
 disksplit="p"
 boot_order=1
