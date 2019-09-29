@@ -1,4 +1,8 @@
 #!/bin/bash
+
+SHELL_FOLDER=$(dirname "$0")
+. $SHELL_FOLDER/logger.sh
+
 if [ $# -ne 1 ]; then
     exit
 fi
@@ -28,11 +32,11 @@ boot_end=$boot_size
 swap_end=$(($boot_end + $swap_size * 1024))
 rootfs_end=$(($swap_end + $rootfs_size * 1024))
 
-echo "home=${home}, boot=${boot}, rootfs=${rootfs}, swap=${swap}"
-echo "boot=1Mib, ${boot_end}Mib"
-echo "swap=${boot_end}Mib, ${swap_end}Mib"
-echo "rootfs=${swap_end}Mib, ${rootfs_end}Mib"
-echo "home=${rootfs_end}Mib, 100%"
+info "home=${home}, boot=${boot}, rootfs=${rootfs}, swap=${swap}"
+info "boot=1Mib, ${boot_end}Mib"
+info "swap=${boot_end}Mib, ${swap_end}Mib"
+info "rootfs=${swap_end}Mib, ${rootfs_end}Mib"
+info "home=${rootfs_end}Mib, 100%"
 
 umount -R /mnt
 parted -a optimal "${disk}" mklabel gpt
@@ -45,14 +49,14 @@ parted -a optimal "${disk}" name "${rootfs_order}" rootfs
 parted -a optimal "${disk}" mkpart primary ext4 "${rootfs_end}"Mib 100%
 parted -a optimal "${disk}" name "${home_order}" home
 
-echo "format disk"
+info "format disk"
 mkfs.fat -F 32 "${boot}"
 mkswap "${swap}"
 swapon "${swap}"
 mkfs.ext4 "${rootfs}"
 mkfs.ext4 "${home}"
 
-echo "mount disk"
+info "mount disk"
 mount "${rootfs}" /mnt
 mkdir -p /mnt/{boot,home}
 mount "${boot}" /mnt/boot
