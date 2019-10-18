@@ -67,6 +67,9 @@ bindsym $mod+Return exec alacritty
 # start neofetch
 # bindsym $mod+i exec neofech
 
+# start multiple monitor
+bindsym $mod+v exec ~/.bin/miarch.sh
+
 # Start rofi (a program launcher)
 bindsym $mod+d exec "rofi -modi drun,run -show drun -show-icons"
 
@@ -254,7 +257,7 @@ floating_maximum_size -1 x -1
 
 # Orientation for new workspaces
 # default_orientation horizontal|vertical|auto
-default_orientation vertical
+default_orientation auto
 
 # Layout mode for new containers
 # workspace_layout default|stacking|tabbed
@@ -511,8 +514,8 @@ mode "$mode_gaps_left" {
 exec i3-config-wizard
 exec --no-startup-id xautolock -time 10 -locker ~/.config/i3lock/i3lock.sh
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id ~/.bin/miarch.sh
-exec --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/apocalyptic-hipster.jpg
+exec --no-startup-id ~/.bin/miarch_single.sh
+exec_always --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/space.jpg
 exec pulseaudio --start -D
 exec amixer sset Master on
 exec --no-startup-id fcitx -d -r
