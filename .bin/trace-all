@@ -6,11 +6,10 @@ for i in $(dir); do
     (
         info "[$i]==============>"
         cd "$i" || continue
-        for remote in $(git branch -r | grep -v '\->'); do
-            info "[$remote]------------>"
-            git branch --track "${remote#origin/}" "$remote"
-            git fetch --all
-            git pull --all
+        for branch in $(git branch --all | grep '^\s*remotes' | egrep --invert-match '(:?HEAD|master)$'); do
+            git branch --track "${branch##*/}" "$branch"
         done
+        git pull
+        git checkout master
     )
 done

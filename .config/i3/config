@@ -67,9 +67,6 @@ bindsym $mod+Return exec alacritty
 # start neofetch
 # bindsym $mod+i exec neofech
 
-# start multiple monitor
-bindsym $mod+v exec ~/.bin/miarch.sh
-
 # Start rofi (a program launcher)
 bindsym $mod+d exec "rofi -modi drun,run -show drun -show-icons"
 
@@ -221,14 +218,14 @@ mode "$mode_launcher" {
 
 # System Command
 set $mode_system  Logout(O) Poweroff(S) Reboot(R) Cance(Esc)
-    bindsym $mod+$mod2+q mode "$mode_system"
-    mode "$mode_system" {
-        bindsym o exec i3-msg exit
-        bindsym s exec systemctl poweroff
-        bindsym r exec systemctl reboot
-        bindsym Escape mode "default"
-        bindsym Return mode "default"
-    }
+bindsym $mod+$mod2+q mode "$mode_system"
+mode "$mode_system" {
+   bindsym o exec i3-msg exit
+   bindsym s exec systemctl poweroff
+   bindsym r exec systemctl reboot
+   bindsym Escape mode "default"
+   bindsym Return mode "default"
+}
 
 # Def rise
 # resize window (you can also use the mouse for that)
@@ -243,6 +240,17 @@ mode "$resize" {
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
+}
+
+set $monitor_mode Monitor: [o]ignal [m]irror [s]plit
+bindsym $mod+$mod2+v mode "$monitor_mode"
+mode "$monitor_mode" {
+    bindsym o exec --no-startup-id ~/.bin/miarch_single.sh
+    bindsym m exec --no-startup-id ~/.bin/miarch_mirror.sh
+    bindsym s exec --no-startup-id ~/.bin/miarch.sh
+    # back to normal: Enter or Escape
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
 }
 
 # Float Window
@@ -519,6 +527,7 @@ exec_always --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/
 exec pulseaudio --start -D
 exec amixer sset Master on
 exec --no-startup-id fcitx -d -r
+exec --no-startup-id i3-battery-popup
 # exec --no-startup-id ibus-daemon -d -x
 exec --no-startup-id xset r rate 250 40
 exec --no-startup-id xset m 4/1 0
