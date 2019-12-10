@@ -169,3 +169,4 @@ elif [[ ! $DISPLAY && $XDG_VTNR -eq 2 ]]; then
     SDL_VIDEODRIVER=wayland
     XKB_DEFAULT_LAYOUT=us exec sway
 fi
+alias alacritty='optirun alacritty '

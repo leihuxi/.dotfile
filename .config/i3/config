@@ -65,7 +65,7 @@ bindsym $mod+Return exec alacritty
 # bindsym $mod+Return exec kitty
 
 # start neofetch
-# bindsym $mod+i exec neofech
+bindsym $mod+i exec neofech
 
 # Start rofi (a program launcher)
 bindsym $mod+d exec "rofi -modi drun,run -show drun -show-icons"
