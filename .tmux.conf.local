@@ -313,6 +313,7 @@ set -g @tpm_plugins '           \
   tmux-plugins/tmux-continuum   \
   tmux-plugins/tmux-copycat     \
   nhdaly/tmux-better-mouse-mode \
+  laktak/extrakto               \
 '
 
 #tmux-yank

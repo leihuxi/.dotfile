@@ -77,6 +77,8 @@ bindsym $mod1+l exec --no-startup-id ~/.config/i3lock/i3lock.sh
 # Start pcmanfm
 bindsym $mod+e exec pcmanfm
 
+bindsym $mod+n exec "alacritty -e alsamixer"
+
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
 bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
@@ -298,7 +300,7 @@ for_window [window_type="menu"] floating enable
 for_window [window_role="pop-up"] floating enable, move to position center
 for_window [window_role="bubble"] floating enable, move to position center
 
-for_window [title="alsamixer"] border pixel 1
+for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="(?i)feh"] floating enable, border pixel 1, resize set 800 600, move to position center,
 for_window [class="(?i)arand"] floating enable, border pixel 1, move to position center
 for_window [class="(?i)netease-cloud-music"] floating enable, move to position center

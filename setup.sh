@@ -105,7 +105,7 @@ install_dotfile() {
     info "dotfile:ideavimrc install successfully!"
 
     ### gdbinit
-    if curl -o ~/.gdbinit -O -L -C - git.io/.gdbinit --progress; then
+    if curl -o ~/.gdbinit -O -L -C - git.io/.gdbinit; then
         info "dotfile:gdbinit install successfully!"
     else
         info "dotfile:gdbinit install failed!"

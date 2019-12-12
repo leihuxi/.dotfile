@@ -51,7 +51,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(archlinux wd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages vi-mode)
+plugins=(archlinux wd zsh-autosuggestions zsh-syntax-highlighting colored-man-pages vi-mode mysql-colorize)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -85,6 +85,7 @@ fi
 
 #####user custom config##############
 # export TERM=xterm-256color
+export PATH="/usr/local/bin:$PATH"
 export WORK=$HOME/work
 export GOPATH=$HOME/work/go
 export BINSCRIPT=$HOME/.bin
