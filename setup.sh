@@ -117,6 +117,7 @@ install_dotfile() {
         git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
         git clone https://github.com/horosgrisa/mysql-colorize ~/.oh-my-zsh/custom/plugins/mysql-colorize
+        git clone https://github.com/denisidoro/navi ~/.oh-my-zsh/custom/plugins/navi
         info "dotfile:zshrc install successfully!"
     else
         error "dotfile:zshrc install failed!"
@@ -198,6 +199,8 @@ update_pkg() {
     (cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull)
     info "update mysql-colorize"
     (cd ~/.oh-my-zsh/custom/plugins/mysql-colorize && git pull)
+    info "update navi"
+    (cd ~/.oh-my-zsh/custom/plugins/navi && git pull)
     info "update tmp"
     (cd ~/.tmux/plugins/tpm && git pull)
     info "update gdb"

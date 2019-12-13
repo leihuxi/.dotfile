@@ -1,5 +1,6 @@
 android-ndk
 android-studio
+bear
 cloog
 electronic-wechat
 gcc44
@@ -10,8 +11,6 @@ netease-cloud-music-dl-git
 netease-musicbox-git
 osl
 polybar
-postman
 python-requests-cache
 rar
-yay
 zramswap

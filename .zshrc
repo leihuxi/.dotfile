@@ -85,7 +85,7 @@ fi
 
 #####user custom config##############
 # export TERM=xterm-256color
-export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.oh-my-zsh/custom/plugins/navi:/usr/local/bin:$PATH"
 export WORK=$HOME/work
 export GOPATH=$HOME/work/go
 export BINSCRIPT=$HOME/.bin
@@ -170,4 +170,3 @@ elif [[ ! $DISPLAY && $XDG_VTNR -eq 2 ]]; then
     SDL_VIDEODRIVER=wayland
     XKB_DEFAULT_LAYOUT=us exec sway
 fi
-alias alacritty='optirun alacritty '
