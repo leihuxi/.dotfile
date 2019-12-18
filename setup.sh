@@ -168,20 +168,11 @@ install_dotfile() {
 }
 
 install_pkg() {
-    arch=$(is_arch_base_system)
-    if [[ $arch != "arch" ]]; then
-        return;
-    fi
     info "install arch package"
     sudo pacman -S --needed - <"$PWD/.arch-pkglist-official"
 }
 
 install_third_pkg() {
-    arch=$(is_arch_base_system)
-    if [[ $arch != "arch" ]]; then
-        return;
-    fi
-
     rm -rf /tmp/yay
     if git clone https://aur.archlinux.org/yay.git /tmp/yay; then
         (cd /tmp/yay && makepkg -si)
@@ -195,11 +186,6 @@ install_third_pkg() {
 }
 
 update_third_pkg() {
-    arch=$(is_arch_base_system)
-    if [[ $arch != "arch" ]]; then
-        return;
-    fi
-
     info "update local pkg list"
     pacman -Qqm >"$PWD/.arch-pkglist-local"
     info "update pip package"
@@ -209,10 +195,6 @@ update_third_pkg() {
 }
 
 update_pkg() {
-    arch=$(is_arch_base_system)
-    if [[ $arch != "arch" ]]; then
-        return;
-    fi
 
     info "update zsh"
     (cd ~/.oh-my-zsh && git pull)
@@ -240,6 +222,12 @@ update_pkg() {
 }
 
 main() {
+    arch=$(is_arch_base_system)
+    if [[ $arch != "arch" ]]; then
+        echo "archlinux support only"
+        exit;
+    fi
+
     if [[ "$1" == "install" ]]; then
         install_pkg
         install_dotfile
