@@ -209,6 +209,11 @@ update_third_pkg() {
 }
 
 update_pkg() {
+    arch=$(is_arch_base_system)
+    if [[ $arch != "arch" ]]; then
+        return;
+    fi
+
     info "update zsh"
     (cd ~/.oh-my-zsh && git pull)
     info "update zsh-autosuggestions"

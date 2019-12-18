@@ -157,6 +157,7 @@ licenses
 light
 linux
 linux-firmware
+linux-headers
 lldb
 llvm
 logrotate
