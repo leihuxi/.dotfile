@@ -13,6 +13,10 @@ custom_exit() {
     echo "you hit Ctrl-C/Ctrl-\, now exiting.."
 }
 
+is_arch_base_system() {
+    command -v pacman > /dev/null 2>&1 && echo "arch"
+}
+
 is_install() {
     while true; do
         read -p "Do you wish to install $1[Y/n]?" yn
@@ -94,7 +98,7 @@ install_dotfile() {
     fi
 
     ### ssh
-    if [[ ! -d ~/.ssn ]]; then
+    if [[ ! -d ~/.ssh ]]; then
         mkdir -p ~/.ssh
     fi
     cp "$PWD/.ssh/config" ~/.ssh/config
@@ -164,11 +168,20 @@ install_dotfile() {
 }
 
 install_pkg() {
+    arch=$(is_arch_base_system)
+    if [[ $arch != "arch" ]]; then
+        return;
+    fi
     info "install arch package"
     sudo pacman -S --needed - <"$PWD/.arch-pkglist-official"
 }
 
 install_third_pkg() {
+    arch=$(is_arch_base_system)
+    if [[ $arch != "arch" ]]; then
+        return;
+    fi
+
     rm -rf /tmp/yay
     if git clone https://aur.archlinux.org/yay.git /tmp/yay; then
         (cd /tmp/yay && makepkg -si)
@@ -182,6 +195,11 @@ install_third_pkg() {
 }
 
 update_third_pkg() {
+    arch=$(is_arch_base_system)
+    if [[ $arch != "arch" ]]; then
+        return;
+    fi
+
     info "update local pkg list"
     pacman -Qqm >"$PWD/.arch-pkglist-local"
     info "update pip package"

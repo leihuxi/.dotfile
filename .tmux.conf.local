@@ -305,15 +305,18 @@ bind-key -n C-k if-shell "$is_vim" "send-keys C-k"  "select-pane -U"
 bind-key -n C-l if-shell "$is_vim" "send-keys C-l"  "select-pane -R"
 
 # List of plugins
-set -g @tpm_plugins '           \
-  tmux-plugins/tpm              \
-  tmux-plugins/tmux-sensible    \
-  tmux-plugins/tmux-resurrect   \
-  tmux-plugins/tmux-yank        \
-  tmux-plugins/tmux-continuum   \
-  tmux-plugins/tmux-copycat     \
-  nhdaly/tmux-better-mouse-mode \
-  laktak/extrakto               \
+set -g @tpm_plugins '                \
+  tmux-plugins/tpm                   \
+  tmux-plugins/tmux-sensible         \
+  tmux-plugins/tmux-resurrect        \
+  tmux-plugins/tmux-yank             \
+  tmux-plugins/tmux-continuum        \
+  tmux-plugins/tmux-copycat          \
+  nhdaly/tmux-better-mouse-mode      \
+  laktak/extrakto                    \
+  seebi/tmux-colors-solarized        \
+  tmux-plugins/tmux-pain-control     \
+  tmux-plugins/tmux-prefix-highlight \
 '
 
 #tmux-yank
@@ -323,6 +326,9 @@ set -g @resurrect-save-bash-history 'on'
 set -g @resurrect-capture-pane-contents 'on'
 set -g @resurrect-strategy-vim 'session'
 set -g @resurrect-dir '$HOME/work/resurrect/'
+set -g @prefix_highlight_show_copy_mode 'on'
+set -g @prefix_highlight_copy_mode_attr 'fg=white,bg=blue'
+
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run -b '~/.tmux/plugins/tpm/tpm'
