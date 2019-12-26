@@ -313,7 +313,6 @@ set -g @tpm_plugins '                \
   tmux-plugins/tmux-continuum        \
   tmux-plugins/tmux-copycat          \
   nhdaly/tmux-better-mouse-mode      \
-  laktak/extrakto                    \
   seebi/tmux-colors-solarized        \
   tmux-plugins/tmux-pain-control     \
   tmux-plugins/tmux-prefix-highlight \

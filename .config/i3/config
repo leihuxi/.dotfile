@@ -245,7 +245,7 @@ mode "$resize" {
 }
 
 set $monitor_mode Monitor: [o]ignal [m]irror [s]plit
-bindsym $mod+$mod2+v mode "$monitor_mode"
+bindsym $mod+v mode "$monitor_mode"
 mode "$monitor_mode" {
     bindsym o exec --no-startup-id ~/.bin/miarch_single.sh
     bindsym m exec --no-startup-id ~/.bin/miarch_mirror.sh

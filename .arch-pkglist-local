@@ -13,4 +13,5 @@ osl
 polybar
 python-requests-cache
 rar
+xorg-server-xdmx
 zramswap
