@@ -14,7 +14,7 @@ custom_exit() {
 }
 
 is_arch_base_system() {
-    command -v pacman > /dev/null 2>&1 && echo "arch"
+    command -v pacman >/dev/null 2>&1 && echo "arch"
 }
 
 is_install() {
@@ -67,14 +67,13 @@ bak_config() {
     bak_file ~ .oh-my-zsh "${bakdir}"
     bak_file ~/.ssh config "${bakdir}"
     bak_file ~/.config/alacritty alacritty.yml "${bakdir}"
+    bak_file ~/.config/i3 "${bakdir}"
     bak_file ~ .xprofile "${bakdir}"
     bak_file ~ .xinitrc "${bakdir}"
     bak_file ~ .Xresources "${bakdir}"
     bak_file ~ .gitconfig "${bakdir}"
     bak_file ~ .clang-format "${bakdir}"
     bak_file ~ .bin "${bakdir}"
-    bak_file ~ .vim_runtime "${bakdir}"
-    bak_file ~ .vimrc "${bakdir}"
     info "bak all file successfully"
 }
 
@@ -155,7 +154,14 @@ install_dotfile() {
     else
         error "change zsh failed!"
     fi
+    info "all installed successfully, Please reboot your shell!"
+}
 
+install_vim() {
+    bakdir=~/.bakconfig
+    [ -d "${bakdir}" ] || mkdir "${bakdir}"
+    bak_file ~ .vim_runtime "${bakdir}"
+    bak_file ~ .vimrc "${bakdir}"
     # vim
     info "vim: may take long time...., Ctrl+C to install manualy"
     if $(is_install vim) && git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime; then
@@ -164,7 +170,6 @@ install_dotfile() {
     else
         error "dotfile:vimrc install failed!"
     fi
-    info "all installed successfully, Please reboot your shell!"
 }
 
 install_pkg() {
@@ -209,9 +214,9 @@ update_pkg() {
     info "update tmp"
     (cd ~/.tmux/plugins/tpm && git pull)
     info "update gdb"
-    (bak_file ~ .gdbinit ~/.bakconfig && curl -o ~/.gdbinit -O -L -C - git.io/.gdbinit --progress)
+    (bak_file ~ .gdbinit ~/.bakconfig && curl -o ~/.gdbinit -O -L -C - git.io/.gdbinit)
     info "update cht.sh"
-    curl -o ~/.bin/cht.sh/cht -O -L -C - https://cht.sh/:cht.sh --progress
+    curl -o ~/.bin/cht.sh/cht -O -L -C - https://cht.sh/:cht.sh
     info "update .bin && .mycheat"
     cp -rf .bin ~
     cp -rf .mycheat ~
@@ -225,16 +230,23 @@ main() {
     arch=$(is_arch_base_system)
     if [[ $arch != "arch" ]]; then
         echo "archlinux support only"
-        exit;
+        exit
     fi
 
     if [[ "$1" == "install" ]]; then
         install_pkg
         install_dotfile
         exit
+    elif [[ "$1" == "dot" ]]; then
+        install_dotfile
+        exit
+    elif [[ "$1" == "vim" ]]; then
+        install_vim
+        exit
+    else
+        update_pkg
+        update_third_pkg
     fi
-    update_pkg
-    update_third_pkg
 }
 
 main $1

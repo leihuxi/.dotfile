@@ -73,6 +73,7 @@ dunst
 e2fsprogs
 ebtables
 efibootmgr
+emacs
 ethtool
 evince
 exa
@@ -106,7 +107,6 @@ fprintd
 fzf
 gawk
 gcc
-gconf
 gdb
 gettext
 git
@@ -177,6 +177,7 @@ man-db
 man-pages
 mari0
 mariadb
+masscan
 maven
 mdadm
 mesa-demos
@@ -254,6 +255,7 @@ python-yaml
 python2
 qemu
 qt5-wayland
+radare2
 ranger
 rdesktop
 redshift
