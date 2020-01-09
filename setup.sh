@@ -144,7 +144,7 @@ install_dotfile() {
     cp "$PWD/.clang-format" ~
 
     #cheat.sh
-    curl -o ~/.bin/cht.sh/cht -O -L -C - https://cht.sh/:cht.sh --progress
+    curl https://cht.sh/:cht.sh > ~/.bin/cht.sh/cht
     chmod u+x ~/.bin/cht.sh/cht
     info "dotfile:cheat.sh install successfully!"
 
@@ -216,7 +216,7 @@ update_pkg() {
     info "update gdb"
     (bak_file ~ .gdbinit ~/.bakconfig && curl -o ~/.gdbinit -O -L -C - git.io/.gdbinit)
     info "update cht.sh"
-    curl -o ~/.bin/cht.sh/cht -O -L -C - https://cht.sh/:cht.sh
+    curl https://cht.sh/:cht.sh > ~/.bin/cht.sh/cht
     info "update .bin && .mycheat"
     cp -rf .bin ~
     cp -rf .mycheat ~
