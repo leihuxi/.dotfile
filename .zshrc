@@ -89,7 +89,8 @@ export PATH="$HOME/.oh-my-zsh/custom/plugins/navi:/usr/local/bin:$PATH"
 export WORK=$HOME/work
 export GOPATH=$HOME/work/go
 export BINSCRIPT=$HOME/.bin
-export PATH=$BINSCRIPT:$GOPATH/bin:$PATH
+export RUSTBIN=$HOME/.cargo/bin
+export PATH=$RUSTBIN:$BINSCRIPT:$GOPATH/bin:$PATH
 export CHEATCOLORS=true
 #Neovim true color support
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -114,6 +115,7 @@ alias diff='diff --color=auto'
 alias dmesg='dmesg --color=always '
 alias grep='grep --color=auto'
 
+alias m='wmfocus --textcolor red --textcoloralt #eeeeee --bgcolor "rgba(50, 50, 200, 0.5)"'
 alias h='function hdi(){ howdoi "$*" -c -n 5; }; hdi'
 alias t='tmux attach'
 alias tip='taocl|cowsay|lolcat'

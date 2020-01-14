@@ -110,6 +110,7 @@ bindsym $mod+x layout toggle split
 bindsym $mod+space focus mode_toggle
 
 # Switch focus
+bindsym $mod+z [urgent=latest] focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -212,7 +213,7 @@ mode "$mode_launcher" {
     bindsym c exec chromium
     bindsym i exec idea
     bindsym d exec studio
-    bindsym m exec alacritty -e 
+    bindsym m exec alacritty -e
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -370,7 +371,7 @@ focus_on_window_activation smart
 show_marks yes
 
 # Bar
-bindsym $mod+m bar mode toggle
+# bindsym $mod+m bar mode toggle
 # bar {
 #         status_command py3status -c ~/.config/py3status/py3status.conf
 #         position bottom
@@ -390,11 +391,12 @@ bindsym $mod+m bar mode toggle
 # }
 
 # i3-Gap Use
-gaps outer 14
-gaps inner 3
+gaps inner 10 
+gaps outer 4 
+gaps horizontal 7
 
-smart_gaps on
-smart_borders on
+# smart_gaps on
+# smart_borders on
 
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
@@ -525,11 +527,10 @@ exec i3-config-wizard
 exec --no-startup-id xautolock -time 10 -locker ~/.config/i3lock/i3lock.sh
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id ~/.bin/miarch_single.sh
-exec_always --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/space.jpg
+exec_always --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/apocalyptic-hipster.jpg
 exec pulseaudio --start -D
 exec amixer sset Master on
 exec --no-startup-id fcitx -d -r
-exec --no-startup-id i3-battery-popup
 # exec --no-startup-id ibus-daemon -d -x
 exec --no-startup-id xset r rate 250 40
 exec --no-startup-id xset m 4/1 0
@@ -539,3 +540,4 @@ exec --no-startup-id albert
 exec --no-startup-id copyq
 exec compton -b --config ~/.config/compton/compton.conf
 exec --no-startup-id redshift redshift -l 39.95:116.39
+exec_always --no-startup-id autotiling

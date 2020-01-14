@@ -1,6 +1,7 @@
 alabaster
 appdirs
 arandr
+asgiref
 attrs
 Babel
 CacheControl
@@ -19,6 +20,7 @@ future
 greenlet
 html5lib
 httpie
+i3ipc
 idna
 imagesize
 importlib-metadata
@@ -56,6 +58,7 @@ Pygments
 PyGObject
 pynvim
 pyparsing
+python-xlib
 pytoml
 pytz
 PyYAML
@@ -76,6 +79,7 @@ sphinxcontrib-htmlhelp
 sphinxcontrib-jsmath
 sphinxcontrib-qthelp
 sphinxcontrib-serializinghtml
+sqlparse
 team
 termcolor
 tldr

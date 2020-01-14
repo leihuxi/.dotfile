@@ -1,5 +1,6 @@
 android-ndk
 android-studio
+autotiling
 bear
 cloog
 electronic-wechat
@@ -10,9 +11,12 @@ isl
 mitalk
 netease-cloud-music-dl-git
 netease-musicbox-git
+oblogout
 osl
 polybar
 python-requests-cache
 rar
+wmfocus
 xorg-server-xdmx
+yay
 zramswap

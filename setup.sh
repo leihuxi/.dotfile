@@ -3,10 +3,10 @@
 # shellcheck source=./logger.sh
 source "$PWD/logger.sh"
 # 设置包的安装目录
-export npm_config_prefix="~/.local/lib/node_modules"
-export PYTHONUSERBASE="~/.local"
-export GEM_HOME="~/.gem"
-export GOPATH="~/work/go"
+export npm_config_prefix="$HOME/.local/lib/node_modules"
+export PYTHONUSERBASE="$HOME/.local"
+export GEM_HOME="$HOME/.gem"
+export GOPATH="$HOME/work/go"
 
 trap 'custom_exit; exit' SIGINT SIGQUIT
 custom_exit() {
@@ -58,22 +58,22 @@ bak_file() {
 }
 
 bak_config() {
-    bakdir=~/.bakconfig
+    bakdir=$HOME/.bakconfig
     [ -d "${bakdir}" ] || mkdir "${bakdir}"
-    bak_file ~ .zshrc "${bakdir}"
-    bak_file ~ .tmux.conf "${bakdir}"
-    bak_file ~ .tmux "${bakdir}"
-    bak_file ~ .gdbinit "${bakdir}"
-    bak_file ~ .oh-my-zsh "${bakdir}"
-    bak_file ~/.ssh config "${bakdir}"
-    bak_file ~/.config/alacritty alacritty.yml "${bakdir}"
-    bak_file ~/.config/i3 "${bakdir}"
-    bak_file ~ .xprofile "${bakdir}"
-    bak_file ~ .xinitrc "${bakdir}"
-    bak_file ~ .Xresources "${bakdir}"
-    bak_file ~ .gitconfig "${bakdir}"
-    bak_file ~ .clang-format "${bakdir}"
-    bak_file ~ .bin "${bakdir}"
+    bak_file $HOME .zshrc "${bakdir}"
+    bak_file $HOME .tmux.conf "${bakdir}"
+    bak_file $HOME .tmux "${bakdir}"
+    bak_file $HOME .gdbinit "${bakdir}"
+    bak_file $HOME .oh-my-zsh "${bakdir}"
+    bak_file $HOME/.ssh config "${bakdir}"
+    bak_file $HOME/.config/alacritty alacritty.yml "${bakdir}"
+    bak_file $HOME/.config/i3 "${bakdir}"
+    bak_file $HOME .xprofile "${bakdir}"
+    bak_file $HOME .xinitrc "${bakdir}"
+    bak_file $HOME .Xresources "${bakdir}"
+    bak_file $HOME .gitconfig "${bakdir}"
+    bak_file $HOME .clang-format "${bakdir}"
+    bak_file $HOME .bin "${bakdir}"
     info "bak all file successfully"
 }
 
@@ -87,65 +87,65 @@ install_dotfile() {
     fi
 
     ### tmux
-    if git clone https://github.com/gpakosz/.tmux.git ~/.tmux; then
-        ln -s -f .tmux/.tmux.conf ~/.tmux.conf
-        cp "$PWD/.tmux.conf.local" ~
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    if git clone https://github.com/gpakosz/.tmux.git "$HOME/.tmux"; then
+        ln -s -f .tmux/.tmux.conf $HOME/.tmux.conf
+        cp "$PWD/.tmux.conf.local" $HOME
+        git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
         info "dotfile:tmux.conf install successfully!"
     else
         error "dotfile:zshrc install failed"
     fi
 
     ### ssh
-    if [[ ! -d ~/.ssh ]]; then
-        mkdir -p ~/.ssh
+    if [[ ! -d $HOME/.ssh ]]; then
+        mkdir -p $HOME/.ssh
     fi
-    cp "$PWD/.ssh/config" ~/.ssh/config
+    cp "$PWD/.ssh/config" $HOME/.ssh/config
     info "dotfile:ssh config install successfully!"
 
     ### ideavim
-    cp "$PWD/.ideavimrc" ~/.ideavimrc
+    cp "$PWD/.ideavimrc" $HOME/.ideavimrc
     info "dotfile:ideavimrc install successfully!"
 
     ### gdbinit
-    if curl -o ~/.gdbinit -O -L -C - git.io/.gdbinit; then
+    if curl -o $HOME/.gdbinit -O -L -C - git.io/.gdbinit; then
         info "dotfile:gdbinit install successfully!"
     else
         info "dotfile:gdbinit install failed!"
     fi
 
     ## oh-my-zsh
-    if git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh; then
-        cp "$PWD"/.zshrc ~
-        git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-        git clone https://github.com/horosgrisa/mysql-colorize ~/.oh-my-zsh/custom/plugins/mysql-colorize
-        git clone https://github.com/denisidoro/navi ~/.oh-my-zsh/custom/plugins/navi
+    if git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh; then
+        cp "$PWD"/.zshrc "$HOME"
+        git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        git clone https://github.com/horosgrisa/mysql-colorize $HOME/.oh-my-zsh/custom/plugins/mysql-colorize
+        git clone https://github.com/denisidoro/navi $HOME/.oh-my-zsh/custom/plugins/navi
         info "dotfile:zshrc install successfully!"
     else
         error "dotfile:zshrc install failed!"
     fi
 
     ## bin
-    cp -rf "$PWD/.bin" ~
-    cp -rf "$PWD/.mycheat" ~
+    cp -rf "$PWD/.bin" $HOME
+    cp -rf "$PWD/.mycheat" $HOME
 
     ##git
-    cp "$PWD/.gitconfig" ~
+    cp "$PWD/.gitconfig" $HOME
 
     #Xconfig
-    cp "$PWD/.xprofile" ~
-    cp "$PWD/.Xresources" ~
-    cp "$PWD/.xinitrc" ~
-    cp -rf "$PWD/.config" ~
+    cp "$PWD/.xprofile" $HOME
+    cp "$PWD/.Xresources" $HOME
+    cp "$PWD/.xinitrc" $HOME
+    cp -rf "$PWD/.config" $HOME
     info "dotfile:xconfig install successfully!"
 
     ##clang-format
-    cp "$PWD/.clang-format" ~
+    cp "$PWD/.clang-format" $HOME
 
     #cheat.sh
-    curl https://cht.sh/:cht.sh > ~/.bin/cht.sh/cht
-    chmod u+x ~/.bin/cht.sh/cht
+    curl https://cht.sh/:cht.sh >$HOME/.bin/cht.sh/cht
+    chmod u+x $HOME/.bin/cht.sh/cht
     info "dotfile:cheat.sh install successfully!"
 
     #切换到zsh
@@ -158,14 +158,14 @@ install_dotfile() {
 }
 
 install_vim() {
-    bakdir=~/.bakconfig
+    bakdir=$HOME/.bakconfig
     [ -d "${bakdir}" ] || mkdir "${bakdir}"
-    bak_file ~ .vim_runtime "${bakdir}"
-    bak_file ~ .vimrc "${bakdir}"
+    bak_file $HOME .vim_runtime "${bakdir}"
+    bak_file $HOME .vimrc "${bakdir}"
     # vim
     info "vim: may take long time...., Ctrl+C to install manualy"
-    if $(is_install vim) && git clone https://github.com/leihuxi/vimrc.git ~/.vim_runtime; then
-        sh ~/.vim_runtime/install_awesome_vimrc.sh
+    if $(is_install vim) && git clone https://github.com/leihuxi/vimrc.git $HOME/.vim_runtime; then
+        sh $HOME/.vim_runtime/install_awesome_vimrc.sh
         info "dotifile:vimrc install successfully!"
     else
         error "dotfile:vimrc install failed!"
@@ -202,24 +202,24 @@ update_third_pkg() {
 update_pkg() {
 
     info "update zsh"
-    (cd ~/.oh-my-zsh && git pull)
+    (cd $HOME/.oh-my-zsh && git pull)
     info "update zsh-autosuggestions"
-    (cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git pull)
+    (cd $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git pull)
     info "update zsh-syntax-highlighting"
-    (cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull)
+    (cd $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull)
     info "update mysql-colorize"
-    (cd ~/.oh-my-zsh/custom/plugins/mysql-colorize && git pull)
+    (cd $HOME/.oh-my-zsh/custom/plugins/mysql-colorize && git pull)
     info "update navi"
-    (cd ~/.oh-my-zsh/custom/plugins/navi && git pull)
+    (cd $HOME/.oh-my-zsh/custom/plugins/navi && git pull)
     info "update tmp"
-    (cd ~/.tmux/plugins/tpm && git pull)
+    (cd $HOME/.tmux/plugins/tpm && git pull)
     info "update gdb"
-    (bak_file ~ .gdbinit ~/.bakconfig && curl -o ~/.gdbinit -O -L -C - git.io/.gdbinit)
+    (bak_file $HOME .gdbinit $HOME/.bakconfig && curl -o $HOME/.gdbinit -O -L -C - git.io/.gdbinit)
     info "update cht.sh"
-    curl https://cht.sh/:cht.sh > ~/.bin/cht.sh/cht
+    curl https://cht.sh/:cht.sh >$HOME/.bin/cht.sh/cht
     info "update .bin && .mycheat"
-    cp -rf .bin ~
-    cp -rf .mycheat ~
+    cp -rf .bin $HOME
+    cp -rf .mycheat $HOME
     info "export official pkg list"
     pacman -Qqe | grep -vx "$(pacman -Qqg base)" | grep -vx "$(pacman -Qqm)" >"$PWD/.arch-pkglist-official"
     info "export vscode "
@@ -242,6 +242,9 @@ main() {
         exit
     elif [[ "$1" == "vim" ]]; then
         install_vim
+        exit
+    elif [[ "$1" == "third" ]]; then
+        install_third_pkg
         exit
     else
         update_pkg
