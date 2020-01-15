@@ -9,11 +9,13 @@ gconf
 global
 isl
 mitalk
+mycli
 netease-cloud-music-dl-git
 netease-musicbox-git
 oblogout
 osl
 polybar
+python-cli_helpers
 python-requests-cache
 rar
 wmfocus
