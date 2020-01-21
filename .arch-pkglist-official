@@ -45,6 +45,7 @@ clang
 cloc
 cmake
 code
+composer
 conky
 connman
 copyq
@@ -130,6 +131,7 @@ i3blocks
 i3lock
 i3status
 ibus-googlepinyin
+ibus-rime
 iftop
 imagemagick
 inetutils
@@ -229,7 +231,6 @@ pciutils
 pcmanfm
 perf
 perl
-php
 picom
 pkgconf
 pkgfile
@@ -247,7 +248,6 @@ python
 python-markdown
 python-numpy
 python-pip
-python-pipenv
 python-protobuf
 python-psutil
 python-pynvim
@@ -259,6 +259,7 @@ qt5-wayland
 radare2
 ranger
 rdesktop
+redis
 redshift
 reiserfsprogs
 rkhunter
