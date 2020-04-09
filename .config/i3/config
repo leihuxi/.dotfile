@@ -85,8 +85,8 @@ bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
 bindsym XF86AudioMute exec amixer sset Master toggle
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # The right button toggles floating
 bindsym $mod+$mright floating toggle
@@ -104,7 +104,7 @@ bindsym $mod+q kill
 # Layout change
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+x layout toggle split
+bindsym $mod+x layout toggle all
 
 # Float or Flat Change
 bindsym $mod+space focus mode_toggle
@@ -283,7 +283,7 @@ title_align left
 # default_border normal|pixel <px>
 # default_floating_border normal|none|pixel
 # default_floating_border normal|pixel <px>
-default_border pixel 1
+default_border pixel 3
 default_floating_border normal
 
 # Hiding borders adjacent to the screen edges
@@ -393,10 +393,10 @@ show_marks yes
 # i3-Gap Use
 gaps inner 10 
 gaps outer 4 
-gaps horizontal 7
+# gaps horizontal 10
 
 # smart_gaps on
-# smart_borders on
+smart_borders on
 
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
