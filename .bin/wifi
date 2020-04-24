@@ -30,7 +30,8 @@ wifi() {
     nmcli -d wifi rescan 2>/dev/null
     network=$(nmcli --color yes device wifi | fzf --ansi --height=40% --reverse --cycle --inline-info --header-lines=1)
     [[ -z "$network" ]] && exit
-    network=$(sed -r 's/^\s*\*?\s*//; s/\s*(Ad-Hoc|Infra).*//' <<<"$network")
+    # network=$(sed -r 's/^\s*\*?\s*//; s/\s*(Ad-Hoc|Infra).*//' <<<"$network")
+    network=$(echo "$network" | awk '{print $2}')
     echo "connecting to \"${network}\"..."
     nmcli -a device wifi connect "$network"
 }
