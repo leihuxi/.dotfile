@@ -6,10 +6,10 @@ Dart-Code.flutter
 eamodio.gitlens
 felixfbecker.php-debug
 felixfbecker.php-intellisense
+golang.Go
 HookyQR.beautify
 mgmcdermott.vscode-language-babel
 ms-vscode.cpptools
-ms-vscode.Go
 ms-vscode.typescript-javascript-grammar
 ms-vscode.vscode-typescript-next
 redhat.java
