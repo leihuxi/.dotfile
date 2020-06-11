@@ -1,3 +1,5 @@
+airdrop-ng
+airgraph-ng
 alabaster
 appdirs
 arandr
@@ -7,6 +9,7 @@ attrs
 Babel
 backcall
 backports.csv
+Brlapi
 CacheControl
 ceph-volume
 cephfs
@@ -14,11 +17,12 @@ cephfs-shell
 cffi
 chardet
 cli-helpers
-Click
+click
 colorama
 configobj
 contextlib2
 cryptography
+decorator
 distlib
 distro
 docutils
@@ -33,11 +37,13 @@ imagesize
 importlib-metadata
 isc
 jedi
+Jinja2
 libvirt-python
 lit
 lockfile
 louis
 Markdown
+MarkupSafe
 meson
 more-itertools
 msgpack
@@ -47,6 +53,7 @@ mysqlclient
 namcap
 nftables
 numpy
+OpenCC
 ordered-set
 packaging
 parso
@@ -95,6 +102,7 @@ team
 termcolor
 terminaltables
 tldr
+toml
 tornado
 ufw
 urllib3

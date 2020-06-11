@@ -1,9 +1,7 @@
 acpi
 adobe-source-han-sans-otc-fonts
-aide
 aircrack-ng
 alacritty
-alacritty-terminfo
 albert
 alex
 alsa-firmware
@@ -34,6 +32,7 @@ bpf
 bridge-utils
 bspwm
 bumblebee
+bzflag
 bzip2
 caps
 cbatticon
@@ -78,6 +77,7 @@ efibootmgr
 emacs
 ethtool
 evince
+evtest
 exa
 exfat-utils
 expac
@@ -85,8 +85,6 @@ f2fs-tools
 fakeroot
 fcitx-configtool
 fcitx-googlepinyin
-fcitx-gtk2
-fcitx-gtk3
 fcitx-m17n
 fcitx-qt5
 fcitx-ui-light
@@ -109,10 +107,12 @@ fprintd
 fzf
 gawk
 gcc
+gcc-libs
 gdb
 gettext
 git
 glibc
+global
 gnu-netcat
 go
 goaccess
@@ -120,17 +120,21 @@ gradle
 grep
 grim
 grub
+gst-libav
+gst-plugins-bad
+gst-plugins-good
+gst-plugins-ugly
 gutenprint
 gzip
 hdparm
 htop
 httpie
+hub
 hyperv
 i3-gaps
 i3blocks
 i3lock
 i3status
-ibus-googlepinyin
 ibus-rime
 iftop
 imagemagick
@@ -142,7 +146,6 @@ iproute2
 iputils
 iw
 jdk8-openjdk
-jenkins
 jfsutils
 jq
 kchmviewer
@@ -151,6 +154,7 @@ kubectl
 less
 libappindicator-gtk3
 libreoffice-fresh
+libreoffice-fresh-zh-cn
 libtool
 libtraceevent
 libvdpau-va-gl
@@ -172,6 +176,7 @@ ltrace
 lua
 lvm2
 lynis
+lynx
 lzop
 m4
 make
@@ -291,9 +296,11 @@ sxhkd
 synergy
 sysdig
 sysfsutils
+syslog-ng
 sysstat
 systemd-sysvcompat
 tar
+task
 tcpdump
 telegram-desktop
 texinfo
@@ -317,6 +324,7 @@ util-linux
 valgrind
 vi
 vim
+vim-spell-en
 virt-manager
 virt-viewer
 virtualbox
