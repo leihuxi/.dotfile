@@ -183,20 +183,44 @@ install_third_pkg() {
         (cd /tmp/yay && makepkg -si)
     fi
 
+    info "install yay package"
     yay -S $(cat "$PWD/.arch-pkglist-local" | grep -vx "$(pacman -Qqm)")
-    info "install pip package"
-    pip install --ignore-installed --upgrade --user -r "$PWD/.requirements.txt"
+
+    info "install vscode package"
     cat $PWD/.vscode-extensions.txt | xargs -L 1 code --install-extension
-    xargs npm install --global <"$PWD/.npm_package"
+
+    info "install npm package"
+    for npm_pkg in $(cat "$PWD/.npm_package" | sed '1d' | awk -F'/' '{print $NF}'); do
+        npm install --global $npm_pkg
+    done
+
+    info "install cargo package"
+    for cargo_pkg in $(cat "$PWD/.cargo_package" | grep ':' | awk '{print $1}'); do
+        cargo install $cargo_pkg
+    done
+
+    info "install gem package"
+    for gem_pkg in $(cat "$PWD/.gem_package" | grep -v '*' | awk '{print $1}'); do
+        gem install $gem_pkg
+    done
+
+    info "install pip package"
+    for pip_pkg in $(cat "$PWD/.requirements.txt" | sed 's/=.*//'); do
+        pip install --ignore-installed --upgrade --user $pip_pkg
+    done
 }
 
 update_third_pkg() {
     info "update local pkg list"
     pacman -Qqm >"$PWD/.arch-pkglist-local"
     info "update pip package"
-    pip freeze | sed 's/=.*//' >"$PWD/.requirements.txt"
+    pip freeze > "$PWD/.requirements.txt"
     info "update npm package"
-    npm list --global --parseable --depth=0 | sed '1d' | awk -F'/' '{print $NF }' >"$PWD/.npm_package"
+    npm list --global --parseable --depth=0 >"$PWD/.npm_package"
+    info "update gem package"
+    gem list --local > "$PWD/.gem_package"
+    info "update cargo package"
+	cargo install --list > "$PWD/.cargo_package"
 }
 
 update_pkg() {
@@ -221,7 +245,7 @@ update_pkg() {
     cp -rf .bin $HOME
     cp -rf .mycheat $HOME
     info "export official pkg list"
-    pacman -Qqe | grep -vx "$(pacman -Qqg base)" | grep -vx "$(pacman -Qqm)" >"$PWD/.arch-pkglist-official"
+    pacman -Qqe | grep -vx "$(pacman -Qqm)" >"$PWD/.arch-pkglist-official"
     info "export vscode "
     code --list-extensions >"$PWD/.vscode-extensions.txt"
 }

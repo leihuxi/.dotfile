@@ -1,0 +1,5 @@
+cargo-update v3.0.0:
+    cargo-install-update
+    cargo-install-update-config
+wmfocus v1.1.3:
+    wmfocus

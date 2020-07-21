@@ -128,6 +128,7 @@ alias ccat='bat'
 alias pping='prettyping --nolegend'
 alias ndu="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
 alias help='tldr --linux -t base16'
+alias ip='ip -color=auto'
 
 alias ft='find . -type f | ag '
 
