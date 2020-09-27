@@ -120,7 +120,7 @@ bindsym $mod1+b [class="(?i)Chromium" window_role="browser"] focus
 bindsym $mod1+o [class="(?i)code-oss" window_role="browser"] focus
 bindsym $mod1+d [class="(?i)jetbrains-studio"] focus
 bindsym $mod1+e [class="(?i)TelegramDesktop"] focus
-bindsym $mod1+g [class="Crow Translate"] focus
+bindsym $mod1+g [class="(?i)blueman-manager"] focus
 bindsym $mod1+i [class="(?i)jetbrains-idea-ce"] focus
 bindsym $mod1+m [class="(?i)netease-cloud-music"] focus
 bindsym $mod1+n [class="(?i)Alacritty" title="musicbox"] focus
@@ -245,12 +245,14 @@ mode "$resize" {
     bindsym Escape mode "default"
 }
 
-set $monitor_mode Monitor: [o]ignal [m]irror [s]plit
+set $monitor_mode Monitor: [o]ignal [m]irror [s]plit split[r]ight split[l]eft
 bindsym $mod+v mode "$monitor_mode"
 mode "$monitor_mode" {
-    bindsym o exec --no-startup-id ~/.bin/miarch_single.sh
-    bindsym m exec --no-startup-id ~/.bin/miarch_mirror.sh
-    bindsym s exec --no-startup-id ~/.bin/miarch.sh
+    bindsym o exec --no-startup-id ~/.bin/toggle_display.sh original 
+    bindsym m exec --no-startup-id ~/.bin/toggle_display.sh mirror
+    bindsym s exec --no-startup-id ~/.bin/toggle_display.sh splith
+    bindsym r exec --no-startup-id ~/.bin/toggle_display.sh splitr
+    bindsym l exec --no-startup-id ~/.bin/toggle_display.sh splitl
     # back to normal: Enter or Escape
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -301,11 +303,12 @@ for_window [window_type="menu"] floating enable
 for_window [window_role="pop-up"] floating enable, move to position center
 for_window [window_role="bubble"] floating enable, move to position center
 
+for_window [class="blueman-manager"] floating enable, border pixel 1, move to position center,resize set 800 600
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="(?i)feh"] floating enable, border pixel 1, resize set 800 600, move to position center,
 for_window [class="(?i)arand"] floating enable, border pixel 1, move to position center
 for_window [class="(?i)netease-cloud-music"] floating enable, move to position center
-for_window [class="(?i)mitalk"] floating enable, move to position center
+for_window [class="(?i)virt-manager"] floating enable, move to position center
 for_window [class="(?i)VirtualBox"] floating enable, move to position center
 for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable, move to position center
 for_window [class="(?i)vlc"] floating enable, move to position center
@@ -525,7 +528,7 @@ mode "$mode_gaps_left" {
 # exec --no-startup-id i3-msg "workspace 3:Browser"
 # exec --no-startup-id i3-msg "workspace 4:IDE"
 exec i3-config-wizard
-exec --no-startup-id xautolock -time 10 -locker ~/.config/i3lock/i3lock.sh
+exec --no-startup-id xautolock -time 1 -locker ~/.config/i3lock/i3lock.sh
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id ~/.bin/miarch_single.sh
 exec_always --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/apocalyptic-hipster.jpg

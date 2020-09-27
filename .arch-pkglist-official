@@ -28,6 +28,7 @@ bbswitch
 bind
 binutils
 bison
+blueman
 bluez
 bluez-utils
 boost
@@ -90,6 +91,7 @@ fcitx-configtool
 fcitx-googlepinyin
 fcitx-m17n
 fcitx-qt5
+fcitx-sunpinyin
 fcitx-ui-light
 fd
 feh
@@ -114,6 +116,7 @@ gcc-libs
 gdb
 gettext
 git
+github-cli
 glibc
 global
 gnu-netcat
@@ -300,6 +303,7 @@ slop
 slurp
 strace
 sudo
+sunpinyin
 supertux
 supertuxkart
 sway
