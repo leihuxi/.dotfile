@@ -28,7 +28,6 @@ bbswitch
 bind
 binutils
 bison
-blueman
 bluez
 bluez-utils
 boost
@@ -185,6 +184,7 @@ lrzsz
 lsof
 ltrace
 lua
+luit
 lvm2
 lynis
 lynx
@@ -262,7 +262,6 @@ procps-ng
 progress
 psmisc
 pulseaudio-alsa
-pulseaudio-bluetooth
 puppet
 py3status
 python
@@ -379,7 +378,6 @@ xorg-fonts-100dpi
 xorg-fonts-75dpi
 xorg-fonts-encodings
 xorg-iceauth
-xorg-luit
 xorg-mkfontscale
 xorg-server
 xorg-server-common
