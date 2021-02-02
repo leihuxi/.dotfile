@@ -135,6 +135,7 @@ hdparm
 htop
 httpie
 hub
+hydra
 hyperv
 i3-gaps
 i3blocks
@@ -262,6 +263,7 @@ procps-ng
 progress
 psmisc
 pulseaudio-alsa
+pulseaudio-bluetooth
 puppet
 py3status
 python
@@ -342,9 +344,7 @@ valgrind
 vi
 vim
 vim-spell-en
-virt-install
-virt-manager
-virt-viewer
+virtualbox
 vlc
 vnstat
 w3m
@@ -385,7 +385,6 @@ xorg-server-devel
 xorg-server-xephyr
 xorg-server-xnest
 xorg-server-xvfb
-xorg-server-xwayland
 xorg-sessreg
 xorg-setxkbmap
 xorg-smproxy
@@ -416,6 +415,7 @@ xorg-xrefresh
 xorg-xset
 xorg-xsetroot
 xorg-xvinfo
+xorg-xwayland
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
@@ -424,5 +424,6 @@ xss-lock
 xterm
 xtrabackup
 xtrlock
+yarn
 zip
 zsh

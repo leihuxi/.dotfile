@@ -6,12 +6,14 @@ bear
 cloog
 electron4
 electron7
-electronic-wechat
+flutter
 gcc44
 gconf
 haskell-base-noprelude
 ibus-googlepinyin
 isl
+js60
+libmagick6
 mariadb-jdbc
 mips64-elf-binutils
 miraclecast-git
@@ -25,6 +27,7 @@ pstack
 pygtk
 python-cli_helpers
 python-requests-cache
+python2-gobject2
 rar
 rubymine
 scrcpy
