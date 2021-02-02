@@ -38,7 +38,7 @@ imagesize==1.2.0
 importlib-metadata==3.4.0
 iotop==0.6
 isc==2.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 libfdt==1.6.0
 lit==0.11.1.dev0
 lockfile==0.12.2
@@ -54,7 +54,7 @@ more-itertools==8.6.0
 msgpack==1.0.2
 namcap==3.2.10
 nftables==0.1
-numpy==1.19.5
+numpy==1.20.0
 OpenCC==1.1.1
 ordered-set==4.0.2
 packaging==20.8
@@ -108,6 +108,6 @@ tldr==1.1.0
 toml==0.10.2
 tornado==6.1
 ufw==0.36
-urllib3==1.26.2
+urllib3==1.26.3
 webencodings==0.5.1
 zipp==3.4.0

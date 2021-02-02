@@ -77,13 +77,49 @@ bak_config() {
     info "bak all file successfully"
 }
 
+install_from_source() {
+    rm -rf /tmp/alacritty
+    if git clone https://github.com/jwilm/alacritty.git /tmp/alacritty; then
+        (
+            cd /tmp/alacritty && cargo build --release
+            sudo cp -f target/release/alacritty /usr/local/bin # or anywhere else in $PATH
+            sudo cp -f extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+            sudo desktop-file-install extra/linux/Alacritty.desktop
+            sudo update-desktop-database
+
+            sudo mkdir -p /usr/local/share/man/man1
+            gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
+        )
+        info "dotfile:alacrittyinstall successfully!"
+    fi
+
+    rm -rf /tmp/polybar
+    if git clone https://github.com/polybar/polybar.git /tmp/polybar; then
+        (cd /tmp/polybar && ./build.sh)
+        info "dotfile:polybar install successfully!"
+    fi
+}
+
 install_dotfile() {
     bak_config
 
     ## polybar
-    rm -rf /tmp/polybar
-    if git clone https://github.com/polybar/polybar.git /tmp/polybar; then
-        (cd /tmp/polybar && ./build.sh)
+    install_from_source
+
+    ## alacritty
+    rm -rf /tmp/alacritty
+    if git clone https://github.com/jwilm/alacritty.git /tmp/alacritty; then
+        (
+            cd /tmp/alacritty && cargo build --release
+            sudo cp -f target/release/alacritty /usr/local/bin # or anywhere else in $PATH
+            sudo cp -f extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+            sudo desktop-file-install extra/linux/Alacritty.desktop
+            sudo update-desktop-database
+
+            sudo mkdir -p /usr/local/share/man/man1
+            gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
+        )
+        info "dotfile:alacrittyinstall successfully!"
     fi
 
     ### tmux
@@ -273,6 +309,7 @@ main() {
     else
         update_pkg
         update_third_pkg
+        install_from_source
     fi
 }
 
