@@ -22,7 +22,7 @@ function arch_chroot() {
 echo "mirrorlist set"
 tmpfile=$(mktemp --suffix=-mirrorlist)
 info "${tmpfile}"
-curl -so "${tmpfile}" "https://www.archlinux.org/mirrorlist/?country=CN&use_mirror_status=on"
+curl -so "${tmpfile}" "https://archlinux.org/mirrorlist/?country=CN&use_mirror_status=on"
 sed -i 's/^#Server/Server/g' "${tmpfile}"
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.orig
 cp "${tmpfile}" /etc/pacman.d/mirrorlist
