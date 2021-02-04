@@ -59,7 +59,7 @@ bak_file() {
 
 bak_config() {
     bakdir=$HOME/.bakconfig
-    [ -d "${bakdir}" ] || mkdir "${bakdir}"
+    [ -d "${bakdir}" ] || mkdir -p "${bakdir}"
     bak_file $HOME .zshrc "${bakdir}"
     bak_file $HOME .tmux.conf "${bakdir}"
     bak_file $HOME .tmux "${bakdir}"
@@ -77,6 +77,12 @@ bak_config() {
     info "bak all file successfully"
 }
 
+bak_etc() {
+    bakdir=$HOME/.baketc
+    [ -d "${bakdir}" ] || mkdir -p "${bakdir}"
+    xargs -a <(sudo pacman -Qii | awk '/^MODIFIED/ {print $2}') sudo cp --parent -t ${bakdir}
+}
+
 install_from_source() {
     rm -rf /tmp/alacritty
     if git clone https://github.com/jwilm/alacritty.git /tmp/alacritty; then
@@ -84,8 +90,8 @@ install_from_source() {
             cd /tmp/alacritty && cargo build --release
             sudo cp -f target/release/alacritty /usr/local/bin # or anywhere else in $PATH
             sudo cp -f extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-            sudo desktop-file-install extra/linux/Alacritty.desktop
-            sudo update-desktop-database
+            #sudo desktop-file-install extra/linux/Alacritty.desktop
+            #sudo update-desktop-database
 
             sudo mkdir -p /usr/local/share/man/man1
             gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
@@ -113,8 +119,12 @@ install_dotfile() {
             cd /tmp/alacritty && cargo build --release
             sudo cp -f target/release/alacritty /usr/local/bin # or anywhere else in $PATH
             sudo cp -f extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-            sudo desktop-file-install extra/linux/Alacritty.desktop
-            sudo update-desktop-database
+            if which desktop-file-install; then
+                sudo desktop-file-install extra/linux/Alacritty.desktop
+            fi
+            if which update-desktop-database; then
+                sudo update-desktop-database
+            fi
 
             sudo mkdir -p /usr/local/share/man/man1
             gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
@@ -248,7 +258,7 @@ install_third_pkg() {
 
 update_third_pkg() {
     info "update local pkg list"
-    pacman -Qqm >"$PWD/.arch-pkglist-local"
+    pacman -Qqem >"$PWD/.arch-pkglist-local"
     info "update pip package"
     pip freeze > "$PWD/.requirements.txt"
     info "update npm package"
@@ -281,7 +291,7 @@ update_pkg() {
     cp -rf .bin $HOME
     cp -rf .mycheat $HOME
     info "export official pkg list"
-    pacman -Qqe | grep -vx "$(pacman -Qqm)" >"$PWD/.arch-pkglist-official"
+    pacman -Qqen >"$PWD/.arch-pkglist-official"
     info "export vscode "
     code --list-extensions >"$PWD/.vscode-extensions.txt"
 }
@@ -305,6 +315,9 @@ main() {
         exit
     elif [[ "$1" == "third" ]]; then
         install_third_pkg
+        exit
+    elif [[ "$1" == "baketc" ]]; then
+        bak_etc
         exit
     else
         update_pkg

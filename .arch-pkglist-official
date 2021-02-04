@@ -2,7 +2,6 @@ acpi
 adobe-source-han-sans-otc-fonts
 aircrack-ng
 alacritty
-albert
 alex
 alsa-firmware
 alsa-plugins
@@ -14,6 +13,7 @@ ant
 arandr
 arch-audit
 arch-wiki-lite
+aria2
 arpwatch
 atop
 autoconf
@@ -242,6 +242,7 @@ p7zip
 pacgraph
 pacman
 pacman-contrib
+pacutils
 pandoc
 parallel
 parcellite
