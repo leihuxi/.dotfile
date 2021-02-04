@@ -119,12 +119,8 @@ install_dotfile() {
             cd /tmp/alacritty && cargo build --release
             sudo cp -f target/release/alacritty /usr/local/bin # or anywhere else in $PATH
             sudo cp -f extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-            if which desktop-file-install; then
-                sudo desktop-file-install extra/linux/Alacritty.desktop
-            fi
-            if which update-desktop-database; then
-                sudo update-desktop-database
-            fi
+            sudo desktop-file-install extra/linux/Alacritty.desktop
+            sudo update-desktop-database
 
             sudo mkdir -p /usr/local/share/man/man1
             gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
@@ -230,7 +226,7 @@ install_third_pkg() {
     fi
 
     info "install yay package"
-    yay -S $(cat "$PWD/.arch-pkglist-local" | grep -vx "$(pacman -Qqm)")
+    yay -S $(cat "$PWD/.arch-pkglist-local")
 
     info "install vscode package"
     cat $PWD/.vscode-extensions.txt | xargs -L 1 code --install-extension
@@ -258,7 +254,7 @@ install_third_pkg() {
 
 update_third_pkg() {
     info "update local pkg list"
-    pacman -Qqem >"$PWD/.arch-pkglist-local"
+    pacman -Qqm > "$PWD/.arch-pkglist-local"
     info "update pip package"
     pip freeze > "$PWD/.requirements.txt"
     info "update npm package"
@@ -291,7 +287,7 @@ update_pkg() {
     cp -rf .bin $HOME
     cp -rf .mycheat $HOME
     info "export official pkg list"
-    pacman -Qqen >"$PWD/.arch-pkglist-official"
+    pacman -Qqn >"$PWD/.arch-pkglist-official"
     info "export vscode "
     code --list-extensions >"$PWD/.vscode-extensions.txt"
 }
