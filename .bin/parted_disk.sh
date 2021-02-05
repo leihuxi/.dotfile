@@ -33,10 +33,10 @@ swap="${diskprefix}${swap_order}"
 boot="${diskprefix}${boot_order}"
 bios="${diskprefix}${bios_order}"
 
-bios_end=1 + $bios_size
-boot_end=$bios_end+$boot_size
-swap_end=$($boot_end + $swap_size)
-rootfs_end=$($swap_end + $rootfs_size)
+bios_end=$((1 + $bios_size))
+boot_end=$(($bios_end+$boot_size))
+swap_end=$(($boot_end + $swap_size))
+rootfs_end=$(($swap_end + $rootfs_size))
 
 info "home=${home}, boot=${boot}, rootfs=${rootfs}, swap=${swap} bios=${bios}"
 info "boot=1Mib, ${bios_end}Mib"
