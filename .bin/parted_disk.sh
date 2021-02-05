@@ -39,7 +39,7 @@ swap_end=$(($boot_end + $swap_size))
 rootfs_end=$(($swap_end + $rootfs_size))
 
 info "home=${home}, boot=${boot}, rootfs=${rootfs}, swap=${swap} bios=${bios}"
-info "boot=1Mib, ${bios_end}Mib"
+info "bios=1Mib, ${bios_end}Mib"
 info "boot=${bios_end}Mib, ${boot_end}Mib"
 info "swap=${boot_end}Mib, ${swap_end}Mib"
 info "rootfs=${swap_end}Mib, ${rootfs_end}Mib"

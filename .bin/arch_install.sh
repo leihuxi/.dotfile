@@ -34,7 +34,7 @@ cp "${tmpfile}" /etc/pacman.d/mirrorlist
 pacman -Sy pacman-contrib
 rankmirrors "${tmpfile}" >/etc/pacman.d/mirrorlist
 pacman -Sy archlinux-keyring
-pacstrap /mnt base iw grub efibootmgr zsh vim iw wireless_tools wpa_supplicant dhclient sudo
+pacstrap /mnt base linux linux-firmware iw grub efibootmgr zsh vim iw wireless_tools wpa_supplicant dhclient sudo
 genfstab -U /mnt >/mnt/etc/fstab
 
 cp /etc/pacman.d/mirrorlist.orig /mnt/etc/pacman.d/mirrorlist.orig
@@ -56,7 +56,7 @@ arch_chroot "sed -i 's/#\('${LOCALE_UTF8_US}'\)/\1/' /etc/locale.gen"
 arch_chroot "locale-gen"
 
 info "install bootloader and linux kernel"
-# arch_chroot "mkinitcpio -p linux"
+arch_chroot "mkinitcpio -p linux"
 arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck"
 arch_chroot "grub-mkconfig -o /boot/grub/grub.cfg"
 
