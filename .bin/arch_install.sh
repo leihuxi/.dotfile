@@ -4,10 +4,11 @@ SHELL_FOLDER=$(dirname "$0")
 . $SHELL_FOLDER/logger.sh
 
 if [ $# -ne 1 ]; then
-    info "./arch_install.sh {username}"
+    info "./arch_install.sh {username} {intel or amd}"
     exit
 fi
 
+CPUTYPE="$2"
 ZONE=Asia
 SUBZONE=Shanghai
 LOCALE_UTF8_US=en_US.UTF-8
@@ -34,7 +35,12 @@ cp "${tmpfile}" /etc/pacman.d/mirrorlist
 pacman -Sy pacman-contrib
 rankmirrors "${tmpfile}" >/etc/pacman.d/mirrorlist
 pacman -Sy archlinux-keyring
-pacstrap /mnt base linux linux-firmware iw grub efibootmgr zsh vim iw wireless_tools wpa_supplicant dhclient sudo
+if [[ "$CPUTYPE" == "amd" ]]; then
+    pacstrap /mnt base linux linux-firmware iw grub efibootmgr zsh vim iw wireless_tools wpa_supplicant dhclient sudo amd-ucode
+else
+    pacstrap /mnt base linux linux-firmware iw grub efibootmgr zsh vim iw wireless_tools wpa_supplicant dhclient sudo intel-ucode
+fi
+
 genfstab -U /mnt >/mnt/etc/fstab
 
 cp /etc/pacman.d/mirrorlist.orig /mnt/etc/pacman.d/mirrorlist.orig
