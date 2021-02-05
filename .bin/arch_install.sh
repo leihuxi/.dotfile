@@ -50,7 +50,7 @@ arch_chroot "sed -i '/127.0.0.1/s/$/ '${HOST_NAME}'/' /etc/hosts"
 arch_chroot "sed -i '/::1/s/$/ '${HOST_NAME}'/' /etc/hosts"
 
 info "locale-gen"
-info "LANG=$LOCALE_UTF8_US" >/mnt/etc/locale.conf
+echo "LANG=$LOCALE_UTF8_US" >/mnt/etc/locale.conf
 arch_chroot "sed -i 's/#\('${LOCALE_UTF8_CN}'\)/\1/' /etc/locale.gen"
 arch_chroot "sed -i 's/#\('${LOCALE_UTF8_US}'\)/\1/' /etc/locale.gen"
 arch_chroot "locale-gen"
