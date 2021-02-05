@@ -3,12 +3,17 @@
 SHELL_FOLDER=$(dirname "$0")
 . $SHELL_FOLDER/logger.sh
 
+if [ $# -ne 1 ]; then
+    info "./arch_install.sh {username}"
+    exit
+fi
+
 ZONE=Asia
 SUBZONE=Shanghai
 LOCALE_UTF8_US=en_US.UTF-8
 LOCALE_UTF8_CN=zh_CN.UTF-8
 HOST_NAME=archlinux
-USERNAME=xileihu
+USERNAME=${username}
 
 trap 'custom_exit; exit' SIGINT SIGQUIT
 custom_exit() {
@@ -51,7 +56,7 @@ arch_chroot "sed -i 's/#\('${LOCALE_UTF8_US}'\)/\1/' /etc/locale.gen"
 arch_chroot "locale-gen"
 
 info "install bootloader and linux kernel"
-arch_chroot "mkinitcpio -p linux"
+# arch_chroot "mkinitcpio -p linux"
 arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck"
 arch_chroot "grub-mkconfig -o /boot/grub/grub.cfg"
 
