@@ -45,7 +45,7 @@ arch_chroot "ln -sf /usr/share/zoneinfo/${ZONE}/${SUBZONE} /etc/localtime"
 arch_chroot "hwclock --systohc --utc"
 
 info "set hostname"
-info "${HOST_NAME}" >/mnt/etc/hostname
+echo "${HOST_NAME}" >/mnt/etc/hostname
 arch_chroot "sed -i '/127.0.0.1/s/$/ '${HOST_NAME}'/' /etc/hosts"
 arch_chroot "sed -i '/::1/s/$/ '${HOST_NAME}'/' /etc/hosts"
 
@@ -56,7 +56,7 @@ arch_chroot "sed -i 's/#\('${LOCALE_UTF8_US}'\)/\1/' /etc/locale.gen"
 arch_chroot "locale-gen"
 
 info "install bootloader and linux kernel"
-arch_chroot "mkinitcpio -p linux"
+# arch_chroot "mkinitcpio -p linux"
 arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck"
 arch_chroot "grub-mkconfig -o /boot/grub/grub.cfg"
 
