@@ -87,11 +87,13 @@ install_from_source() {
     rm -rf /tmp/alacritty
     if git clone https://github.com/jwilm/alacritty.git /tmp/alacritty; then
         (
+            rustup override set stable
+            rustup update stable
             cd /tmp/alacritty && cargo build --release
             sudo cp -f target/release/alacritty /usr/local/bin # or anywhere else in $PATH
             sudo cp -f extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-            #sudo desktop-file-install extra/linux/Alacritty.desktop
-            #sudo update-desktop-database
+            sudo desktop-file-install extra/linux/Alacritty.desktop
+            sudo update-desktop-database
 
             sudo mkdir -p /usr/local/share/man/man1
             gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
