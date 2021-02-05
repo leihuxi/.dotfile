@@ -8,13 +8,13 @@ if [ $# -ne 2 ]; then
     exit
 fi
 
+USERNAME="$1"
 CPUTYPE="$2"
 ZONE=Asia
 SUBZONE=Shanghai
 LOCALE_UTF8_US=en_US.UTF-8
 LOCALE_UTF8_CN=zh_CN.UTF-8
 HOST_NAME=archlinux
-USERNAME=${username}
 
 trap 'custom_exit; exit' SIGINT SIGQUIT
 custom_exit() {
