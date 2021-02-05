@@ -303,6 +303,7 @@ main() {
 
     if [[ "$1" == "install" ]]; then
         install_pkg
+        install_third_pkg
         install_dotfile
         exit
     elif [[ "$1" == "dot" ]]; then
