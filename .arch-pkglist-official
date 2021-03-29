@@ -126,6 +126,7 @@ dav1d
 db
 dbus
 dbus-glib
+dbus-python
 dconf
 desktop-file-utils
 device-mapper
@@ -152,7 +153,7 @@ efibootmgr
 efivar
 egl-wayland
 eglexternalplatform
-electron9
+electron
 elfutils
 ell
 emacs
@@ -334,6 +335,7 @@ haskell-haddock-library
 haskell-hashable
 haskell-hourglass
 haskell-hslua
+haskell-hslua-module-path
 haskell-hslua-module-system
 haskell-hslua-module-text
 haskell-hsyaml
@@ -383,6 +385,7 @@ haskell-texmath
 haskell-text-conversions
 haskell-text-icu
 haskell-th-abstraction
+haskell-th-compat
 haskell-these
 haskell-time-compat
 haskell-tls
@@ -498,6 +501,7 @@ libassuan
 libasyncns
 libatomic_ops
 libavc1394
+libavif
 libavtp
 libb64
 libbloom
@@ -567,6 +571,8 @@ libgtop
 libgudev
 libgusb
 libgxps
+libhandy
+libheif
 libibus
 libical
 libice
@@ -751,6 +757,7 @@ libxv
 libxvmc
 libxxf86vm
 libyaml
+libyuv
 libzip
 libzmf
 licenses
@@ -892,6 +899,7 @@ pacman
 pacman-contrib
 pacman-mirrorlist
 pacutils
+pahole
 pam
 pambase
 pandoc
@@ -987,11 +995,10 @@ python-chardet
 python-colorama
 python-contextlib2
 python-cryptography
-python-dbus
-python-dbus-common
 python-decorator
 python-distlib
 python-distro
+python-dnspython
 python-future
 python-gobject
 python-greenlet
@@ -1040,7 +1047,6 @@ python-xlib
 python-yaml
 python2
 python2-cairo
-python2-dbus
 python2-numpy
 python2-pillow
 qemu
@@ -1170,6 +1176,7 @@ sunpinyin
 sunpinyin-data
 supertux
 supertuxkart
+svt-av1
 svt-hevc
 sway
 swaybg
@@ -1364,6 +1371,7 @@ yaml-cpp
 yarn
 zbar
 zeromq
+zimg
 zip
 zita-alsa-pcmi
 zita-resampler
