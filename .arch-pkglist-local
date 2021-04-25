@@ -5,10 +5,10 @@ android-studio
 autotiling
 bear
 cloog
-electron9
 flutter
 freechat-git
 gcc44
+gcc5
 gconf
 haskell-haddock-library1.9
 ibus-googlepinyin
@@ -22,11 +22,13 @@ notable-bin
 oblogout
 osl
 polybar
+postman-bin-zh
 pstack
 pygtk
 python-cli_helpers
 python-requests-cache
 python2-gobject2
+python2-pillow
 rar
 rubymine
 scrcpy

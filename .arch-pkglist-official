@@ -154,6 +154,8 @@ efivar
 egl-wayland
 eglexternalplatform
 electron
+electron11
+electron9
 elfutils
 ell
 emacs
@@ -283,6 +285,7 @@ harfbuzz-icu
 haskell-aeson
 haskell-aeson-pretty
 haskell-ansi-terminal
+haskell-appar
 haskell-asn1-encoding
 haskell-asn1-parse
 haskell-asn1-types
@@ -300,6 +303,7 @@ haskell-blaze-builder
 haskell-blaze-html
 haskell-blaze-markup
 haskell-byteable
+haskell-byteorder
 haskell-case-insensitive
 haskell-cereal
 haskell-citeproc
@@ -349,6 +353,7 @@ haskell-hxt-regex-xmlschema
 haskell-hxt-unicode
 haskell-indexed-traversable
 haskell-integer-logarithms
+haskell-iproute
 haskell-ipynb
 haskell-jira-wiki-markup
 haskell-juicypixels
@@ -475,13 +480,17 @@ jsoncpp
 judy
 kbd
 kchmviewer
+kconfig
+kcoreaddons
 keyutils
 kitty
 kitty-terminfo
 kmod
+knotifications
 krb5
 kubectl
 kwayland
+kwindowsystem
 l-smash
 lame
 lapack
@@ -561,6 +570,7 @@ libfontenc
 libfprint
 libfreehand
 libgcrypt
+libgit2
 libglade
 libglvnd
 libgme
@@ -916,6 +926,7 @@ pcmanfm
 pcre
 pcre2
 pcsclite
+pdftk
 perf
 perl
 perl-algorithm-diff
@@ -986,6 +997,7 @@ python
 python-appdirs
 python-argcomplete
 python-asn1crypto
+python-babel
 python-backports.csv
 python-bcrypt
 python-cachecontrol
@@ -999,12 +1011,14 @@ python-decorator
 python-distlib
 python-distro
 python-dnspython
+python-docutils
 python-future
 python-gobject
 python-greenlet
 python-html5lib
 python-i3ipc
 python-idna
+python-imagesize
 python-jinja
 python-lockfile
 python-markdown
@@ -1029,6 +1043,7 @@ python-pynvim
 python-pyopenssl
 python-pyparsing
 python-pysocks
+python-pytz
 python-requests
 python-requests-toolbelt
 python-resolvelib
@@ -1036,6 +1051,15 @@ python-retrying
 python-setuptools
 python-six
 python-slip
+python-snowballstemmer
+python-sphinx
+python-sphinx-alabaster-theme
+python-sphinxcontrib-applehelp
+python-sphinxcontrib-devhelp
+python-sphinxcontrib-htmlhelp
+python-sphinxcontrib-jsmath
+python-sphinxcontrib-qthelp
+python-sphinxcontrib-serializinghtml
 python-tabulate
 python-termcolor
 python-terminaltables
@@ -1048,7 +1072,6 @@ python-yaml
 python2
 python2-cairo
 python2-numpy
-python2-pillow
 qemu
 qpdf
 qrencode
@@ -1062,6 +1085,7 @@ qt5-multimedia
 qt5-quickcontrols
 qt5-script
 qt5-sensors
+qt5-speech
 qt5-svg
 qt5-wayland
 qt5-webchannel
@@ -1207,6 +1231,7 @@ texlive-bin
 texlive-core
 the_silver_searcher
 thin-provisioning-tools
+thrift
 tig
 tk
 tldr
@@ -1246,6 +1271,7 @@ vim-runtime
 vim-spell-en
 virglrenderer
 virtualbox
+virtualbox-guest-iso
 virtualbox-host-dkms
 virtualgl
 vlc
