@@ -228,10 +228,8 @@ install_third_pkg() {
     fi
 
     info "install yay package"
-    yay -S $(cat "$PWD/.arch-pkglist-local")
-
-    info "install vscode package"
-    cat $PWD/.vscode-extensions.txt | xargs -L 1 code --install-extension
+    # yay -S $(cat "$PWD/.arch-pkglist-local")
+    for i in $(cat ./.arch-pkglist-local ); do info "install $i"; yay -S $i; done
 
     info "install npm package"
     for npm_pkg in $(cat "$PWD/.npm_package" | sed '1d' | awk -F'/' '{print $NF}'); do
@@ -252,6 +250,9 @@ install_third_pkg() {
     for pip_pkg in $(cat "$PWD/.requirements.txt" | sed 's/=.*//'); do
         pip install --ignore-installed --upgrade --user $pip_pkg
     done
+
+    info "install vscode package"
+    cat $PWD/.vscode-extensions.txt | xargs -L 1 code --install-extension
 }
 
 update_third_pkg() {
