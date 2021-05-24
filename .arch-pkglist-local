@@ -2,16 +2,18 @@ aide
 albert
 android-ndk
 android-studio
+autofs
 autotiling
 bear
+bzflag
 cloog
 flutter
 freechat-git
 gcc44
 gconf
-haskell-haddock-library1.9
 ibus-googlepinyin
 isl
+libglade
 mariadb-jdbc
 mips64-elf-binutils
 miraclecast-git
@@ -31,6 +33,7 @@ python2-pillow
 rar
 rubymine
 scrcpy
+siji
 tcpcopy-git
 wmfocus
 xorg-server-xdmx

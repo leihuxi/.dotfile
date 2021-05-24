@@ -18,7 +18,7 @@ alsa-utils
 android-tools
 android-udev
 ansible
-ansible-base
+ansible-core
 ant
 aom
 apr
@@ -31,6 +31,7 @@ argon2
 aria2
 aribb24
 arpwatch
+ascii
 aspell
 at-spi2-atk
 at-spi2-core
@@ -42,7 +43,6 @@ audiofile
 audit
 augeas
 autoconf
-autofs
 automake
 avahi
 axel
@@ -53,6 +53,7 @@ bat
 bbswitch
 bc
 bcg729
+bdf-unifont
 bind
 binutils
 bison
@@ -72,7 +73,6 @@ bspwm
 bubblewrap
 bumblebee
 bwm-ng
-bzflag
 bzip2
 c-ares
 ca-certificates
@@ -155,7 +155,6 @@ egl-wayland
 eglexternalplatform
 electron
 electron11
-electron9
 elfutils
 ell
 emacs
@@ -206,6 +205,7 @@ freetype2
 fribidi
 fuse-common
 fuse2
+fuse3
 fzf
 gawk
 gc
@@ -220,6 +220,7 @@ gdk-pixbuf2
 geoclue
 geocode-glib
 gettext
+gflags
 ghc-libs
 ghostscript
 giblib
@@ -243,7 +244,6 @@ go
 goaccess
 gobject-introspection-runtime
 google-glog
-gperftools
 gpgme
 gpm
 gradle
@@ -347,10 +347,6 @@ haskell-http
 haskell-http-client
 haskell-http-client-tls
 haskell-http-types
-haskell-hxt
-haskell-hxt-charproperties
-haskell-hxt-regex-xmlschema
-haskell-hxt-unicode
 haskell-indexed-traversable
 haskell-integer-logarithms
 haskell-iproute
@@ -439,6 +435,7 @@ icu
 iftop
 ijs
 imagemagick
+imath
 imlib2
 inetutils
 intel-gmmlib
@@ -571,7 +568,6 @@ libfprint
 libfreehand
 libgcrypt
 libgit2
-libglade
 libglvnd
 libgme
 libgooglepinyin
@@ -606,6 +602,7 @@ liblqr
 liblrdf
 libluv
 libmad
+libmanette
 libmatroska
 libmaxminddb
 libmemcached
@@ -692,7 +689,6 @@ libsrtp
 libssh
 libssh2
 libstaroffice
-libstemmer
 libsynctex
 libtar
 libtasn1
@@ -728,6 +724,7 @@ libwebp
 libwebsockets
 libwhereami
 libwpd
+libwpe
 libwpg
 libwps
 libx11
@@ -874,6 +871,10 @@ nm-connection-editor
 nmap
 node-gyp
 nodejs
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+noto-fonts-extra
 npm
 npm-check-updates
 npth
@@ -996,7 +997,6 @@ pyalpm
 python
 python-appdirs
 python-argcomplete
-python-asn1crypto
 python-babel
 python-backports.csv
 python-bcrypt
@@ -1083,7 +1083,6 @@ qt5-imageformats
 qt5-location
 qt5-multimedia
 qt5-quickcontrols
-qt5-script
 qt5-sensors
 qt5-speech
 qt5-svg
@@ -1147,6 +1146,17 @@ ruby-shadow
 ruby-sync
 ruby-term-ansicolor
 ruby-tins
+ruby2.7
+ruby27-augeas
+ruby27-concurrent
+ruby27-deep_merge
+ruby27-hocon
+ruby27-httpclient
+ruby27-multi_json
+ruby27-puppet-resource_api
+ruby27-semantic_puppet
+ruby27-shadow
+ruby27-sync
 rubygems
 run-parts
 runc
@@ -1240,7 +1250,6 @@ tmon
 tmux
 tor
 traceroute
-tracker3
 tree
 tree-sitter
 tslib
@@ -1286,6 +1295,7 @@ wavpack
 waybar
 wayland
 wayland-protocols
+webkit2gtk
 webrtc-audio-processing
 weston
 wget
@@ -1299,6 +1309,7 @@ wl-clipboard
 wlroots
 woff2
 wpa_supplicant
+wpebackend-fdo
 wqy-microhei
 wtf
 x264
@@ -1317,6 +1328,7 @@ xcb-util-wm
 xcb-util-xrm
 xclip
 xcompmgr
+xdg-dbus-proxy
 xdg-user-dirs
 xdg-utils
 xdotool
