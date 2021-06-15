@@ -26,11 +26,12 @@
 window:
   # Window dimensions (changes require restart)
   #
-  # Specified in number of columns/lines, not pixels.
-  # If both are `0`, this setting is ignored.
+  # Number of lines/columns (not pixels) in the terminal. The number of columns
+  # must be at least `2`, while using a value of `0` for columns and lines will
+  # fall back to the window manager's recommended size.
   dimensions:
-    columns: 0
-    lines: 0
+   columns: 0
+   lines: 0
 
   # Window position (changes require restart)
   #
@@ -45,8 +46,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 0
-    y: 0
+   x: 0
+   y: 0
 
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: true
@@ -258,7 +259,7 @@ colors:
 
   # Keyboard regex hints
   #hints:
-    # Fist character in the hint label
+    # First character in the hint label
     #
     # Allowed values are CellForeground/CellBackground, which reference the
     # affected cell, or hexadecimal colors like #ff00ff.
@@ -390,7 +391,7 @@ colors:
 background_opacity: 1.0
 
 selection:
-  # This string contains all characters that are used as separators for 
+  # This string contains all characters that are used as separators for
   # "semantic words" in Alacritty.
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 
@@ -508,7 +509,7 @@ hints:
   #   - MoveViModeCursor
   #       Move the vi mode cursor to the beginning of the hint.
   enabled:
-   - regex: "(mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
+   - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
              [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
      command: xdg-open
      post_processing: true

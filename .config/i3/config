@@ -120,12 +120,13 @@ bindsym $mod1+b [class="(?i)Chromium" window_role="browser"] focus
 bindsym $mod1+o [class="(?i)code-oss" window_role="browser"] focus
 bindsym $mod1+d [class="(?i)jetbrains-studio"] focus
 bindsym $mod1+e [class="(?i)TelegramDesktop"] focus
-bindsym $mod1+g [class="(?i)blueman-manager"] focus
+# bindsym $mod1+g [class="(?i)blueman-manager"] focus
+bindsym $mod1+g [class="(?i)google-chrome-unstable" window_role="browser"] focus
 bindsym $mod1+i [class="(?i)jetbrains-idea-ce"] focus
 bindsym $mod1+m [class="(?i)netease-cloud-music"] focus
 bindsym $mod1+n [class="(?i)Alacritty" title="musicbox"] focus
 bindsym $mod1+p [class="(?i)evince"] focus
-bindsym $mod1+w [class="(?i)electronic-wechat"] focus
+bindsym $mod1+w [class="(?i)freechat"] focus
 bindsym $mod1+f [class="(?i)virt-manager"] focus
 
 # Move focused window
@@ -248,7 +249,7 @@ mode "$resize" {
 set $monitor_mode Monitor: [o]ignal [m]irror [s]plit split[r]ight split[l]eft
 bindsym $mod+v mode "$monitor_mode"
 mode "$monitor_mode" {
-    bindsym o exec --no-startup-id ~/.bin/toggle_display.sh original 
+    bindsym o exec --no-startup-id ~/.bin/toggle_display.sh original
     bindsym m exec --no-startup-id ~/.bin/toggle_display.sh mirror
     bindsym s exec --no-startup-id ~/.bin/toggle_display.sh splith
     bindsym r exec --no-startup-id ~/.bin/toggle_display.sh splitr
@@ -322,7 +323,7 @@ for_window [class="(?i)copyq"] floating enable, move to position center
 for_window [class="(?i)fcitx-config-gtk3"] floating enable, move to position center
 for_window [class="(?i)evince"] floating enable, move to position center
 for_window [class="(?i)Alacritty" title="musicbox"] floating enable, border pixel 1, resize set 600 500, move to position center
-for_window [class="(?i)electronic-wechat"] floating enable, border pixel 1, resize set 800 600, move to position center
+for_window [class="(?i)freechat"] floating enable, border pixel 1, resize set 800 600, move to position center
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -335,6 +336,7 @@ for_window [urgent=latest] focus
 # assign <criteria> [→] [workspace] [number] <workspace>
 # assign <criteria> [→] output left|right|up|down|primary|<output>
 assign [window_role="browser" class = "Chromium"] $workspace3
+assign [window_role="browser" class = "google-chrome-unstable"] $workspace3
 assign [class="jetbrains-idea-ce"] $workspace4
 assign [class="jetbrains-studio"] $workspace4
 assign [class="jetbrains-rubymine"] $workspace4
@@ -395,8 +397,8 @@ show_marks yes
 # }
 
 # i3-Gap Use
-gaps inner 10 
-gaps outer 4 
+gaps inner 10
+gaps outer 4
 # gaps horizontal 10
 
 # smart_gaps on
@@ -527,11 +529,11 @@ mode "$mode_gaps_left" {
 # exec --no-startup-id i3-msg "workspace 2:Work"
 # exec --no-startup-id i3-msg "workspace 3:Browser"
 # exec --no-startup-id i3-msg "workspace 4:IDE"
-exec i3-config-wizard
-exec --no-startup-id xautolock -time 1 -locker ~/.config/i3lock/i3lock.sh
+exec_always  i3-config-wizard
+exec --no-startup-id xautolock -time 5 -locker ~/.config/i3lock/i3lock.sh
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id ~/.bin/miarch_single.sh
-exec_always --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/apocalyptic-hipster.jpg
+exec --no-startup-id feh --bg-fill --fullscreen --auto-zoom ~/.config/i3/wallpaper/apocalyptic-hipster.jpg
 exec pulseaudio --start -D
 exec amixer sset Master on
 exec --no-startup-id fcitx -d -r
@@ -544,4 +546,5 @@ exec --no-startup-id albert
 exec --no-startup-id copyq
 exec compton -b --config ~/.config/compton/compton.conf
 exec --no-startup-id redshift redshift -l 39.95:116.39
-exec_always --no-startup-id autotiling
+exec --no-startup-id autotiling
+exec_always --no-startup-id ~/.config/i3/scripts/i3-battery-popup/i3-battery-popup -L 40 -l 30 -t 1m -n

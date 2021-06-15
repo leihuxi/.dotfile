@@ -1,5 +1,6 @@
 a52dec
 aalib
+abseil-cpp
 acl
 acpi
 adobe-source-code-pro-fonts
@@ -70,6 +71,7 @@ bridge-utils
 brltty
 brotli
 bspwm
+btrfs-progs
 bubblewrap
 bumblebee
 bwm-ng
@@ -138,6 +140,7 @@ djvulibre
 dkms
 dmenu
 dmidecode
+dmraid
 dnsmasq
 dnssec-anchors
 docker
@@ -246,6 +249,7 @@ gobject-introspection-runtime
 google-glog
 gpgme
 gpm
+gptfdisk
 gradle
 graphene
 graphite
@@ -279,6 +283,7 @@ guile
 gupnp
 gupnp-igd
 gutenprint
+gvfs
 gzip
 harfbuzz
 harfbuzz-icu
@@ -387,11 +392,14 @@ haskell-text-conversions
 haskell-text-icu
 haskell-th-abstraction
 haskell-th-compat
+haskell-th-lift
+haskell-th-lift-instances
 haskell-these
 haskell-time-compat
 haskell-tls
 haskell-transformers-compat
 haskell-typed-process
+haskell-unicode-collation
 haskell-unicode-transforms
 haskell-uniplate
 haskell-unliftio-core
@@ -505,19 +513,21 @@ libarchive
 libass
 libassuan
 libasyncns
+libatasmart
 libatomic_ops
 libavc1394
 libavif
 libavtp
 libb64
+libblockdev
 libbloom
 libbluray
 libbs2b
 libbsd
+libbytesize
 libcaca
 libcacard
 libcanberra
-libcanberra-pulse
 libcap
 libcap-ng
 libcddb
@@ -527,6 +537,7 @@ libcdr
 libclc
 libcloudproviders
 libcmis
+libcolord
 libconfig
 libcork
 libcorkipset
@@ -871,6 +882,7 @@ nm-connection-editor
 nmap
 node-gyp
 nodejs
+nodejs-nopt
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
@@ -1023,6 +1035,7 @@ python-jinja
 python-lockfile
 python-markdown
 python-markupsafe
+python-more-itertools
 python-msgpack
 python-numpy
 python-ordered-set
@@ -1088,6 +1101,7 @@ qt5-speech
 qt5-svg
 qt5-wayland
 qt5-webchannel
+qt5-webengine
 qt5-webkit
 qt5-x11extras
 radare2
@@ -1261,6 +1275,7 @@ turbostat
 twolame
 tzdata
 uchardet
+udisks2
 ufw
 unibilium
 unzip
@@ -1286,6 +1301,7 @@ virtualgl
 vlc
 vmaf
 vnstat
+volume_key
 vpnc
 vte-common
 vte3
