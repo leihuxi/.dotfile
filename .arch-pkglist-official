@@ -19,8 +19,6 @@ alsa-ucm-conf
 alsa-utils
 android-tools
 android-udev
-ansible
-ansible-core
 ant
 aom
 apr
@@ -92,6 +90,7 @@ cbatticon
 cblas
 ccze
 cdparanoia
+celt
 cgroup_event_listener
 chmlib
 chromaprint
@@ -470,7 +469,7 @@ iputils
 iso-codes
 itstool
 iw
-jack
+jack2
 jansson
 jasper
 java-environment-common
@@ -498,8 +497,6 @@ kchmviewer
 kconfig
 kcoreaddons
 keyutils
-kitty
-kitty-terminfo
 kmod
 knotifications
 krb5
@@ -548,7 +545,6 @@ libclc
 libcloudproviders
 libcmis
 libcolord
-libconfig
 libcork
 libcorkipset
 libcroco
@@ -586,6 +582,7 @@ libfm-extra
 libfm-gtk2
 libfontenc
 libfprint
+libfreeaptx
 libfreehand
 libgcrypt
 libgit2
@@ -594,7 +591,6 @@ libgme
 libgooglepinyin
 libgpg-error
 libgssglue
-libgtop
 libgudev
 libgusb
 libgxps
@@ -665,7 +661,6 @@ libodfgen
 libofa
 libogg
 libomxil-bellagio
-libopenaptx
 liborcus
 libotf
 libp11-kit
@@ -718,6 +713,7 @@ libtar
 libtasn1
 libteam
 libtermkey
+libtg_owt
 libthai
 libtheora
 libtiff
@@ -762,8 +758,6 @@ libxdamage
 libxdg-basedir
 libxdmcp
 libxext
-libxfce4ui
-libxfce4util
 libxfixes
 libxfont2
 libxft
@@ -806,7 +800,6 @@ lmdb
 logrotate
 logwatch
 lolcat
-love
 lpsolve
 lrzsz
 lsof
@@ -832,7 +825,6 @@ mako
 mallard-ducktype
 man-db
 man-pages
-mari0
 mariadb
 mariadb-clients
 mariadb-libs
@@ -941,7 +933,6 @@ pandoc
 pango
 pangomm
 parallel
-parcellite
 parted
 pass
 patch
@@ -1008,7 +999,6 @@ perl-xml-parser
 perl-xml-sax
 perl-xml-sax-base
 php
-picom
 pinentry
 pipewire
 pixman
@@ -1042,7 +1032,6 @@ python-argcomplete
 python-attrs
 python-babel
 python-backports.csv
-python-bcrypt
 python-beaker
 python-cachecontrol
 python-cachy
@@ -1086,7 +1075,6 @@ python-msgpack
 python-numpy
 python-ordered-set
 python-packaging
-python-paramiko
 python-pastel
 python-pep517
 python-pexpect
@@ -1105,7 +1093,6 @@ python-pycryptodomex
 python-pyelftools
 python-pygments
 python-pylev
-python-pynacl
 python-pynvim
 python-pyopenssl
 python-pyparsing
@@ -1134,6 +1121,7 @@ python-tabulate
 python-termcolor
 python-terminaltables
 python-toml
+python-tomli
 python-tomlkit
 python-tornado
 python-urllib3
@@ -1301,7 +1289,6 @@ swaybg
 swayidle
 swaylock
 sxhkd
-synergy
 sysdig
 sysfsutils
 syslog-ng
@@ -1418,14 +1405,11 @@ xcompmgr
 xdg-dbus-proxy
 xdg-user-dirs
 xdg-utils
-xdotool
 xf86-input-libinput
 xf86-input-synaptics
 xf86-video-fbdev
 xf86-video-intel
 xf86-video-vesa
-xfce4-terminal
-xfconf
 xfsprogs
 xkeyboard-config
 xlockmore

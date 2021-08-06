@@ -5,7 +5,6 @@ android-studio
 autofs
 autotiling
 bear
-bzflag
 cloog
 flutter
 freechat-git
@@ -15,12 +14,12 @@ google-chrome-dev
 ibus-googlepinyin
 isl
 libglade
+libopenaptx
 mariadb-jdbc
 mips64-elf-binutils
 miraclecast-git
 netease-cloud-music
 netease-musicbox-git
-notable-bin
 oblogout
 osl
 polybar
