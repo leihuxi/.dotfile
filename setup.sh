@@ -84,11 +84,14 @@ bak_etc() {
 }
 
 install_from_source() {
+    if  git clone https://github.com/powerline/fonts.git; then
+        (cd ~/.fonts && install.sh)
+    fi
+
     rm -rf /tmp/alacritty
     if git clone https://github.com/jwilm/alacritty.git /tmp/alacritty; then
         (
-            rustup override set stable
-            rustup update stable
+            rustup override set stable && rustup update stable
             cd /tmp/alacritty && cargo build --release
             sudo cp -f target/release/alacritty /usr/local/bin # or anywhere else in $PATH
             sudo cp -f extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
@@ -111,27 +114,11 @@ install_from_source() {
 install_dotfile() {
     bak_config
 
-    ## polybar
     install_from_source
-
-    ## alacritty
-    rm -rf /tmp/alacritty
-    if git clone https://github.com/jwilm/alacritty.git /tmp/alacritty; then
-        (
-            cd /tmp/alacritty && cargo build --release
-            sudo cp -f target/release/alacritty /usr/local/bin # or anywhere else in $PATH
-            sudo cp -f extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-            sudo desktop-file-install extra/linux/Alacritty.desktop
-            sudo update-desktop-database
-
-            sudo mkdir -p /usr/local/share/man/man1
-            gzip -c extra/alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
-        )
-        info "dotfile:alacrittyinstall successfully!"
-    fi
 
     ### tmux
     if git clone https://github.com/gpakosz/.tmux.git "$HOME/.tmux"; then
+         mkdir -p $HOME/.resurrect/
         ln -s -f .tmux/.tmux.conf $HOME/.tmux.conf
         cp "$PWD/.tmux.conf.local" $HOME
         git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm

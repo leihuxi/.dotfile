@@ -37,11 +37,11 @@ rankmirrors "${tmpfile}" >/etc/pacman.d/mirrorlist
 pacman -Sy archlinux-keyring
 
 if [[ "$CPUTYPE" == "amd" ]]; then
-    pacstrap /mnt base linux linux-firmware iw grub efibootmgr zsh vim iw wireless_tools wpa_supplicant dhclient sudo amd-ucode
+    pacstrap /mnt base linux linux-firmware iw grub efibootmgr zsh vim dhcpcd dhclient sudo amd-ucode tmux desktop-file-utils rust xorg xorg-xinit xorg-xrandr feh imagemagick xautolock redshift pulseaudio alsa-utils pulseaudio-alsa xorg-xbacklight chromium dunst scrot neofetch cmake freetype2 fontconfig pkg-config make libxcb libxkbcommon python3 fcitx fcitx-googlepinyin compton alacritty
 elif [[ "$CPUTYPE" == "intel" ]]; then
-    pacstrap /mnt base linux linux-firmware iw grub efibootmgr zsh vim iw wireless_tools wpa_supplicant dhclient sudo intel-ucode
+    pacstrap /mnt base linux linux-firmware iw iwd grub efibootmgr zsh vim dhcpcd dhclient sudo intel-ucode tmux desktop-file-utils rust xorg xorg-xinit xorg-xrandr feh i3 xautolock redshift pulseaudio alsa-utils pulseaudio-alsa xorg-xbacklight chromium dunst scrot neofetch cmake freetype2 fontconfig pkg-config make libxcb libxkbcommon python3 fcitx fcitx-googlepinyin compton alacritty
 else
-    pacstrap /mnt base linux linux-firmware iw grub efibootmgr zsh vim iw wireless_tools wpa_supplicant dhclient sudo
+    pacstrap /mnt base linux linux-firmware iw iwd grub efibootmgr zsh vim dhcpcd dhclient sudo tmux desktop-file-utils rust xorg  xorg-xinit xorg-xrandr feh i3 imagemagick xautolock redshift pulseaudio alsa-utils pulseaudio-alsa xorg-xbacklight chromium dunst scrot neofetch cmake freetype2 fontconfig pkg-config make libxcb libxkbcommon python3 fcitx fcitx-googlepinyin compton alacritty
 fi
 
 genfstab -U /mnt >/mnt/etc/fstab
