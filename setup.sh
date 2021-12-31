@@ -118,7 +118,7 @@ install_dotfile() {
 
     ### tmux
     if git clone https://github.com/gpakosz/.tmux.git "$HOME/.tmux"; then
-         mkdir -p $HOME/.resurrect/
+        mkdir -p $HOME/.resurrect/
         ln -s -f .tmux/.tmux.conf $HOME/.tmux.conf
         cp "$PWD/.tmux.conf.local" $HOME
         git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
