@@ -60,7 +60,9 @@ bindsym --release $mod1+s exec --no-startup-id scrot -s /tmp/latest-screenshot.p
 # Exit i3 (logs you out of your X session)
 bindsym $mod+$mod2+e exec "i3-nagbar -t warning -m 'Want exit i3?' -b 'Yes' 'i3-msg exit'"
 
+# Change tab
 bindsym $mod1+k exec wmfocus
+
 # Terminal
 bindsym $mod+Return exec alacritty
 # bindsym $mod+Return exec kitty
