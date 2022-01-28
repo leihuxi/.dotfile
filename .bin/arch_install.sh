@@ -36,12 +36,12 @@ pacman -Sy pacman-contrib
 rankmirrors "${tmpfile}" >/etc/pacman.d/mirrorlist
 pacman -Sy archlinux-keyring
 
+pacstrap /mnt base linux linux-firmware iw iwd grub efibootmgr zsh vim dhcpcd dhclient sudo tmux desktop-file-utils rust xorg  xorg-xinit xorg-xrandr feh i3 imagemagick xautolock redshift pulseaudio alsa-utils pulseaudio-alsa xorg-xbacklight chromium dunst scrot neofetch cmake freetype2 fontconfig pkg-config make libxcb libxkbcommon python3 fcitx fcitx-googlepinyin compton alacritty prettyping bat tealdeer global ctags the_silver_searcher xclip ncdu lolcat clang fcitx-configtool ripgrep fd jq hexyl zoxide broot  mcfly ncdu duf procs httpie dog
+
 if [[ "$CPUTYPE" == "amd" ]]; then
-    pacstrap /mnt base linux linux-firmware iw grub efibootmgr zsh vim dhcpcd dhclient sudo amd-ucode tmux desktop-file-utils rust xorg xorg-xinit xorg-xrandr feh imagemagick xautolock redshift pulseaudio alsa-utils pulseaudio-alsa xorg-xbacklight chromium dunst scrot neofetch cmake freetype2 fontconfig pkg-config make libxcb libxkbcommon python3 fcitx fcitx-googlepinyin compton alacritty prettyping bat tealdeer global ctags the_silver_searcher xclip ncdu lolcat clang
+    pacstrap /mnt amd-ucode
 elif [[ "$CPUTYPE" == "intel" ]]; then
-    pacstrap /mnt base linux linux-firmware iw iwd grub efibootmgr zsh vim dhcpcd dhclient sudo intel-ucode tmux desktop-file-utils rust xorg xorg-xinit xorg-xrandr feh i3 xautolock redshift pulseaudio alsa-utils pulseaudio-alsa xorg-xbacklight chromium dunst scrot neofetch cmake freetype2 fontconfig pkg-config make libxcb libxkbcommon python3 fcitx fcitx-googlepinyin compton alacritty prettyping bat tealdeer global ctags the_silver_searcher xclip ncdu lolcat clang
-else
-    pacstrap /mnt base linux linux-firmware iw iwd grub efibootmgr zsh vim dhcpcd dhclient sudo tmux desktop-file-utils rust xorg  xorg-xinit xorg-xrandr feh i3 imagemagick xautolock redshift pulseaudio alsa-utils pulseaudio-alsa xorg-xbacklight chromium dunst scrot neofetch cmake freetype2 fontconfig pkg-config make libxcb libxkbcommon python3 fcitx fcitx-googlepinyin compton alacritty prettyping bat tealdeer global ctags the_silver_searcher xclip ncdu lolcat clang
+    pacstrap /mnt intel-ucode
 fi
 
 genfstab -U /mnt >/mnt/etc/fstab
