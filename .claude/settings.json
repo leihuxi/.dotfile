@@ -95,7 +95,6 @@
   "theme": "auto",
   "permissions": {
     "allow": [
-      "Bash(bat:*)",
       "Bash(brew info:*)",
       "Bash(brew list:*)",
       "Bash(cargo fmt:*)",
@@ -133,7 +132,6 @@
       "Bash(tmux display:*)",
       "Bash(tmux list-*:*)",
       "Bash(tmux show-*:*)",
-      "Bash(tree:*)",
       "Bash(wc:*)",
       "Bash(which:*)",
       "WebSearch"
