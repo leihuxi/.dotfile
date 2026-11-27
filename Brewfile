@@ -25,6 +25,7 @@ brew "ccusage"              # tmux 状态栏的 Claude 用量（.bin/claude-tmux
 
 # vim（coc.nvim 需要 node，tagbar 需要 universal-ctags，vim 的 python3 支持需要 python）
 brew "vim"
+brew "neovim"                     # LazyVim 配置在 .config/nvim
 brew "python"
 brew "node"
 brew "rust"                       # 编译 tmux-thumbs（官方无 Apple Silicon 预编译包）

@@ -396,6 +396,7 @@ install_macos() {
     link_file .clang-format
     link_file .config/ghostty/config
     link_file .config/starship.toml
+    link_file .config/nvim
     link_file .config/eza
     link_file .config/lazygit
     link_file .config/atuin
