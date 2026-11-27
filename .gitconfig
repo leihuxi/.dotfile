@@ -28,6 +28,9 @@
     g = grep --break --heading --line-number
     fa = fetch --all
     p = push
+    dft = -c diff.external=difft diff            # difftastic：按语法结构对比（只改缩进/换行不会整块标红）
+    dlog = -c diff.external=difft log -p --ext-diff
+    dshow = -c diff.external=difft show --ext-diff
     pf = push --force-with-lease --force-if-includes   # 安全强推：远端有别人新提交时拒绝
 
 [color]

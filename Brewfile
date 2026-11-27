@@ -47,4 +47,5 @@ brew "prettier"
 brew "btop"                       # prefix b 弹窗
 brew "dust"                       # 目录占用
 brew "duf"                        # 磁盘占用
+brew "difftastic"                 # git dft / dlog / dshow
 brew "glow"                       # 终端渲染 markdown（cheat 用它）

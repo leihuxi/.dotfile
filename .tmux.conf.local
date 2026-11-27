@@ -599,6 +599,8 @@ set -g @shell_mode 'vi'
 set -g @resurrect-capture-pane-contents 'on'
 set -g @resurrect-strategy-vim 'session'
 set -g @resurrect-strategy-nvim 'session'
+# 恢复会话时把 Claude 也带回来，并接上该目录最近一次对话（只匹配以 claude 开头的命令）
+set -g @resurrect-processes '"claude->claude --continue"'
 set -g @continuum-restore 'on'
 set -g @continuum-save-interval '15'
 set -g @cpu_percentage_format '%3.0f%%'

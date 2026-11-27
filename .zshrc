@@ -5,10 +5,17 @@
 [[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # -- proxy ---------------------------------------------------------------------
-if [[ $OSTYPE == darwin* ]]; then
-  export https_proxy=http://127.0.0.1:7897 http_proxy=http://127.0.0.1:7897 all_proxy=socks5://127.0.0.1:7897
-  export no_proxy=localhost,127.0.0.1,::1
-fi
+# proxy on / off / 无参数=查看；默认开启
+proxy() {
+  local p=127.0.0.1:7897
+  case $1 in
+    on)  export https_proxy=http://$p http_proxy=http://$p all_proxy=socks5://$p no_proxy=localhost,127.0.0.1,::1 ;;
+    off) unset https_proxy http_proxy all_proxy no_proxy ;;
+    *)   print "proxy: ${https_proxy:-off}"; return ;;
+  esac
+  print "proxy: ${https_proxy:-off}"
+}
+[[ $OSTYPE == darwin* ]] && proxy on >/dev/null
 
 # -- oh-my-zsh -----------------------------------------------------------------
 export ZSH="$HOME/.oh-my-zsh"

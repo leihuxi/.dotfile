@@ -35,6 +35,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
     { import = "lazyvim.plugins.extras.util.dot" },
     { import = "lazyvim.plugins.extras.ui.treesitter-context" },
+    { import = "lazyvim.plugins.extras.ai.claudecode" }, -- <leader>a…：nvim 里开 Claude、发选区、审 diff
     -- import/override with your plugins
     { import = "plugins" },
   },
