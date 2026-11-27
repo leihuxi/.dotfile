@@ -10,7 +10,7 @@ step() {
 }
 
 step brew               bash -c 'brew update && brew upgrade && brew cleanup -q'
-step oh-my-zsh          zsh -ic 'omz update --unattended'
+step oh-my-zsh          env ZSH="${ZSH:-$HOME/.oh-my-zsh}" zsh "${ZSH:-$HOME/.oh-my-zsh}/tools/upgrade.sh"
 step oh-my-tmux         git -C "$HOME/.local/share/oh-my-tmux" pull --ff-only -q
 step "tmux 插件"        "$HOME/.config/tmux/plugins/tpm/bin/update_plugins" all
 # tmux-thumbs 没有 arm64 预编译包，插件更新后要重新编译
