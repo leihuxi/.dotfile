@@ -15,6 +15,8 @@ brew "ripgrep"
 brew "git-delta"
 brew "lazygit"
 brew "tlrc"
+brew "atuin"
+brew "yazi"
 
 # vim（coc.nvim 需要 node，tagbar 需要 universal-ctags，vim 的 python3 支持需要 python）
 brew "vim"

@@ -72,3 +72,5 @@
     rebase = true
 [rerere]
     enabled = true
+[include]
+    path = ~/.gitconfig.local   # 机器私有配置（凭据等），不入库

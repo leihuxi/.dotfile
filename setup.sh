@@ -361,6 +361,12 @@ install_macos() {
     link_file .clang-format
     link_file .config/ghostty/config
     link_file .config/starship.toml
+    link_file .config/eza
+    link_file .config/lazygit
+    link_file .config/atuin
+    link_file .config/yazi
+    (cd "$HOME/.config/yazi" && ya pkg install) || warning "yazi: flavor install failed"
+    [[ -s "$HOME/.local/share/atuin/history.db" ]] || atuin import zsh
     info "dotfile:config link successfully!"
 
     ### vim（leihuxi/vimrc）

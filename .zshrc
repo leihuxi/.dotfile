@@ -42,6 +42,9 @@ elif (( $+commands[pacman] )); then
 fi
 plugins+=(fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
 
+# Catppuccin Mocha 语法高亮配色（须在 zsh-syntax-highlighting 加载前）
+[[ -f "$HOME/.bin/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh" ]] && source "$HOME/.bin/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh"
+
 source "$ZSH/oh-my-zsh.sh"
 
 # -- history -------------------------------------------------------------------
@@ -65,7 +68,10 @@ export npm_config_prefix="$HOME/.local/lib/node_modules"
 export CHEAT_COLORS=true
 export CHEAT_USER_DIR="$HOME/.mycheat"
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
-export BAT_THEME="ansi"
+# 统一配色：Catppuccin Mocha（bat / delta / eza / lazygit / fzf）
+export BAT_THEME="Catppuccin Mocha"   # bat ≥ 0.25 内置
+export EZA_CONFIG_DIR="$HOME/.config/eza"
+export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
 export LESS='-R -F -i -M'
 (( $+commands[bat] )) && export MANPAGER="sh -c 'col -bx | bat -l man -p'" MANROFFOPT="-c"
 
@@ -111,7 +117,12 @@ if (( $+commands[fzf] )); then
     _fzf_compgen_path() { fd --hidden --follow --exclude .git . "$1"; }
     _fzf_compgen_dir()  { fd --type d --hidden --follow --exclude .git . "$1"; }
   fi
-  export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border --info=inline'
+  export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border=rounded --info=inline-right
+    --prompt='❯ ' --pointer='▶' --marker='✓' --separator='─' --scrollbar='│'
+    --color=bg+:#313244,bg:-1,spinner:#f5e0dc,hl:#f38ba8
+    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
+    --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
+    --color=selected-bg:#45475a,border:#585b70,label:#cdd6f4"
   export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :300 {} 2>/dev/null || eza --tree --level=2 --color=always {}'"
   export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {} | head -100'"
   [[ -n $TMUX ]] && export FZF_TMUX=1 FZF_TMUX_OPTS='-p 80%,60%'   # tmux 里用浮动窗口
@@ -135,6 +146,14 @@ zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word 
 (( $+commands[zoxide] ))   && eval "$(zoxide init zsh)"     # z <dir> 智能跳转, zi 交互选择
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 
+# yazi 文件管理器：y 打开，退出后 shell 跳到最后浏览的目录
+y() {
+  local tmp="$(mktemp -t yazi-cwd.XXXXXX)" cwd
+  yazi "$@" --cwd-file="$tmp"
+  cwd="$(command cat -- "$tmp")" && [[ -n "$cwd" && "$cwd" != "$PWD" ]] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
+}
+
 # -- key bindings --------------------------------------------------------------
 autoload -U up-line-or-beginning-search down-line-or-beginning-search edit-command-line
 zle -N up-line-or-beginning-search; zle -N down-line-or-beginning-search; zle -N edit-command-line
@@ -153,6 +172,9 @@ bindkey -M viins '^U' backward-kill-line
 bindkey -M viins '^[l' clear-screen                   # Alt-l 清屏（C-l 已用于 tmux 切 pane）
 bindkey -M vicmd '^[l' clear-screen
 ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(forward-word)
+
+# atuin：Ctrl-r 全屏历史搜索（带目录 / 耗时 / 退出码），↑ 保持前缀搜索
+(( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
 
 # -- Android -------------------------------------------------------------------
 if [[ $OSTYPE == darwin* ]]; then

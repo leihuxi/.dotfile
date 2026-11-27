@@ -3,7 +3,7 @@ font-family = JetBrainsMono Nerd Font
 font-size = 14
 adjust-cell-height = 10%
 
-theme = light:Catppuccin Latte,dark:Catppuccin Mocha
+theme = Catppuccin Mocha
 background-opacity = 0.96
 background-blur = true
 
