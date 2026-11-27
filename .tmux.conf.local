@@ -500,11 +500,13 @@ bind / display-popup -E -w 85% -h 85% -T ' tmux 快捷键 ' "tmux list-keys -T p
 #   <prefix> g  lazygit
 #   <prefix> w  当前目录下的临时浮动终端
 #   <prefix> i  btop 系统监控（原 display-message）
+#   <prefix> B  gh-dash：我的 PR / 待 review / issue / CI
 # 常用浮窗用小写字母，避免中文输入法截走 Shift+字母；原来的 tmux 内置功能挪到大写
 bind s display-popup -E -w 75% -h 65% -T ' 󰆍 会话 / 项目 ' "$HOME/.bin/tmux-sessionizer"
 bind g display-popup -E -w 90% -h 90% -d '#{pane_current_path}' lazygit
 bind w display-popup -E -w 80% -h 75% -d '#{pane_current_path}'
 bind i display-popup -E -w 90% -h 90% -T ' 󰍛 btop ' btop
+bind B display-popup -E -w 95% -h 90% -d '#{pane_current_path}' -T '  GitHub ' 'gh dash'
 bind S choose-tree -Zs
 bind W choose-tree -Zw
 bind G switch-client -T move

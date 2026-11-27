@@ -403,6 +403,8 @@ install_macos() {
     link_file .config/lazygit
     link_file .config/atuin
     link_file .config/btop/btop.conf
+    link_file .config/gh-dash/config.yml
+    link_file .bin/update
     link_file .config/yazi
     (cd "$HOME/.config/yazi" && ya pkg install) || warning "yazi: flavor install failed"
     [[ -s "$HOME/.local/share/atuin/history.db" ]] || atuin import zsh
@@ -410,6 +412,7 @@ install_macos() {
 
     install_tmux_extras
     install_claude_tmux
+    gh extension install dlvhdr/gh-dash 2>/dev/null || gh extension upgrade gh-dash || warning "gh-dash install failed (gh auth login?)"
 
     ### vim（leihuxi/vimrc）
     install_vim

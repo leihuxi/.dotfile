@@ -118,6 +118,7 @@ alias grep='grep --color=auto'
 alias vim='nvim' vi='nvim'           # 默认用 nvim（LazyVim）；原版 vim 用 \\vim 或 command vim
 alias t='tmux new -A -s main'        # 有 main 会话就接入，没有就新建
 alias ts='tmux-sessionizer'          # fzf 选项目目录 → 打开对应 tmux 会话
+alias ghd='gh dash'                  # GitHub 面板：PR / review / issue / CI（tmux 前缀 B 弹窗）
 alias cw='claude --worktree --tmux' # 并行 Claude：新建 git worktree + 独立 tmux 会话（cw 名字 可选）
 if (( $+commands[eza] )); then
   alias ls='eza --group-directories-first --icons=auto'
