@@ -1,0 +1,163 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.bin/claude-tmux-notify wait",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.bin/claude-tmux-notify wait",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.bin/claude-tmux-notify clear",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.bin/claude-format",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "hookify@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true,
+    "kotlin-lsp@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "claude-mem@thedotmack": true,
+    "mattpocock-skills@mattpocock": true,
+    "andrej-karpathy-skills@karpathy-skills": true,
+    "ambition@claude-ambition": true
+  },
+  "extraKnownMarketplaces": {
+    "thedotmack": {
+      "source": {
+        "source": "github",
+        "repo": "thedotmack/claude-mem"
+      }
+    },
+    "mattpocock": {
+      "source": {
+        "source": "github",
+        "repo": "mattpocock/skills"
+      }
+    },
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
+      }
+    },
+    "claude-ambition": {
+      "source": {
+        "source": "github",
+        "repo": "RichardOutram/claude-ambition"
+      }
+    }
+  },
+  "theme": "auto",
+  "permissions": {
+    "allow": [
+      "Bash(brew info:*)",
+      "Bash(brew list:*)",
+      "Bash(cargo fmt:*)",
+      "Bash(cargo metadata:*)",
+      "Bash(cargo tree:*)",
+      "Bash(cat:*)",
+      "Bash(du:*)",
+      "Bash(eza:*)",
+      "Bash(file:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "Bash(git blame:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git remote -v:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git show:*)",
+      "Bash(git stash list:*)",
+      "Bash(git status:*)",
+      "Bash(grep:*)",
+      "Bash(head:*)",
+      "Bash(ls:*)",
+      "Bash(node --version:*)",
+      "Bash(pwd:*)",
+      "Bash(python3 --version:*)",
+      "Bash(stat:*)",
+      "Bash(tail:*)",
+      "Bash(tmux display:*)",
+      "Bash(tmux list-*:*)",
+      "Bash(tmux show-*:*)",
+      "Bash(wc:*)",
+      "Bash(which:*)",
+      "WebSearch"
+    ],
+    "deny": [
+      "Bash(git diff * --output*)",
+      "Bash(git diff *--ext-diff*)",
+      "Bash(git diff *--output*)",
+      "Bash(git diff *--textconv*)",
+      "Bash(git diff --ext-diff*)",
+      "Bash(git diff --output*)",
+      "Bash(git diff --textconv*)",
+      "Bash(git log * --output*)",
+      "Bash(git log *--ext-diff*)",
+      "Bash(git log *--output*)",
+      "Bash(git log *--textconv*)",
+      "Bash(git log --ext-diff*)",
+      "Bash(git log --output*)",
+      "Bash(git log --textconv*)",
+      "Bash(git show * --output*)",
+      "Bash(git show *--ext-diff*)",
+      "Bash(git show *--output*)",
+      "Bash(git show *--textconv*)",
+      "Bash(git show --ext-diff*)",
+      "Bash(git show --output*)",
+      "Bash(git show --textconv*)"
+    ]
+  }
+}

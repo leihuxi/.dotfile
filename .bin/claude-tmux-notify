@@ -6,14 +6,19 @@
 # when you switch to that window.
 [[ -n $TMUX_PANE ]] || exit 0
 export PATH="/opt/homebrew/bin:$PATH"
-cat >/dev/null # drain hook JSON on stdin
+input=$(cat) # hook JSON on stdin
 
 case $1 in
   wait)
     tmux set -w -t "$TMUX_PANE" @claude_waiting 1
     # only ring when you're not already looking at this window
     if [[ $(tmux display -p -t "$TMUX_PANE" '#{window_active}#{session_attached}') != 1[1-9]* ]]; then
-      printf '\a' >"$(tmux display -p -t "$TMUX_PANE" '#{pane_tty}')"
+      tty=$(tmux display -p -t "$TMUX_PANE" '#{pane_tty}')
+      printf '\a' >"$tty"
+      # desktop notification: OSC 777 wrapped for tmux passthrough -> Ghostty
+      proj=$(jq -r '.cwd // empty' <<<"$input" 2>/dev/null); proj=${proj##*/}
+      msg=$(jq -r '.message // "等你回复"' <<<"$input" 2>/dev/null | tr -d '\033\007;')
+      printf '\ePtmux;\e\e]777;notify;Claude · %s;%s\a\e\\' "${proj:-Claude}" "${msg:-等你回复}" >"$tty"
     fi
     ;;
   clear)
