@@ -199,7 +199,7 @@ tmux_conf_theme_terminal_title="#h ❐ #S ● #I #W"
 tmux_conf_theme_window_status_fg="$tmux_conf_theme_colour_3"
 tmux_conf_theme_window_status_bg="$tmux_conf_theme_colour_1"
 tmux_conf_theme_window_status_attr="none"
-tmux_conf_theme_window_status_format=" #I #W#{?window_zoomed_flag, 󰊓,} "
+tmux_conf_theme_window_status_format=" #I #W#{?window_zoomed_flag, 󰊓,}#{?@claude_waiting, 󰚩,} "
 #tmux_conf_theme_window_status_format="#{circled_window_index} #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
 #tmux_conf_theme_window_status_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}"
 
@@ -217,7 +217,7 @@ tmux_conf_theme_window_status_format=" #I #W#{?window_zoomed_flag, 󰊓,} "
 tmux_conf_theme_window_status_current_fg="$tmux_conf_theme_colour_1"
 tmux_conf_theme_window_status_current_bg="$tmux_conf_theme_colour_4"
 tmux_conf_theme_window_status_current_attr="bold"
-tmux_conf_theme_window_status_current_format=" #I #W#{?window_zoomed_flag, 󰊓,} "
+tmux_conf_theme_window_status_current_format=" #I #W#{?window_zoomed_flag, 󰊓,}#{?@claude_waiting, 󰚩,} "
 #tmux_conf_theme_window_status_current_format="#{circled_window_index} #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
 #tmux_conf_theme_window_status_current_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}"
 
@@ -276,7 +276,7 @@ tmux_conf_theme_right_separator_sub='\uE0B7'
 #     - #{username_ssh}
 tmux_conf_theme_status_left="  #S , 󰔟 #{?uptime_d,#{uptime_d}d ,}#{?uptime_h,#{uptime_h}h ,}#{uptime_m}m "
 #tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} | #{pretty_pane_current_path} "
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_percentage, #{battery_percentage},} , 󰥔 %H:%M , #{username}#{root} , 󰒋 #{hostname} "
+tmux_conf_theme_status_right=" #($HOME/.bin/claude-tmux-status) , #{prefix}#{mouse}#{pairing}#{synchronized}󰘚 #{cpu_percentage} 󰍛 #{ram_percentage}#{?battery_percentage, #{battery_status} #{battery_percentage},} , #($HOME/.bin/tmux-git-branch '#{pane_current_path}')󰥔 %H:%M , 󰒋 #{hostname} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7"
@@ -284,9 +284,9 @@ tmux_conf_theme_status_left_bg="$tmux_conf_theme_colour_9,$tmux_conf_theme_colou
 tmux_conf_theme_status_left_attr="bold,none"
 
 # status right style
-tmux_conf_theme_status_right_fg="$tmux_conf_theme_colour_12,$tmux_conf_theme_colour_13,$tmux_conf_theme_colour_14"
-tmux_conf_theme_status_right_bg="$tmux_conf_theme_colour_15,$tmux_conf_theme_colour_16,$tmux_conf_theme_colour_17"
-tmux_conf_theme_status_right_attr="none,none,bold"
+tmux_conf_theme_status_right_fg="#cba6f7,$tmux_conf_theme_colour_12,$tmux_conf_theme_colour_13,$tmux_conf_theme_colour_14"
+tmux_conf_theme_status_right_bg="$tmux_conf_theme_colour_15,$tmux_conf_theme_colour_15,$tmux_conf_theme_colour_16,$tmux_conf_theme_colour_17"
+tmux_conf_theme_status_right_attr="none,none,none,bold"
 
 # pairing indicator
 tmux_conf_theme_pairing="󰌹 "
@@ -440,6 +440,7 @@ set -as terminal-features ',xterm-ghostty:RGB,xterm-256color:RGB'
 set -g allow-passthrough on
 set -g set-clipboard on
 set -g display-time 2000
+set -g status-interval 5
 set -g status-position top
 set -g pane-border-status top
 set -g pane-border-format ' #{?pane_active,#[fg=#89b4fa#,bold],#[fg=#6c7086]}#P  #{pane_current_command} '
@@ -504,6 +505,34 @@ set -g @plugin 'tmux-plugins/tmux-pain-control'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 set -g @plugin 'wfxr/tmux-fzf-url'
+set -g @plugin 'fcsonline/tmux-thumbs'       # prefix Space: hint-copy text on screen
+set -g @plugin 'omerxx/tmux-floax'           # prefix n: floating terminal
+set -g @plugin 'laktak/extrakto'             # prefix v: fzf-pick paths/urls/words
+
+# tmux-thumbs: Space (replaces next-layout); lowercase hint = copy, UPPERCASE hint = paste
+set -g @thumbs-key Space
+set -g @thumbs-command 'echo -n {} | pbcopy && tmux display-message "Copied {}"'
+set -g @thumbs-upcase-command 'tmux set-buffer -- {} && tmux paste-buffer && tmux display-message "Pasted {}"'
+
+# tmux-floax
+set -g @floax-bind 'n'
+set -g @floax-bind-menu 'N'
+set -g @floax-width '80%'
+set -g @floax-height '80%'
+set -g @floax-border-color '#cba6f7'
+set -g @floax-text-color '#cdd6f4'
+set -g @floax-change-path 'true'
+
+# extrakto
+set -g @extrakto_key 'v'
+set -g @extrakto_clip_tool 'pbcopy'
+set -g @extrakto_popup_size '70%'
+
+# Claude Code waiting indicator (set by ~/.bin/claude-tmux-notify via
+# Claude hooks); clear it as soon as you switch to that window
+set-hook -g 'after-select-window[42]' 'set -wu @claude_waiting'
+set-hook -g 'session-window-changed[42]' 'set -wu @claude_waiting'
+set -g @plugin 'tmux-plugins/tmux-cpu'
 
 set -g @shell_mode 'vi'
 set -g @resurrect-capture-pane-contents 'on'
@@ -511,6 +540,9 @@ set -g @resurrect-strategy-vim 'session'
 set -g @resurrect-strategy-nvim 'session'
 set -g @continuum-restore 'on'
 set -g @continuum-save-interval '15'
+set -g @cpu_percentage_format '%3.0f%%'
+set -g @ram_percentage_format '%3.0f%%'
+
 set -g @fzf-url-bind 'U'
 set -g @fzf-url-fzf-options '-p 70%,50% --prompt="打开链接> " --multi -0 --no-preview'
 set -g @prefix_highlight_show_copy_mode 'on'
