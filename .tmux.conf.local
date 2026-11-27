@@ -85,7 +85,27 @@ tmux_conf_24b_colour=true
 #   - tmux_conf_theme_synchronized
 tmux_conf_theme=enabled
 
-# default theme
+# default theme：跟随系统深浅色。Ghostty 切换主题时 tmux 触发 client-light/dark-theme 钩子，
+# 设置 @theme 后重载配置（钩子见文件后面）。深色 = Catppuccin Mocha，浅色 = Catppuccin Latte
+%if "#{==:#{@theme},light}"
+tmux_conf_theme_colour_1="#e6e9ef"    # mantle
+tmux_conf_theme_colour_2="#ccd0da"    # surface0
+tmux_conf_theme_colour_3="#6c6f85"    # subtext0
+tmux_conf_theme_colour_4="#1e66f5"    # blue
+tmux_conf_theme_colour_5="#df8e1d"    # yellow
+tmux_conf_theme_colour_6="#eff1f5"    # base
+tmux_conf_theme_colour_7="#eff1f5"    # base
+tmux_conf_theme_colour_8="#eff1f5"    # base
+tmux_conf_theme_colour_9="#8839ef"    # mauve
+tmux_conf_theme_colour_10="#1e66f5"    # blue
+tmux_conf_theme_colour_11="#40a02b"    # green
+tmux_conf_theme_colour_12="#6c6f85"    # subtext0
+tmux_conf_theme_colour_13="#eff1f5"    # base
+tmux_conf_theme_colour_14="#eff1f5"    # base
+tmux_conf_theme_colour_15="#ccd0da"    # surface0
+tmux_conf_theme_colour_16="#fe640b"    # peach
+tmux_conf_theme_colour_17="#179299"    # teal
+%else
 tmux_conf_theme_colour_1="#181825"    # mantle
 tmux_conf_theme_colour_2="#313244"    # surface0
 tmux_conf_theme_colour_3="#a6adc8"    # subtext0
@@ -103,6 +123,7 @@ tmux_conf_theme_colour_14="#11111b"    # crust
 tmux_conf_theme_colour_15="#313244"    # surface0
 tmux_conf_theme_colour_16="#fab387"    # peach
 tmux_conf_theme_colour_17="#94e2d5"    # teal
+%endif
 
 # default theme (ansi)
 #tmux_conf_theme_colour_1="colour0"
@@ -125,16 +146,16 @@ tmux_conf_theme_colour_17="#94e2d5"    # teal
 
 # window style
 tmux_conf_theme_window_fg="default"
-tmux_conf_theme_window_bg="default"
+tmux_conf_theme_window_bg="$tmux_conf_theme_colour_1"   # 不在焦点的 pane 稍暗（mantle）
 
 # highlight focused pane, possible values are:
 #   - true
 #   - false (default)
-tmux_conf_theme_highlight_focused_pane=false
+tmux_conf_theme_highlight_focused_pane=true
 
 # focused pane colours:
 tmux_conf_theme_focused_pane_fg="default"
-tmux_conf_theme_focused_pane_bg="$tmux_conf_theme_colour_2"
+tmux_conf_theme_focused_pane_bg="default"           # 当前 pane 保持终端原背景
 
 # pane border style, possible values are:
 #   - thin (default)
@@ -284,7 +305,7 @@ tmux_conf_theme_status_left_bg="$tmux_conf_theme_colour_9"
 tmux_conf_theme_status_left_attr="bold"
 
 # status right style
-tmux_conf_theme_status_right_fg="#cba6f7,$tmux_conf_theme_colour_14"
+tmux_conf_theme_status_right_fg="$tmux_conf_theme_colour_9,$tmux_conf_theme_colour_14"
 tmux_conf_theme_status_right_bg="$tmux_conf_theme_colour_15,$tmux_conf_theme_colour_4"
 tmux_conf_theme_status_right_attr="none,bold"
 
@@ -451,9 +472,28 @@ set -g display-time 2000
 set -g status-interval 5
 set -g status-position top
 set -g pane-border-status top
-set -g pane-border-format ' #{?pane_active,#[fg=#89b4fa#,bold],#[fg=#6c7086]}#P  #{pane_current_command} '
+# pane 标题：编号 + 正在运行的程序 + 目录（多开 Claude / vim 时一眼分清）
+set -g pane-border-lines heavy
 set -g popup-border-lines rounded
+%if "#{==:#{@theme},light}"
+set -g pane-border-format ' #{?pane_active,#[fg=#1e66f5#,bold],#[fg=#8c8fa1]}#P  #{pane_current_command}  #[nobold]#{b:pane_current_path} '
+set -g popup-border-style 'fg=#1e66f5'
+set -g @floax-border-color '#8839ef'
+set -g @floax-text-color '#4c4f69'
+%else
+set -g pane-border-format ' #{?pane_active,#[fg=#89b4fa#,bold],#[fg=#6c7086]}#P  #{pane_current_command}  #[nobold]#{b:pane_current_path} '
 set -g popup-border-style 'fg=#89b4fa'
+set -g @floax-border-color '#cba6f7'
+set -g @floax-text-color '#cdd6f4'
+%endif
+
+# 跟随系统深浅色（Ghostty 会把主题变化通知 tmux）
+set-hook -g client-light-theme 'set -g @theme light ; source-file -q ~/.config/tmux/tmux.conf'
+set-hook -g client-dark-theme 'set -g @theme dark ; source-file -q ~/.config/tmux/tmux.conf'
+
+# 前缀 ? 弹窗查看速查表（原来的按键列表改到 前缀 /，/ 原来是 describe-key）
+bind ? display-popup -E -w 85% -h 85% -T ' 速查表 ' "bat --style=plain --paging=always --language=md $HOME/.cheatsheet.md"
+bind / display-popup -E -w 85% -h 85% -T ' tmux 快捷键 ' "tmux list-keys -T prefix | sed 's/^bind-key *-T prefix *//' | less"
 
 # 新增浮窗快捷键
 #   <prefix> s  会话 / 项目切换（tmux-sessionizer：已有会话 + zoxide 目录 + git 仓库）
@@ -519,11 +559,11 @@ set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 set -g @plugin 'wfxr/tmux-fzf-url'
-set -g @plugin 'fcsonline/tmux-thumbs'       # prefix Q: hint-copy text on screen
-set -g @plugin 'omerxx/tmux-floax'           # prefix O: floating terminal
+set -g @plugin 'fcsonline/tmux-thumbs'       # prefix t: hint-copy text on screen
+set -g @plugin 'omerxx/tmux-floax'           # prefix o: floating terminal
 set -g @plugin 'laktak/extrakto'             # prefix v: fzf-pick paths/urls/words
 
-# tmux-thumbs: Q（quick copy）; lowercase hint = copy, UPPERCASE hint = paste
+# tmux-thumbs: t; lowercase hint = copy, UPPERCASE hint = paste
 set -g @thumbs-key t
 set -g @thumbs-command 'echo -n {} | pbcopy && tmux display-message "Copied {}"'
 set -g @thumbs-upcase-command 'tmux set-buffer -- {} && tmux paste-buffer && tmux display-message "Pasted {}"'
@@ -533,8 +573,6 @@ set -g @floax-bind 'o'
 set -g @floax-bind-menu 'N'
 set -g @floax-width '80%'
 set -g @floax-height '80%'
-set -g @floax-border-color '#cba6f7'
-set -g @floax-text-color '#cdd6f4'
 set -g @floax-change-path 'true'
 
 # 恢复原生按键（之前被插件占用；配置重载时也能还原）

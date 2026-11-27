@@ -32,7 +32,14 @@ fpath=("$ZSH/custom/plugins/zsh-completions/src" /opt/homebrew/share/zsh/site-fu
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=40
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#6c7086"   # 自动建议用 Catppuccin overlay0 灰色，不抢眼
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"        # 自动建议用终端的暗灰色（随深浅主题变化），不抢眼
+
+# 系统深浅色（Ghostty 主题跟随系统；这里给 fzf / 语法高亮等只读一次的配色用，新开 shell 生效）
+if [[ $OSTYPE == darwin* ]] && [[ $(defaults read -g AppleInterfaceStyle 2>/dev/null) != Dark ]]; then
+  _theme=light
+else
+  _theme=dark
+fi
 
 # fzf-tab 须在 autosuggestions / syntax-highlighting 之前；syntax-highlighting 放最后
 plugins=(git wd fzf colored-man-pages vi-mode sudo)
@@ -44,8 +51,8 @@ fi
 plugins+=(you-should-use fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
 YSU_MESSAGE_POSITION="after"   # 有别名可用时，在命令输出后提示
 
-# Catppuccin Mocha 语法高亮配色（须在 zsh-syntax-highlighting 加载前）
-[[ -f "$HOME/.bin/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh" ]] && source "$HOME/.bin/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh"
+# Catppuccin Mocha 语法高亮配色（须在 zsh-syntax-highlighting 加载前；浅色时用插件默认的终端色）
+[[ $_theme == dark && -f "$HOME/.bin/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh" ]] && source "$HOME/.bin/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh"
 
 source "$ZSH/oh-my-zsh.sh"
 
@@ -72,7 +79,7 @@ setopt AUTO_CD AUTO_PUSHD PUSHD_IGNORE_DUPS PUSHD_SILENT INTERACTIVE_COMMENTS
 unsetopt CORRECT_ALL
 
 # -- environment ---------------------------------------------------------------
-export EDITOR='vim' VISUAL='vim'
+export EDITOR='nvim' VISUAL='nvim'
 export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 export WORK="$HOME/work"
 export GOPATH="$WORK/go"
@@ -83,7 +90,7 @@ export CHEAT_COLORS=true
 export CHEAT_USER_DIR="$HOME/.mycheat"
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 # 统一配色：Catppuccin Mocha（bat / delta / eza / lazygit / fzf）
-export BAT_THEME="Catppuccin Mocha"   # bat ≥ 0.25 内置
+export BAT_THEME_DARK="Catppuccin Mocha" BAT_THEME_LIGHT="Catppuccin Latte"   # bat ≥ 0.25 自动检测终端深浅色
 export EZA_CONFIG_DIR="$HOME/.config/eza"
 export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
 export LESS='-R -F -i -M'
@@ -101,6 +108,7 @@ path=(
 
 # -- aliases -------------------------------------------------------------------
 alias grep='grep --color=auto'
+alias vim='nvim' vi='nvim'           # 默认用 nvim（LazyVim）；原版 vim 用 \\vim 或 command vim
 alias t='tmux new -A -s main'        # 有 main 会话就接入，没有就新建
 alias ts='tmux-sessionizer'          # fzf 选项目目录 → 打开对应 tmux 会话
 if (( $+commands[eza] )); then
@@ -136,10 +144,11 @@ if (( $+commands[fzf] )); then
   fi
   export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border=rounded --info=inline-right
     --prompt='❯ ' --pointer='▶' --marker='✓' --separator='─' --scrollbar='│'
-    --color=bg+:#313244,bg:-1,spinner:#f5e0dc,hl:#f38ba8
-    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
-    --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
-    --color=selected-bg:#45475a,border:#585b70,label:#cdd6f4"
+    $( [[ $_theme == light ]] \
+      && echo '--color=bg+:#ccd0da,bg:-1,spinner:#dc8a78,hl:#d20f39,fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78
+               --color=marker:#7287fd,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39,selected-bg:#bcc0cc,border:#9ca0b0,label:#4c4f69' \
+      || echo '--color=bg+:#313244,bg:-1,spinner:#f5e0dc,hl:#f38ba8,fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
+               --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8,selected-bg:#45475a,border:#585b70,label:#cdd6f4' )"
   export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :300 {} 2>/dev/null || eza --tree --level=2 --color=always {}'"
   export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {} | head -100'"
   [[ -n $TMUX ]] && export FZF_TMUX=1 FZF_TMUX_OPTS='-p 80%,60%'   # tmux 里用浮动窗口

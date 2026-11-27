@@ -1,10 +1,9 @@
 "$schema" = 'https://starship.rs/config-schema.json'
-# 极简两行提示符（Catppuccin Mocha 文字配色，无色块）：
+# 极简两行提示符（只用终端的 16 色，随 Ghostty 深浅主题自动变化，无色块）：
 #   ~/Code/project  main [!2?1]  py 3.12  3s
 #   ❯
 command_timeout = 800
 add_newline = true
-palette = 'catppuccin_mocha'
 
 format = """
 $directory\
@@ -29,7 +28,7 @@ read_only = " 󰌾"
 
 [git_branch]
 symbol = " "
-style = "mauve"
+style = "purple"
 format = "[$symbol$branch]($style) "
 
 [git_state]
@@ -37,38 +36,38 @@ style = "yellow"
 format = "[$state( $progress_current/$progress_total)]($style) "
 
 [git_status]
-style = "peach"
+style = "yellow"
 format = "([\\[$all_status$ahead_behind\\]]($style) )"
 
 [python]
 symbol = " "
-style = "overlay1"
+style = "bright-black"
 format = "[$symbol$version( \\($virtualenv\\))]($style) "
 
 [nodejs]
 symbol = " "
-style = "overlay1"
+style = "bright-black"
 format = "[$symbol$version]($style) "
 
 [rust]
 symbol = " "
-style = "overlay1"
+style = "bright-black"
 format = "[$symbol$version]($style) "
 
 [golang]
 symbol = " "
-style = "overlay1"
+style = "bright-black"
 format = "[$symbol$version]($style) "
 
 [cmd_duration]
 min_time = 2000
-style = "overlay0"
+style = "bright-black"
 format = "[ $duration]($style)"
 
 [character]
 success_symbol = "[❯](green)"
 error_symbol = "[❯](red)"
-vimcmd_symbol = "[❮](lavender)"
+vimcmd_symbol = "[❮](purple)"
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
