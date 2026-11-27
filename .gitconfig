@@ -28,7 +28,7 @@
     g = grep --break --heading --line-number
     fa = fetch --all
     p = push
-    pf = push -f
+    pf = push --force-with-lease --force-if-includes   # 安全强推：远端有别人新提交时拒绝
 
 [color]
     ui = auto
@@ -56,6 +56,8 @@
     smudge = git-media-smudge %f
 [push]
     default = current
+    autoSetupRemote = true   # 新分支首次 push 自动设上游
+    followTags = true
 [interactive]
     diffFilter = delta --color-only
 [delta]
@@ -66,11 +68,31 @@
     conflictStyle = zdiff3
 [diff]
     colorMoved = default
+    algorithm = histogram
+    renames = copies
 [init]
     defaultBranch = main
 [pull]
     rebase = true
 [rerere]
     enabled = true
+    autoupdate = true
+[fetch]
+    prune = true
+    pruneTags = true
+[rebase]
+    autoStash = true
+    autoSquash = true
+    updateRefs = true
+[branch]
+    sort = -committerdate
+[tag]
+    sort = version:refname
+[column]
+    ui = auto
+[commit]
+    verbose = true
+[help]
+    autocorrect = prompt
 [include]
     path = ~/.gitconfig.local   # 机器私有配置（凭据等），不入库

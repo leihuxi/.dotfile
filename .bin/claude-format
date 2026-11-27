@@ -20,17 +20,18 @@ case $f in
       fi
       d=$(dirname "$d")
     done
-    rustfmt --edition "$ed" "$f" ;;
+    RUSTUP_TOOLCHAIN=stable rustfmt --edition "$ed" "$f" ;; # pin: ignore repo rust-toolchain overrides
   *.py)        has ruff && ruff format -q "$f" ;;
   *.sh|*.bash) has shfmt && shfmt -w "$f" ;;
   *.lua)       has stylua && stylua "$f" ;;
   *.js|*.jsx|*.ts|*.tsx|*.mjs|*.cjs|*.json|*.css|*.scss|*.md|*.yaml|*.yml|*.html|*.vue)
-    # only declarative configs without plugins: a JS config / plugin would run repo code
+    # only a plain-JSON config (or package.json "prettier" object) whose values are all
+    # scalars and that names no plugins/parser: anything else could load repo code
     has prettier || exit 0
     c=$(prettier --find-config-path "$f" 2>/dev/null) || exit 0
-    case $c in *.js | *.cjs | *.mjs | *.ts | *.cts | *.mts) exit 0 ;; esac
-    grep -q plugins "$c" 2>/dev/null && exit 0
-    [[ ${c##*/} == package.json ]] && jq -e '.prettier | type == "string"' "$c" >/dev/null 2>&1 && exit 0
+    q='.'; [[ ${c##*/} == package.json ]] && q='.prettier'
+    jq -e "$q"' | type == "object" and all(.[]; type != "object" and type != "array")
+      and (has("plugins") or has("parser") or has("overrides") | not)' "$c" >/dev/null 2>&1 || exit 0
     prettier --write --log-level silent "$f" ;;
 esac >/dev/null 2>&1
 exit 0

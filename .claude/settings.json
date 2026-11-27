@@ -98,12 +98,8 @@
       "Bash(bat:*)",
       "Bash(brew info:*)",
       "Bash(brew list:*)",
-      "Bash(cargo build:*)",
-      "Bash(cargo check:*)",
-      "Bash(cargo clippy:*)",
       "Bash(cargo fmt:*)",
       "Bash(cargo metadata:*)",
-      "Bash(cargo test:*)",
       "Bash(cargo tree:*)",
       "Bash(cat:*)",
       "Bash(du:*)",
@@ -121,7 +117,6 @@
       "Bash(gh run list:*)",
       "Bash(gh run view:*)",
       "Bash(git blame:*)",
-      "Bash(git branch:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
       "Bash(git remote -v:*)",
@@ -133,10 +128,6 @@
       "Bash(head:*)",
       "Bash(ls:*)",
       "Bash(node --version:*)",
-      "Bash(npm run build:*)",
-      "Bash(npm run lint:*)",
-      "Bash(npm test:*)",
-      "Bash(pnpm test:*)",
       "Bash(pwd:*)",
       "Bash(python3 --version:*)",
       "Bash(rg:*)",
@@ -149,6 +140,20 @@
       "Bash(wc:*)",
       "Bash(which:*)",
       "WebSearch"
+    ],
+    "deny": [
+      "Bash(fd * --exec*)",
+      "Bash(fd * -X*)",
+      "Bash(fd * -x*)",
+      "Bash(find * -delete*)",
+      "Bash(find * -exec*)",
+      "Bash(find * -execdir*)",
+      "Bash(find * -fprint*)",
+      "Bash(find * -ok*)",
+      "Bash(git diff * --output*)",
+      "Bash(git log * --output*)",
+      "Bash(git show * --output*)",
+      "Bash(rg * --pre*)"
     ]
   }
 }
