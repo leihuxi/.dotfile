@@ -19,6 +19,8 @@ brew "atuin"
 brew "yazi"
 brew "carapace"
 brew "thefuck"
+brew "jq"
+brew "ccusage"              # tmux 状态栏的 Claude 用量（.bin/claude-tmux-status）
 
 # vim（coc.nvim 需要 node，tagbar 需要 universal-ctags，vim 的 python3 支持需要 python）
 brew "vim"

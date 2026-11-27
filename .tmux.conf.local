@@ -505,23 +505,27 @@ set -g @plugin 'tmux-plugins/tmux-pain-control'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 set -g @plugin 'wfxr/tmux-fzf-url'
-set -g @plugin 'fcsonline/tmux-thumbs'       # prefix Space: hint-copy text on screen
-set -g @plugin 'omerxx/tmux-floax'           # prefix n: floating terminal
+set -g @plugin 'fcsonline/tmux-thumbs'       # prefix Q: hint-copy text on screen
+set -g @plugin 'omerxx/tmux-floax'           # prefix O: floating terminal
 set -g @plugin 'laktak/extrakto'             # prefix v: fzf-pick paths/urls/words
 
-# tmux-thumbs: Space (replaces next-layout); lowercase hint = copy, UPPERCASE hint = paste
-set -g @thumbs-key Space
+# tmux-thumbs: Q（quick copy）; lowercase hint = copy, UPPERCASE hint = paste
+set -g @thumbs-key Q
 set -g @thumbs-command 'echo -n {} | pbcopy && tmux display-message "Copied {}"'
 set -g @thumbs-upcase-command 'tmux set-buffer -- {} && tmux paste-buffer && tmux display-message "Pasted {}"'
 
 # tmux-floax
-set -g @floax-bind 'n'
+set -g @floax-bind 'O'
 set -g @floax-bind-menu 'N'
 set -g @floax-width '80%'
 set -g @floax-height '80%'
 set -g @floax-border-color '#cba6f7'
 set -g @floax-text-color '#cdd6f4'
 set -g @floax-change-path 'true'
+
+# 恢复原生按键（之前被插件占用；配置重载时也能还原）
+bind n next-window
+bind Space next-layout
 
 # extrakto
 set -g @extrakto_key 'v'
