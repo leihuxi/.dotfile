@@ -5,6 +5,7 @@ brew "zsh"
 brew "tmux"
 brew "starship"
 brew "fzf"
+brew "laishulu/homebrew/macism"   # 命令行切换输入法（vim / zsh 按 Esc 切英文）
 brew "zoxide"
 
 # 现代 CLI
@@ -31,5 +32,6 @@ brew "universal-ctags"
 
 # 终端 / 编辑器 / 字体
 cask "ghostty"
+cask "input-source-pro"          # 按 App 自动切输入法（Ghostty 默认英文）
 cask "macvim-app"
 cask "font-jetbrains-mono-nerd-font"

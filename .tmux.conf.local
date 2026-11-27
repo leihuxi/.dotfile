@@ -274,19 +274,19 @@ tmux_conf_theme_right_separator_sub='\uE0B7'
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_status_left="  #S , 󰔟 #{?uptime_d,#{uptime_d}d ,}#{?uptime_h,#{uptime_h}h ,}#{uptime_m}m "
+tmux_conf_theme_status_left="  #S "
 #tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} | #{pretty_pane_current_path} "
-tmux_conf_theme_status_right=" #($HOME/.bin/claude-tmux-status) , #{prefix}#{mouse}#{pairing}#{synchronized}󰘚 #{cpu_percentage} 󰍛 #{ram_percentage}#{?battery_percentage, #{battery_status} #{battery_percentage},} , #($HOME/.bin/tmux-git-branch '#{pane_current_path}')󰥔 %H:%M , 󰒋 #{hostname} "
+tmux_conf_theme_status_right=" #{prefix}#{synchronized}#($HOME/.bin/claude-tmux-status) | #($HOME/.bin/tmux-git-branch '#{pane_current_path}')󰥔 %H:%M "
 
 # status left style
-tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7"
-tmux_conf_theme_status_left_bg="$tmux_conf_theme_colour_9,$tmux_conf_theme_colour_10"
-tmux_conf_theme_status_left_attr="bold,none"
+tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6"
+tmux_conf_theme_status_left_bg="$tmux_conf_theme_colour_9"
+tmux_conf_theme_status_left_attr="bold"
 
 # status right style
-tmux_conf_theme_status_right_fg="#cba6f7,$tmux_conf_theme_colour_12,$tmux_conf_theme_colour_13,$tmux_conf_theme_colour_14"
-tmux_conf_theme_status_right_bg="$tmux_conf_theme_colour_15,$tmux_conf_theme_colour_15,$tmux_conf_theme_colour_16,$tmux_conf_theme_colour_17"
-tmux_conf_theme_status_right_attr="none,none,none,bold"
+tmux_conf_theme_status_right_fg="#cba6f7,$tmux_conf_theme_colour_14"
+tmux_conf_theme_status_right_bg="$tmux_conf_theme_colour_15,$tmux_conf_theme_colour_4"
+tmux_conf_theme_status_right_attr="none,bold"
 
 # pairing indicator
 tmux_conf_theme_pairing="󰌹 "
@@ -417,6 +417,14 @@ unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
 
+# 按前缀 C-a 时先把输入法切成英文（macism，约 30ms），后面的字母就不会被中文输入法截走。
+# 做法：不用 tmux 自带的前缀识别，而是由 C-a 自己切输入法再进入 prefix 按键表；C-a C-a 仍然发送 C-a。
+if-shell 'command -v macism' {
+  set -g prefix None
+  bind -n C-a run-shell -b 'macism com.apple.keylayout.USExtended >/dev/null 2>&1' \; switch-client -T prefix
+  bind C-a send-keys C-a
+}
+
 # if you don't want Oh my tmux! to alter a binding or a setting, use #!important
 # bind c new-window -c '#{pane_current_path}' #!important
 
@@ -448,12 +456,19 @@ set -g popup-border-lines rounded
 set -g popup-border-style 'fg=#89b4fa'
 
 # 新增浮窗快捷键
-#   <prefix> S  会话 / 项目切换（tmux-sessionizer：已有会话 + zoxide 目录 + git 仓库）
-#   <prefix> G  lazygit
-#   <prefix> W  当前目录下的临时浮动终端
-bind S display-popup -E -w 75% -h 65% -T ' 󰆍 会话 / 项目 ' "$HOME/.bin/tmux-sessionizer"
-bind G display-popup -E -w 90% -h 90% -d '#{pane_current_path}' lazygit
-bind W display-popup -E -w 80% -h 75% -d '#{pane_current_path}'
+#   <prefix> s  会话 / 项目切换（tmux-sessionizer：已有会话 + zoxide 目录 + git 仓库）
+#   <prefix> g  lazygit
+#   <prefix> w  当前目录下的临时浮动终端
+# 常用浮窗用小写字母，避免中文输入法截走 Shift+字母；原来的 tmux 内置功能挪到大写
+bind s display-popup -E -w 75% -h 65% -T ' 󰆍 会话 / 项目 ' "$HOME/.bin/tmux-sessionizer"
+bind g display-popup -E -w 90% -h 90% -d '#{pane_current_path}' lazygit
+bind w display-popup -E -w 80% -h 75% -d '#{pane_current_path}'
+bind S choose-tree -Zs
+bind W choose-tree -Zw
+bind G switch-client -T move
+bind O select-pane -t :.+
+unbind Q
+set -g @tpm-update 'U'
 # copy-mode vi：v 选择、C-v 块选择、y 复制
 bind -T copy-mode-vi v send -X begin-selection
 bind -T copy-mode-vi C-v send -X rectangle-toggle
@@ -501,7 +516,6 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'tmux-plugins/tmux-yank'
-set -g @plugin 'tmux-plugins/tmux-pain-control'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 set -g @plugin 'wfxr/tmux-fzf-url'
@@ -510,12 +524,12 @@ set -g @plugin 'omerxx/tmux-floax'           # prefix O: floating terminal
 set -g @plugin 'laktak/extrakto'             # prefix v: fzf-pick paths/urls/words
 
 # tmux-thumbs: Q（quick copy）; lowercase hint = copy, UPPERCASE hint = paste
-set -g @thumbs-key Q
+set -g @thumbs-key t
 set -g @thumbs-command 'echo -n {} | pbcopy && tmux display-message "Copied {}"'
 set -g @thumbs-upcase-command 'tmux set-buffer -- {} && tmux paste-buffer && tmux display-message "Pasted {}"'
 
 # tmux-floax
-set -g @floax-bind 'O'
+set -g @floax-bind 'o'
 set -g @floax-bind-menu 'N'
 set -g @floax-width '80%'
 set -g @floax-height '80%'
@@ -526,6 +540,9 @@ set -g @floax-change-path 'true'
 # 恢复原生按键（之前被插件占用；配置重载时也能还原）
 bind n next-window
 bind Space next-layout
+# 左右分屏（原由 tmux-pain-control 提供；oh-my-tmux 自带 - / _ 上下 / 左右分屏、H/J/K/L 调整大小）
+bind | split-window -h -c "#{pane_current_path}"
+bind '\' split-window -h -c "#{pane_current_path}"
 
 # extrakto
 set -g @extrakto_key 'v'
@@ -547,7 +564,7 @@ set -g @continuum-save-interval '15'
 set -g @cpu_percentage_format '%3.0f%%'
 set -g @ram_percentage_format '%3.0f%%'
 
-set -g @fzf-url-bind 'U'
+set -g @fzf-url-bind 'u'
 set -g @fzf-url-fzf-options '-p 70%,50% --prompt="打开链接> " --multi -0 --no-preview'
 set -g @prefix_highlight_show_copy_mode 'on'
 set -g @prefix_highlight_copy_mode_attr 'fg=white,bg=blue'

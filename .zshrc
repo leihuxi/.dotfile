@@ -32,6 +32,7 @@ fpath=("$ZSH/custom/plugins/zsh-completions/src" /opt/homebrew/share/zsh/site-fu
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=40
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#6c7086"   # 自动建议用 Catppuccin overlay0 灰色，不抢眼
 
 # fzf-tab 须在 autosuggestions / syntax-highlighting 之前；syntax-highlighting 放最后
 plugins=(git wd fzf colored-man-pages vi-mode sudo)
@@ -220,3 +221,9 @@ fi
 
 # 本机私有配置
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# 输入法：vi 模式按 Esc 进入普通模式时自动切到英文（macism，brew install laishulu/homebrew/macism）
+if (( $+commands[macism] )); then
+  _ime_to_english() { [[ $KEYMAP == vicmd ]] && { macism com.apple.keylayout.USExtended >/dev/null 2>&1 &! } }
+  autoload -Uz add-zle-hook-widget && add-zle-hook-widget zle-keymap-select _ime_to_english
+fi
