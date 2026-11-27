@@ -40,12 +40,25 @@ if [[ $OSTYPE == darwin* ]]; then
 elif (( $+commands[pacman] )); then
   plugins+=(archlinux systemadmin)
 fi
-plugins+=(fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
+plugins+=(you-should-use fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
+YSU_MESSAGE_POSITION="after"   # 有别名可用时，在命令输出后提示
 
 # Catppuccin Mocha 语法高亮配色（须在 zsh-syntax-highlighting 加载前）
 [[ -f "$HOME/.bin/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh" ]] && source "$HOME/.bin/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh"
 
 source "$ZSH/oh-my-zsh.sh"
+
+# carapace：为上千个命令补全参数并显示说明（初始化脚本缓存，不拖慢启动）
+if (( $+commands[carapace] )); then
+  export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+  _carapace_init="${XDG_CACHE_HOME:-$HOME/.cache}/carapace/init.zsh"
+  if [[ ! -s $_carapace_init || $commands[carapace] -nt $_carapace_init ]]; then
+    mkdir -p "${_carapace_init:h}" && carapace _carapace zsh >| "$_carapace_init"
+  fi
+  source "$_carapace_init"
+  compdef _git git            # git 保留 zsh 自带的补全（更完整）
+  unset _carapace_init
+fi
 
 # -- history -------------------------------------------------------------------
 HISTFILE=~/.zsh_history
@@ -108,6 +121,8 @@ alias cheat='bat -pp --language=md ~/.cheatsheet.md 2>/dev/null || cat ~/.cheats
 nman() { vim -c "Nman $*" || echo "No manual entry for $*"; }
 prev() { local PREV=$(fc -lrn | head -n 1); sh -c "pet new $(printf %q "$PREV")"; }
 mkcd() { mkdir -p "$1" && cd "$1"; }
+# thefuck：命令打错后输入 fuck 自动修正（首次调用才加载，不影响启动速度）
+(( $+commands[thefuck] )) && fuck() { unfunction fuck; eval "$(thefuck --alias)"; fuck "$@"; }
 
 # -- fzf -----------------------------------------------------------------------
 if (( $+commands[fzf] )); then

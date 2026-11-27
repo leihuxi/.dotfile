@@ -1,0 +1,7 @@
+#!/bin/sh
+# tmux 状态栏：显示 pane 所在目录的 git 分支（不在仓库时不输出）
+cd "${1:-.}" 2>/dev/null || exit 0
+b=$(git branch --show-current 2>/dev/null) || exit 0
+[ -n "$b" ] || b=$(git rev-parse --short HEAD 2>/dev/null) || exit 0
+[ -n "$(git status --porcelain --untracked-files=no 2>/dev/null | head -1)" ] && d='*' || d=''
+printf ' %s%s  ' "$b" "$d"

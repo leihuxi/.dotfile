@@ -316,6 +316,34 @@ git_clone_or_pull() {
     fi
 }
 
+# tmux-thumbs 官方只有 Intel Mac 预编译包，这里用 brew 的 rust 本地编译（tpm 会把已存在的目录视为已安装）
+install_tmux_extras() {
+    local dir="$HOME/.config/tmux/plugins/tmux-thumbs"
+    git_clone_or_pull https://github.com/fcsonline/tmux-thumbs "$dir"
+    if command -v cargo >/dev/null; then
+        (cd "$dir" && cargo build --release -q) && info "dotfile:tmux-thumbs build successfully!" ||
+            warning "tmux-thumbs: cargo build failed"
+    else
+        warning "tmux-thumbs: cargo not found (brew install rust)"
+    fi
+}
+
+# Claude Code × tmux：状态栏用量（ccusage）+ Claude 等你时窗口标签显示 󰚩（hooks）
+install_claude_tmux() {
+    npm install --global ccusage@latest || warning "ccusage install failed"
+    local settings="$HOME/.claude/settings.json" notify="~/.bin/claude-tmux-notify"
+    mkdir -p "$HOME/.claude"
+    [[ -s "$settings" ]] || echo '{}' >"$settings"
+    if jq -e --arg n "$notify" '[.hooks[]?[]?.hooks[]?.command] | any(startswith($n))' "$settings" >/dev/null; then
+        return
+    fi
+    cp "$settings" "$settings.bak"
+    jq --arg n "$notify" '
+        def add(ev; arg): .hooks[ev] = ((.hooks[ev] // []) + [{hooks: [{type: "command", command: "\($n) \(arg)", timeout: 5}]}]);
+        add("Stop"; "wait") | add("Notification"; "wait") | add("UserPromptSubmit"; "clear")
+    ' "$settings.bak" >"$settings" && info "dotfile:claude tmux hooks install successfully!"
+}
+
 install_macos() {
     DOTFILE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     mkdir -p "$HOME/.bakconfig"
@@ -338,6 +366,7 @@ install_macos() {
     git_clone_or_pull https://github.com/zsh-users/zsh-syntax-highlighting "$zc/zsh-syntax-highlighting"
     git_clone_or_pull https://github.com/zsh-users/zsh-completions "$zc/zsh-completions"
     git_clone_or_pull https://github.com/Aloxaf/fzf-tab "$zc/fzf-tab"
+    git_clone_or_pull https://github.com/MichaelAquilina/zsh-you-should-use "$zc/you-should-use"
     git_clone_or_pull https://github.com/junegunn/fzf-git.sh "$HOME/.local/share/fzf-git.sh"
     info "dotfile:oh-my-zsh install successfully!"
 
@@ -357,6 +386,10 @@ install_macos() {
     link_file .gitconfig
     link_file .bin/zsh .bin/zsh
     link_file .bin/tmux-sessionizer
+    link_file .bin/tmux-git-branch
+    link_file .bin/claude-tmux-status
+    link_file .bin/claude-tmux-notify
+    link_file .gitignore_global
     link_file .mycheat
     link_file .cheatsheet.md
     link_file .ideavimrc
@@ -370,6 +403,9 @@ install_macos() {
     (cd "$HOME/.config/yazi" && ya pkg install) || warning "yazi: flavor install failed"
     [[ -s "$HOME/.local/share/atuin/history.db" ]] || atuin import zsh
     info "dotfile:config link successfully!"
+
+    install_tmux_extras
+    install_claude_tmux
 
     ### vim（leihuxi/vimrc）
     install_vim
