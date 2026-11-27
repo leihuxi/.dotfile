@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # shellcheck source=./logger.sh
-source "$PWD/logger.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/logger.sh"
 # 设置包的安装目录
 export npm_config_prefix="$HOME/.local/lib/node_modules"
 export PYTHONUSERBASE="$HOME/.local"
@@ -46,14 +46,12 @@ bak_file() {
     filename="$2"
     dst_dir="$3"
     src_file="${src_dir}/${filename}"
-    if [ -f "${src_file}" ] || [ -d "${src_file}" ]; then
-        info "bak ${src_file} to $dst_dir/${filename}_$(date -d now +%Y%m%d%H%M%S)_dotfile"
-        if [[ -L "${src_file}" ]]; then
-            cp -l "${src_file}" "$dst_dir/${filename}_$(date -d now +%Y%m%d%H%M%S)_dotfile"
-            unlink "${src_file}"
-        else
-            mv "${src_file}" "$dst_dir/${filename}_$(date -d now +%Y%m%d%H%M%S)_dotfile"
-        fi
+    if [[ -L "${src_file}" ]]; then
+        unlink "${src_file}"
+    elif [ -f "${src_file}" ] || [ -d "${src_file}" ]; then
+        local dst="$dst_dir/${filename}_$(date +%Y%m%d%H%M%S)_dotfile"
+        info "bak ${src_file} to ${dst}"
+        mv "${src_file}" "${dst}"
     fi
 }
 
@@ -121,6 +119,7 @@ install_dotfile() {
         mkdir -p $HOME/.resurrect/
         ln -s -f .tmux/.tmux.conf $HOME/.tmux.conf
         cp "$PWD/.tmux.conf.local" $HOME
+        cp "$PWD/.cheatsheet.md" $HOME
         git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
         info "dotfile:tmux.conf install successfully!"
     else
@@ -150,6 +149,8 @@ install_dotfile() {
         cp "$PWD"/.zshrc "$HOME"
         git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        git clone https://github.com/Aloxaf/fzf-tab $HOME/.oh-my-zsh/custom/plugins/fzf-tab
+        git clone https://github.com/zsh-users/zsh-completions $HOME/.oh-my-zsh/custom/plugins/zsh-completions
         git clone https://github.com/horosgrisa/mysql-colorize $HOME/.oh-my-zsh/custom/plugins/mysql-colorize
         git clone https://github.com/denisidoro/navi $HOME/.oh-my-zsh/custom/plugins/navi
         info "dotfile:zshrc install successfully!"
@@ -191,11 +192,17 @@ install_dotfile() {
 install_vim() {
     bakdir=$HOME/.bakconfig
     [ -d "${bakdir}" ] || mkdir "${bakdir}"
-    bak_file $HOME .vim_runtime "${bakdir}"
-    bak_file $HOME .vimrc "${bakdir}"
     # vim
     info "vim: may take long time...., Ctrl+C to install manualy"
-    if $(is_install vim) && git clone https://github.com/leihuxi/vimrc.git $HOME/.vim_runtime; then
+    if [[ -d "$HOME/.vim_runtime/.git" ]]; then
+        git -C "$HOME/.vim_runtime" pull --ff-only -q || warning "vimrc: pull failed, keep local version"
+        sh $HOME/.vim_runtime/install_awesome_vimrc.sh
+        info "dotifile:vimrc update successfully!"
+        return
+    fi
+    bak_file $HOME .vim_runtime "${bakdir}"
+    bak_file $HOME .vimrc "${bakdir}"
+    if is_install vim && git clone https://github.com/leihuxi/vimrc.git $HOME/.vim_runtime; then
         sh $HOME/.vim_runtime/install_awesome_vimrc.sh
         info "dotifile:vimrc install successfully!"
     else
@@ -282,10 +289,143 @@ update_pkg() {
     code --list-extensions >"$PWD/.vscode-extensions.txt"
 }
 
+######################################################################
+# macOS
+######################################################################
+is_macos() {
+    [[ "$(uname)" == "Darwin" ]]
+}
+
+# 把仓库里的文件链接到 $HOME（已有文件先备份到 ~/.bakconfig）
+link_file() {
+    local src="$DOTFILE/$1" dst="$HOME/${2:-$1}"
+    if [[ "$(readlink "$dst")" == "$src" ]]; then
+        return
+    fi
+    mkdir -p "$(dirname "$dst")"
+    bak_file "$(dirname "$dst")" "$(basename "$dst")" "$HOME/.bakconfig"
+    ln -s "$src" "$dst"
+    info "link $dst -> $src"
+}
+
+git_clone_or_pull() {
+    if [[ -d "$2/.git" ]]; then
+        git -C "$2" pull --ff-only -q
+    else
+        git clone --depth 1 -q "$1" "$2"
+    fi
+}
+
+# tmux-thumbs 官方只有 Intel Mac 预编译包，这里用 brew 的 rust 本地编译（tpm 会把已存在的目录视为已安装）
+install_tmux_extras() {
+    local dir="$HOME/.config/tmux/plugins/tmux-thumbs"
+    git_clone_or_pull https://github.com/fcsonline/tmux-thumbs "$dir"
+    if command -v cargo >/dev/null; then
+        (cd "$dir" && cargo build --release -q) && info "dotfile:tmux-thumbs build successfully!" ||
+            warning "tmux-thumbs: cargo build failed"
+    else
+        warning "tmux-thumbs: cargo not found (brew install rust)"
+    fi
+}
+
+# Claude Code × tmux：状态栏用量（ccusage）+ Claude 等你时窗口标签显示 󰚩（hooks）
+install_claude_tmux() {
+    npm install --global ccusage@latest || warning "ccusage install failed"
+    local settings="$HOME/.claude/settings.json" notify="~/.bin/claude-tmux-notify"
+    mkdir -p "$HOME/.claude"
+    [[ -s "$settings" ]] || echo '{}' >"$settings"
+    if jq -e --arg n "$notify" '[.hooks[]?[]?.hooks[]?.command] | any(startswith($n))' "$settings" >/dev/null; then
+        return
+    fi
+    cp "$settings" "$settings.bak"
+    jq --arg n "$notify" '
+        def add(ev; arg): .hooks[ev] = ((.hooks[ev] // []) + [{hooks: [{type: "command", command: "\($n) \(arg)", timeout: 5}]}]);
+        add("Stop"; "wait") | add("Notification"; "wait") | add("UserPromptSubmit"; "clear")
+    ' "$settings.bak" >"$settings" && info "dotfile:claude tmux hooks install successfully!"
+}
+
+install_macos() {
+    DOTFILE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    mkdir -p "$HOME/.bakconfig"
+
+    ### Homebrew + 软件
+    if ! command -v brew >/dev/null 2>&1; then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    brew bundle --file "$DOTFILE/Brewfile"
+
+    ### oh-my-zsh + 插件
+    if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+        RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    else
+        git -C "$HOME/.oh-my-zsh" pull --ff-only -q
+    fi
+    local zc="$HOME/.oh-my-zsh/custom/plugins"
+    git_clone_or_pull https://github.com/zsh-users/zsh-autosuggestions "$zc/zsh-autosuggestions"
+    git_clone_or_pull https://github.com/zsh-users/zsh-syntax-highlighting "$zc/zsh-syntax-highlighting"
+    git_clone_or_pull https://github.com/zsh-users/zsh-completions "$zc/zsh-completions"
+    git_clone_or_pull https://github.com/Aloxaf/fzf-tab "$zc/fzf-tab"
+    git_clone_or_pull https://github.com/MichaelAquilina/zsh-you-should-use "$zc/you-should-use"
+    git_clone_or_pull https://github.com/junegunn/fzf-git.sh "$HOME/.local/share/fzf-git.sh"
+    info "dotfile:oh-my-zsh install successfully!"
+
+    ### oh-my-tmux（XDG 布局，插件由 oh-my-tmux 自动安装到 ~/.config/tmux/plugins）
+    if [[ -d "$HOME/.local/share/oh-my-tmux/.git" ]]; then
+        git -C "$HOME/.local/share/oh-my-tmux" pull --ff-only -q
+    else
+        git clone -q --single-branch https://github.com/gpakosz/.tmux.git "$HOME/.local/share/oh-my-tmux"
+    fi
+    mkdir -p "$HOME/.config/tmux"
+    ln -sfn "$HOME/.local/share/oh-my-tmux/.tmux.conf" "$HOME/.config/tmux/tmux.conf"
+    info "dotfile:oh-my-tmux install successfully!"
+
+    ### 配置文件（软链接，修改后直接在仓库里提交）
+    link_file .zshrc
+    link_file .tmux.conf.local .config/tmux/tmux.conf.local
+    link_file .gitconfig
+    link_file .bin/zsh .bin/zsh
+    link_file .bin/tmux-sessionizer
+    link_file .bin/tmux-git-branch
+    link_file .bin/claude-tmux-status
+    link_file .bin/claude-tmux-notify
+    link_file .gitignore_global
+    link_file .mycheat
+    link_file .cheatsheet.md
+    link_file .ideavimrc
+    link_file .clang-format
+    link_file .config/ghostty/config
+    link_file .config/starship.toml
+    link_file .config/eza
+    link_file .config/lazygit
+    link_file .config/atuin
+    link_file .config/yazi
+    (cd "$HOME/.config/yazi" && ya pkg install) || warning "yazi: flavor install failed"
+    [[ -s "$HOME/.local/share/atuin/history.db" ]] || atuin import zsh
+    info "dotfile:config link successfully!"
+
+    install_tmux_extras
+    install_claude_tmux
+
+    ### vim（leihuxi/vimrc）
+    install_vim
+
+    [[ "$SHELL" == */zsh ]] || chsh -s /bin/zsh
+    info "all installed successfully! 打开 Ghostty，输入 t 进入 tmux，cheat 查看快捷键"
+}
+
 main() {
+    if is_macos; then
+        case "$1" in
+        vim) install_vim ;;
+        *) install_macos ;;
+        esac
+        exit
+    fi
+
     arch=$(is_arch_base_system)
     if [[ $arch != "arch" ]]; then
-        echo "archlinux support only"
+        echo "only macOS and archlinux are supported"
         exit
     fi
 

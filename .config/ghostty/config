@@ -1,0 +1,27 @@
+# Ghostty — 查看全部选项: ghostty +show-config --default --docs
+font-family = JetBrainsMono Nerd Font
+font-size = 14
+adjust-cell-height = 10%
+
+theme = Catppuccin Mocha
+background-opacity = 0.96
+background-blur = true
+
+window-padding-x = 8
+window-padding-y = 6
+window-padding-balance = true
+window-save-state = always
+macos-titlebar-style = tabs
+
+# Option 当 Alt 用（tmux/zsh 的 M- 快捷键、fzf 的 Alt-C 需要）
+macos-option-as-alt = left
+copy-on-select = clipboard
+mouse-hide-while-typing = true
+confirm-close-surface = false
+
+# SSH 到服务器时自动处理 TERM / terminfo
+shell-integration-features = ssh-env,ssh-terminfo
+
+# 全局下拉终端：任意位置按 Ctrl+` 呼出（首次需授予辅助功能权限）
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+quick-terminal-position = top

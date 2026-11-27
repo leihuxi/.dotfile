@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Claude Code usage for the tmux status bar (via ccusage).
+# Output: 󰚩 <5h-block cost> <time left in block> <burn rate> · today <cost>
+# Cached for 60s and refreshed in the background so tmux never blocks.
+
+cache="${XDG_CACHE_HOME:-$HOME/.cache}/claude-tmux-status"
+ttl=60
+export PATH="/opt/homebrew/bin:$HOME/.local/lib/node_modules/bin:$HOME/.local/bin:$PATH"
+
+refresh() {
+  command -v ccusage >/dev/null || { echo "󰚩 no ccusage" >"$cache"; return; }
+  local block today out
+  block=$(ccusage blocks --active --json --offline 2>/dev/null)
+  today=$(ccusage daily --json --offline --since "$(date +%Y%m%d)" 2>/dev/null |
+    jq -r '.totals.totalCost // 0')
+  out=$(jq -r --arg today "${today:-0}" '
+    (.blocks[0] // null) as $b
+    | if $b == null then "󰚩 idle · today $\($today | tonumber | . * 100 | round / 100)"
+      else
+        (($b.endTime | sub("\\.[0-9]+Z$"; "Z") | fromdate) - now | if . < 0 then 0 else . end) as $left
+        | "󰚩 $\($b.costUSD * 100 | round / 100) "
+          + "󰔟 \($left / 3600 | floor)h\(($left % 3600) / 60 | floor | tostring | if length < 2 then "0" + . else . end)m "
+          + "󰈸 $\(($b.burnRate.costPerHour // 0) * 10 | round / 10)/h"
+          + " · today $\($today | tonumber | . * 100 | round / 100)"
+      end' <<<"${block:-{\}}" 2>/dev/null)
+  echo "${out:-󰚩 ?}" >"$cache.tmp" && mv "$cache.tmp" "$cache"
+}
+
+[[ $1 == --refresh ]] && { refresh; exit; }
+
+mkdir -p "$(dirname "$cache")"
+if [[ ! -f $cache ]]; then
+  refresh
+elif (( $(date +%s) - $(stat -f %m "$cache") > ttl )); then
+  ( "$0" --refresh >/dev/null 2>&1 & )
+fi
+cat "$cache"

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Claude Code hook -> flag the tmux window whose Claude is waiting for you.
+#   claude-tmux-notify wait   (Stop / Notification): set @claude_waiting, ring bell
+#   claude-tmux-notify clear  (UserPromptSubmit):    unset @claude_waiting
+# The flag is shown in the window tab (see tmux.conf.local) and is also cleared
+# when you switch to that window.
+[[ -n $TMUX_PANE ]] || exit 0
+export PATH="/opt/homebrew/bin:$PATH"
+cat >/dev/null # drain hook JSON on stdin
+
+case $1 in
+  wait)
+    tmux set -w -t "$TMUX_PANE" @claude_waiting 1
+    # only ring when you're not already looking at this window
+    if [[ $(tmux display -p -t "$TMUX_PANE" '#{window_active}#{session_attached}') != 1[1-9]* ]]; then
+      printf '\a' >"$(tmux display -p -t "$TMUX_PANE" '#{pane_tty}')"
+    fi
+    ;;
+  clear)
+    tmux set -wu -t "$TMUX_PANE" @claude_waiting
+    ;;
+esac
+exit 0
