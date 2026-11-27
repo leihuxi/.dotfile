@@ -447,10 +447,10 @@ set -g popup-border-lines rounded
 set -g popup-border-style 'fg=#89b4fa'
 
 # 新增浮窗快捷键
-#   <prefix> S  fzf 切换/新建会话
+#   <prefix> S  会话 / 项目切换（tmux-sessionizer：已有会话 + zoxide 目录 + git 仓库）
 #   <prefix> G  lazygit
 #   <prefix> W  当前目录下的临时浮动终端
-bind S display-popup -E -w 60% -h 50% "tmux list-sessions -F '#S' | fzf --reverse --print-query --header='回车切换，输入新名字回车新建' | tail -1 | xargs -I{} sh -c 'tmux has-session -t \"{}\" 2>/dev/null || tmux new-session -d -s \"{}\" -c ~; tmux switch-client -t \"{}\"'"
+bind S display-popup -E -w 75% -h 65% -T ' 󰆍 会话 / 项目 ' "$HOME/.bin/tmux-sessionizer"
 bind G display-popup -E -w 90% -h 90% -d '#{pane_current_path}' lazygit
 bind W display-popup -E -w 80% -h 75% -d '#{pane_current_path}'
 # copy-mode vi：v 选择、C-v 块选择、y 复制

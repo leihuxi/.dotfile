@@ -88,6 +88,7 @@ path=(
 # -- aliases -------------------------------------------------------------------
 alias grep='grep --color=auto'
 alias t='tmux new -A -s main'        # 有 main 会话就接入，没有就新建
+alias ts='tmux-sessionizer'          # fzf 选项目目录 → 打开对应 tmux 会话
 if (( $+commands[eza] )); then
   alias ls='eza --group-directories-first --icons=auto'
   alias ll='eza -lh --git --group-directories-first --icons=auto'
@@ -175,6 +176,9 @@ ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(forward-word)
 
 # atuin：Ctrl-r 全屏历史搜索（带目录 / 耗时 / 退出码），↑ 保持前缀搜索
 (( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
+
+# fzf-git：Ctrl-g 再按 f 文件 / b 分支 / h 提交 / s stash / t tag / r 远端 / l reflog / w worktree / ? 帮助
+[[ -f "$HOME/.local/share/fzf-git.sh/fzf-git.sh" ]] && source "$HOME/.local/share/fzf-git.sh/fzf-git.sh"
 
 # -- Android -------------------------------------------------------------------
 if [[ $OSTYPE == darwin* ]]; then

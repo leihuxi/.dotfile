@@ -338,6 +338,7 @@ install_macos() {
     git_clone_or_pull https://github.com/zsh-users/zsh-syntax-highlighting "$zc/zsh-syntax-highlighting"
     git_clone_or_pull https://github.com/zsh-users/zsh-completions "$zc/zsh-completions"
     git_clone_or_pull https://github.com/Aloxaf/fzf-tab "$zc/fzf-tab"
+    git_clone_or_pull https://github.com/junegunn/fzf-git.sh "$HOME/.local/share/fzf-git.sh"
     info "dotfile:oh-my-zsh install successfully!"
 
     ### oh-my-tmux（XDG 布局，插件由 oh-my-tmux 自动安装到 ~/.config/tmux/plugins）
@@ -355,6 +356,7 @@ install_macos() {
     link_file .tmux.conf.local .config/tmux/tmux.conf.local
     link_file .gitconfig
     link_file .bin/zsh .bin/zsh
+    link_file .bin/tmux-sessionizer
     link_file .mycheat
     link_file .cheatsheet.md
     link_file .ideavimrc

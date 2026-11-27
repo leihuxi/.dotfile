@@ -43,6 +43,8 @@ cd ~/.dotfile && ./setup.sh
 | `.gitconfig` | git，diff 用 delta |
 | `.cheatsheet.md` | 快捷键速查，终端里运行 `cheat` 查看 |
 | `Brewfile` | macOS 软件清单 |
+| `.bin/tmux-sessionizer` | `前缀 S` / `ts`：fzf 选会话或项目目录，自动建 tmux 会话 |
+| `.config/{atuin,yazi,eza,lazygit}` | atuin 历史搜索、yazi 文件管理器等，统一 Catppuccin Mocha |
 
 ## 快捷键
 
