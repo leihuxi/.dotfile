@@ -389,6 +389,8 @@ install_macos() {
     link_file .bin/tmux-git-branch
     link_file .bin/claude-tmux-status
     link_file .bin/claude-tmux-notify
+    link_file .bin/claude-format
+    link_file .claude/settings.json
     link_file .gitignore_global
     link_file .mycheat
     link_file .cheatsheet.md
@@ -400,6 +402,7 @@ install_macos() {
     link_file .config/eza
     link_file .config/lazygit
     link_file .config/atuin
+    link_file .config/btop/btop.conf
     link_file .config/yazi
     (cd "$HOME/.config/yazi" && ya pkg install) || warning "yazi: flavor install failed"
     [[ -s "$HOME/.local/share/atuin/history.db" ]] || atuin import zsh

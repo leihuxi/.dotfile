@@ -36,3 +36,15 @@ cask "ghostty"
 cask "input-source-pro"          # 按 App 自动切输入法（Ghostty 默认英文）
 cask "macvim-app"
 cask "font-jetbrains-mono-nerd-font"
+
+# Claude Code 自动格式化（.bin/claude-format）
+brew "ruff"
+brew "shfmt"
+brew "stylua"
+brew "prettier"
+
+# 系统观察 / markdown
+brew "btop"                       # prefix b 弹窗
+brew "dust"                       # 目录占用
+brew "duf"                        # 磁盘占用
+brew "glow"                       # 终端渲染 markdown（cheat 用它）

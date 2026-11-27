@@ -126,7 +126,8 @@ fi
 (( $+commands[lazygit] ))    && alias lg='lazygit'
 alias reload='exec zsh'
 alias path='print -l $path'
-alias cheat='bat -pp --language=md ~/.cheatsheet.md 2>/dev/null || cat ~/.cheatsheet.md'
+alias cheat='glow -p ~/.cheatsheet.md 2>/dev/null || bat -pp --language=md ~/.cheatsheet.md 2>/dev/null || cat ~/.cheatsheet.md'
+(( $+commands[glow] )) && md() { glow -p "${@:-.}"; }  # md 文件/目录：渲染 markdown
 
 nman() { vim -c "Nman $*" || echo "No manual entry for $*"; }
 prev() { local PREV=$(fc -lrn | head -n 1); sh -c "pet new $(printf %q "$PREV")"; }

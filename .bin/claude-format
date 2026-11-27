@@ -3,7 +3,7 @@
 # just touched, if a formatter for its type is installed. Never fails the hook.
 #   rust -> rustfmt (edition from nearest Cargo.toml)   python -> ruff format
 #   sh   -> shfmt (honours .editorconfig)               lua    -> stylua
-#   js/ts/json/css/md/yaml/html -> prettier, only when the project has a prettier config
+#   js/ts/json/css/md/yaml/html -> prettier, only with a declarative, plugin-free project config
 export PATH="/opt/homebrew/bin:$HOME/.cargo/bin:$PATH"
 f=$(jq -r '.tool_input.file_path // empty' 2>/dev/null)
 [[ -n $f && -f $f ]] || exit 0
@@ -25,7 +25,12 @@ case $f in
   *.sh|*.bash) has shfmt && shfmt -w "$f" ;;
   *.lua)       has stylua && stylua "$f" ;;
   *.js|*.jsx|*.ts|*.tsx|*.mjs|*.cjs|*.json|*.css|*.scss|*.md|*.yaml|*.yml|*.html|*.vue)
-    has prettier && prettier --find-config-path "$f" >/dev/null 2>&1 &&
-      prettier --write --log-level silent "$f" ;;
+    # only declarative configs without plugins: a JS config / plugin would run repo code
+    has prettier || exit 0
+    c=$(prettier --find-config-path "$f" 2>/dev/null) || exit 0
+    case $c in *.js | *.cjs | *.mjs | *.ts | *.cts | *.mts) exit 0 ;; esac
+    grep -q plugins "$c" 2>/dev/null && exit 0
+    [[ ${c##*/} == package.json ]] && jq -e '.prettier | type == "string"' "$c" >/dev/null 2>&1 && exit 0
+    prettier --write --log-level silent "$f" ;;
 esac >/dev/null 2>&1
 exit 0
