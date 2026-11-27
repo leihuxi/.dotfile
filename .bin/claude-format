@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Claude Code PostToolUse hook (Edit|Write|MultiEdit): format the file Claude
+# just touched, if a formatter for its type is installed. Never fails the hook.
+#   rust -> rustfmt (edition from nearest Cargo.toml)   python -> ruff format
+#   sh   -> shfmt (honours .editorconfig)               lua    -> stylua
+#   js/ts/json/css/md/yaml/html -> prettier, only when the project has a prettier config
+export PATH="/opt/homebrew/bin:$HOME/.cargo/bin:$PATH"
+f=$(jq -r '.tool_input.file_path // empty' 2>/dev/null)
+[[ -n $f && -f $f ]] || exit 0
+has() { command -v "$1" >/dev/null 2>&1; }
+
+case $f in
+  *.rs)
+    has rustfmt || exit 0
+    ed=2021 d=$(dirname "$f")
+    while [[ $d != / ]]; do
+      if [[ -f $d/Cargo.toml ]]; then
+        e=$(sed -n 's/^edition *= *"\([0-9]*\)".*/\1/p' "$d/Cargo.toml" | head -1)
+        [[ -n $e ]] && ed=$e && break
+      fi
+      d=$(dirname "$d")
+    done
+    rustfmt --edition "$ed" "$f" ;;
+  *.py)        has ruff && ruff format -q "$f" ;;
+  *.sh|*.bash) has shfmt && shfmt -w "$f" ;;
+  *.lua)       has stylua && stylua "$f" ;;
+  *.js|*.jsx|*.ts|*.tsx|*.mjs|*.cjs|*.json|*.css|*.scss|*.md|*.yaml|*.yml|*.html|*.vue)
+    has prettier && prettier --find-config-path "$f" >/dev/null 2>&1 &&
+      prettier --write --log-level silent "$f" ;;
+esac >/dev/null 2>&1
+exit 0
