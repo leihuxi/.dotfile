@@ -36,7 +36,6 @@ cask "ghostty"
 cask "input-source-pro"          # per-app input method (Ghostty defaults to English)
 cask "macvim-app"
 cask "font-jetbrains-mono-nerd-font"
-cask "font-jetbrains-maple-mono-nf"  # JetBrains Mono + CJK at 2 columns (Ghostty font)
 
 # Claude Code auto-format hook (.bin/claude-format)
 brew "ruff"
