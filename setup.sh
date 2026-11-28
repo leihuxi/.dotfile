@@ -345,6 +345,15 @@ install_claude_tmux() {
     ' "$settings.bak" >"$settings" && info "dotfile:claude tmux hooks install successfully!"
 }
 
+# macOS keyboard: fast key repeat for vim-style navigation (log out and back in to apply).
+# Defaults are InitialKeyRepeat 25 (~375ms) and KeyRepeat 6 (~90ms).
+install_macos_defaults() {
+    defaults write -g InitialKeyRepeat -int 15        # ~225ms before repeating starts
+    defaults write -g KeyRepeat -int 2                # ~30ms between repeats
+    defaults write -g ApplePressAndHoldEnabled -bool false   # holding a letter repeats it, no accent popup
+    info "dotfile:macOS keyboard defaults set (log out to apply)"
+}
+
 install_macos() {
     DOTFILE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     mkdir -p "$HOME/.bakconfig"
@@ -414,6 +423,7 @@ install_macos() {
 
     install_tmux_extras
     install_claude_tmux
+    install_macos_defaults
     gh extension install dlvhdr/gh-dash 2>/dev/null || gh extension upgrade gh-dash || warning "gh-dash install failed (gh auth login?)"
 
     ### vim (leihuxi/vimrc)
