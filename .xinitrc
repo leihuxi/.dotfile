@@ -52,6 +52,6 @@ get_session() {
     esac
     echo "dbus-launch ${dbus_args[*]}"
 }
-# dbus有bug
+# dbus is buggy here
 # exec $(get_session) 
 exec i3

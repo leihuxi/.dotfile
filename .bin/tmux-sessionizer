@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# tmux-sessionizer：用 fzf 选择已有会话或项目目录，自动新建 / 切换 tmux 会话
-#   tmux-sessionizer          交互选择
-#   tmux-sessionizer <目录>    直接为该目录打开会话
+# tmux-sessionizer: pick an existing session or a project directory with fzf, then
+# create / switch to its tmux session
+#   tmux-sessionizer          interactive
+#   tmux-sessionizer <dir>    open a session for that directory
 set -uo pipefail
 
 SESSION_ICON='󰆍'
@@ -26,8 +27,8 @@ if [[ $# -ge 1 ]]; then
     selected="$DIR_ICON $1"
 else
     selected=$(candidates | fzf --reverse --ansi --no-sort \
-        --prompt='会话 / 项目 ❯ ' \
-        --header='回车：切换会话，或为目录新建会话' \
+        --prompt='session / project ❯ ' \
+        --header='Enter: switch session, or create one for the directory' \
         --preview-window='right,55%' \
         --preview "item={2..}; if [[ {1} == '$SESSION_ICON' ]]; then tmux capture-pane -ep -t \"\$item\" 2>/dev/null; else eza --tree --level=2 --color=always --icons=always \"\${item/#\\~/\$HOME}\" 2>/dev/null | head -80; fi") || exit 0
 fi
@@ -39,7 +40,7 @@ if [[ $icon == "$SESSION_ICON" ]]; then
     name=$item
 else
     dir=${item/#\~/$HOME}
-    dir=$(cd "$dir" 2>/dev/null && pwd) || { echo "目录不存在：$item" >&2; exit 1; }
+    dir=$(cd "$dir" 2>/dev/null && pwd) || { echo "no such directory: $item" >&2; exit 1; }
     name=$(basename "$dir" | tr '.:' '__')
     tmux has-session -t "=$name" 2>/dev/null || tmux new-session -d -s "$name" -c "$dir"
 fi

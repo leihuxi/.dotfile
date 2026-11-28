@@ -1,4 +1,4 @@
-# atuin：Ctrl-r 打开历史搜索（仅本地，不同步）
+# atuin: Ctrl-r opens history search (local only, no sync)
 auto_sync = false
 update_check = false
 search_mode = "fuzzy"
@@ -8,8 +8,8 @@ style = "compact"
 inline_height = 20
 show_preview = true
 show_help = true
-enter_accept = false          # 回车只放到命令行，确认后再执行
-keymap_mode = "vim-insert"    # 和 zsh vi-mode 一致：Esc 进入普通模式
+enter_accept = false          # Enter puts the command on the prompt instead of running it
+keymap_mode = "vim-insert"    # matches zsh vi-mode: Esc enters normal mode
 history_filter = ["^ls$", "^ll$", "^cd$", "^exit$", "^clear$"]
 
 [theme]

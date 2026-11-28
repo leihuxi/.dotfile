@@ -28,10 +28,10 @@
     g = grep --break --heading --line-number
     fa = fetch --all
     p = push
-    dft = -c diff.external=difft diff            # difftastic：按语法结构对比（只改缩进/换行不会整块标红）
+    dft = -c diff.external=difft diff            # difftastic: syntax-aware diff (reindents / rewraps don't light up whole blocks)
     dlog = -c diff.external=difft log -p --ext-diff
     dshow = -c diff.external=difft show --ext-diff
-    pf = push --force-with-lease --force-if-includes   # 安全强推：远端有别人新提交时拒绝
+    pf = push --force-with-lease --force-if-includes   # safe force push: refuses if the remote has commits you haven't seen
 
 [color]
     ui = auto
@@ -59,7 +59,7 @@
     smudge = git-media-smudge %f
 [push]
     default = current
-    autoSetupRemote = true   # 新分支首次 push 自动设上游
+    autoSetupRemote = true   # first push of a new branch sets its upstream
     followTags = true
 [interactive]
     diffFilter = delta --color-only
@@ -98,4 +98,4 @@
 [help]
     autocorrect = prompt
 [include]
-    path = ~/.gitconfig.local   # 机器私有配置（凭据等），不入库
+    path = ~/.gitconfig.local   # machine-local settings (credentials etc.), not tracked

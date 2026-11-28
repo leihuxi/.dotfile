@@ -1,6 +1,6 @@
--- 自动命令（LazyVim 已内置：复制高亮、恢复光标位置、自动 checktime 等）
+-- Autocommands (LazyVim already has yank highlight, cursor restore, checktime, ...)
 
--- 输入法：离开插入模式切英文，回到插入模式恢复之前的输入法（macOS，需要 macism）
+-- Input method: English on leaving insert mode, previous one restored on entering it (macOS, needs macism)
 if vim.fn.executable("macism") == 1 then
   local english = "com.apple.keylayout.USExtended"
   local last = english

@@ -1,7 +1,8 @@
 #!/bin/sh
-# tmux 状态栏：显示 pane 所在目录的 git 分支（不在仓库时不输出）
+# tmux status bar: git branch of the pane's directory (prints nothing outside a repo)
 cd "${1:-.}" 2>/dev/null || exit 0
-# 状态栏会在任意目录（包括不可信的仓库）里自动运行：禁用仓库可配置的命令执行（fsmonitor），且不写锁文件
+# Runs automatically in any directory, untrusted repos included: disable repo-configurable
+# command execution (fsmonitor) and never write lock files
 g() { git --no-optional-locks -c core.fsmonitor=false -c core.untrackedCache=false "$@"; }
 b=$(g branch --show-current 2>/dev/null) || exit 0
 [ -n "$b" ] || b=$(g rev-parse --short HEAD 2>/dev/null) || exit 0

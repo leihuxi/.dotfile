@@ -1,5 +1,6 @@
-# gh-dash：tmux 前缀 B 或 zsh 里 ghd 打开；? 看快捷键
-# 只改了看 diff 用 delta、默认打开右侧预览，其它（我的 PR / 待我 review / issue 分组）用默认
+# gh-dash: tmux prefix B or `ghd` in zsh; ? lists the keys.
+# Only changes: delta for diffs and the preview pane open by default; the sections
+# (my PRs / review requests / issues) are the defaults.
 pager:
   diff: delta
 defaults:

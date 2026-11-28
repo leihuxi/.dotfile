@@ -1,7 +1,7 @@
 # fzf helpers — from leihuxi/.dotfile, cleaned up for macOS / zsh
-# (fd 工具改由 fd 命令本身提供；原来的 fd() 改名为 fcd)
+# (fd now means the fd binary; the old fd() function was renamed to fcd)
 
-# fe [PATTERN] - 选文件用编辑器打开
+# fe [PATTERN] - pick a file and open it in the editor
 fe() {
   local files
   files=(${(f)"$(fzf --query="$1" --multi --select-1 --exit-0 \
@@ -9,7 +9,7 @@ fe() {
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
-# vg [PATTERN] - ripgrep 搜内容，选中后跳到对应行
+# vg [PATTERN] - ripgrep the contents, open the selection at its line
 vg() {
   local sel
   sel=$(rg --line-number --no-heading --color=always --smart-case "${@:-.}" |
@@ -19,14 +19,14 @@ vg() {
   ${EDITOR:-vim} "${sel%%:*}" +"$(cut -d: -f2 <<< "$sel")"
 }
 
-# fcd - cd 到子目录（含隐藏目录）
+# fcd - cd into a subdirectory (hidden ones included)
 fcd() {
   local dir
   dir=$(fd --type d --hidden --exclude .git . "${1:-.}" | fzf +m \
     --preview 'eza --tree --level=2 --color=always {}') && cd "$dir"
 }
 
-# fdr - cd 到某个上级目录
+# fdr - cd into a parent directory
 fdr() {
   local d=${1:-$PWD} dirs=()
   while [[ $d != / ]]; do dirs+=("$d"); d=${d:h}; done
@@ -34,23 +34,23 @@ fdr() {
   local dir=$(print -l $dirs | fzf --tac) && cd "$dir"
 }
 
-# fh - 从历史选命令放到命令行（可编辑后回车）
+# fh - put a command from history on the prompt (edit, then Enter)
 fh() {
   print -z -- "$(fc -lnr 1 | awk '!seen[$0]++' | fzf +s)"
 }
 
-# sfc - 搜索文件内容
+# sfc - search file contents
 sfc() { rg --no-heading --color=always . | fzf --ansi; }
 
-# fkill [SIGNAL] - 选进程杀掉
+# fkill [SIGNAL] - pick processes to kill
 fkill() {
   local pid
-  pid=$(ps -ef | sed 1d | fzf -m --header='选择要结束的进程' | awk '{print $2}')
+  pid=$(ps -ef | sed 1d | fzf -m --header='select processes to kill' | awk '{print $2}')
   [[ -n "$pid" ]] && echo "$pid" | xargs kill -${1:-9}
 }
 
 ### git
-# fbr - 切换分支（按最近提交排序）
+# fbr - switch branch (most recent commit first)
 fbr() {
   local branch
   branch=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)' |
@@ -58,7 +58,7 @@ fbr() {
     git checkout "$branch"
 }
 
-# fco - 切换分支 / tag（含远程）
+# fco - switch branch / tag (remotes included)
 fco() {
   local target
   target=$(
@@ -70,7 +70,7 @@ fco() {
   git checkout "$(awk '{print $2}' <<< "$target")"
 }
 
-# fshow - 提交浏览器，回车查看详情
+# fshow - commit browser, Enter shows details
 fshow() {
   git log --graph --color=always --format='%C(auto)%h%d %s %C(black)%C(bold)%cr' "$@" |
     fzf --ansi --no-sort --reverse --tiebreak=index \
@@ -78,13 +78,13 @@ fshow() {
       --bind 'enter:execute(grep -o "[a-f0-9]\{7,\}" <<< {} | head -1 | xargs git show --color=always | less -R)'
 }
 
-# fcs - 选一个 commit 输出其 sha，例如 git rebase -i $(fcs)
+# fcs - pick a commit and print its sha, e.g. git rebase -i $(fcs)
 fcs() {
   git log --color=always --pretty=oneline --abbrev-commit |
     fzf +s +m --ansi --preview 'git show --color=always {1} | delta' | awk '{print $1}'
 }
 
-# fstash - enter 查看, ctrl-d 与 HEAD 对比, ctrl-b 检出为分支
+# fstash - enter shows, ctrl-d diffs against HEAD, ctrl-b checks out as a branch
 fstash() {
   local out q k sha
   while out=$(git stash list --pretty='%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs' |
@@ -101,7 +101,7 @@ fstash() {
 }
 
 ### tmux
-# tm [NAME] - 进入/新建会话；无参数时 fzf 选择
+# tm [NAME] - attach/create a session; fzf picker without arguments
 tm() {
   local change=attach-session session
   [[ -n "$TMUX" ]] && change=switch-client
@@ -113,7 +113,7 @@ tm() {
     tmux $change -t "$session" || echo "No sessions found."
 }
 
-# ftpane - 跳转到任意 pane
+# ftpane - jump to any pane
 ftpane() {
   local target
   target=$(tmux list-panes -a -F '#S:#I.#P  #{pane_current_command}  #{pane_current_path}' |
@@ -123,7 +123,7 @@ ftpane() {
   tmux select-window -t "${target%.*}" && tmux select-pane -t "$target"
 }
 
-### Chrome 历史
+### Chrome history
 c() {
   local cols=$(( COLUMNS / 3 )) sep='{::}' tmp=$(mktemp)
   local hist="$HOME/Library/Application Support/Google/Chrome/Default/History" open=open
@@ -138,7 +138,7 @@ c() {
   rm -f "$tmp"
 }
 
-# v - 打开 vim 最近编辑过的文件
+# v - open a file vim edited recently
 v() {
   local files
   files=$(grep '^>' ~/.viminfo 2>/dev/null | cut -c3- | while read -r line; do

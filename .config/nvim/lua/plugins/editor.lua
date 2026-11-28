@@ -1,10 +1,10 @@
--- 编辑增强
+-- Editing
 return {
-  -- 保留 vim-surround 的 ys / cs / ds 习惯
+  -- keep vim-surround's ys / cs / ds habits
   { "tpope/vim-surround", event = "VeryLazy" },
   { "tpope/vim-repeat", event = "VeryLazy" },
 
-  -- 补全：Tab / S-Tab 选择、回车确认（与 vim 的 coc 习惯一致）
+  -- completion: Tab / S-Tab select, Enter confirms (same as coc in vim)
   {
     "saghen/blink.cmp",
     opts = {
@@ -18,7 +18,7 @@ return {
     },
   },
 
-  -- 启动页标题
+  -- dashboard header
   {
     "folke/snacks.nvim",
     opts = {
@@ -31,7 +31,7 @@ return {
 ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
 ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
 ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
-                  , 键稍等弹出快捷键提示]],
+          press , and wait for the key hints]],
         },
       },
     },

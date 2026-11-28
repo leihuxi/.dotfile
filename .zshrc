@@ -1,11 +1,11 @@
 # ~/.zshrc — https://github.com/leihuxi/.dotfile  (macOS + Arch Linux)
-# 机器私有的配置放 ~/.zshrc.local（不入库）
+# Machine-local settings go in ~/.zshrc.local (not tracked)
 
 # Homebrew
 [[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # -- proxy ---------------------------------------------------------------------
-# proxy on / off / 无参数=查看；默认开启
+# proxy on / off / no argument = show; on by default
 proxy() {
   local p=127.0.0.1:7897
   case $1 in
@@ -19,36 +19,37 @@ proxy() {
 
 # -- oh-my-zsh -----------------------------------------------------------------
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME=""                          # 提示符交给 starship（未安装时回退到 robbyrussell）
+ZSH_THEME=""                          # prompt comes from starship (falls back to robbyrussell if missing)
 (( $+commands[starship] )) || ZSH_THEME="robbyrussell"
-zstyle ':omz:update' mode reminder    # 有新版本时提醒，运行 omz update 更新
+zstyle ':omz:update' mode reminder    # remind when an update exists; run `update` or omz update
 zstyle ':omz:update' frequency 7
 COMPLETION_WAITING_DOTS="true"
 HYPHEN_INSENSITIVE="true"
-DISABLE_MAGIC_FUNCTIONS="true"        # 粘贴 URL 更快
+DISABLE_MAGIC_FUNCTIONS="true"        # faster URL pasting
 
-# vi-mode：普通/插入模式切换光标形状，Esc 切换更快
+# vi-mode: cursor shape per mode, faster Esc
 VI_MODE_SET_CURSOR=true
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 KEYTIMEOUT=15
 
-# 补全
+# Completion
 fpath=("$ZSH/custom/plugins/zsh-completions/src" /opt/homebrew/share/zsh/site-functions $fpath)
 
-# autosuggestions：异步、大缓冲时不建议
+# autosuggestions: async, skip for large buffers
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=40
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"        # 自动建议用终端的暗灰色（随深浅主题变化），不抢眼
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"        # terminal dim grey (follows light/dark), unobtrusive
 
-# 系统深浅色（Ghostty 主题跟随系统；这里给 fzf / 语法高亮等只读一次的配色用，新开 shell 生效）
+# System light/dark (Ghostty follows the system; used here for colours read once at
+# startup such as fzf / syntax highlighting, so it applies to new shells)
 if [[ $OSTYPE == darwin* ]] && [[ $(defaults read -g AppleInterfaceStyle 2>/dev/null) != Dark ]]; then
   _theme=light
 else
   _theme=dark
 fi
 
-# fzf-tab 须在 autosuggestions / syntax-highlighting 之前；syntax-highlighting 放最后
+# fzf-tab must load before autosuggestions / syntax-highlighting; syntax-highlighting goes last
 plugins=(git wd fzf colored-man-pages vi-mode sudo)
 if [[ $OSTYPE == darwin* ]]; then
   plugins+=(macos)
@@ -56,14 +57,16 @@ elif (( $+commands[pacman] )); then
   plugins+=(archlinux systemadmin)
 fi
 plugins+=(you-should-use fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
-YSU_MESSAGE_POSITION="after"   # 有别名可用时，在命令输出后提示
+YSU_MESSAGE_POSITION="after"   # remind about an existing alias after the command output
 
-# Catppuccin Mocha 语法高亮配色（须在 zsh-syntax-highlighting 加载前；浅色时用插件默认的终端色）
+# Catppuccin Mocha highlighting (must be set before zsh-syntax-highlighting loads;
+# in light mode the plugin's default terminal colours are used)
 [[ $_theme == dark && -f "$HOME/.bin/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh" ]] && source "$HOME/.bin/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh"
 
 source "$ZSH/oh-my-zsh.sh"
 
-# carapace：为上千个命令补全参数并显示说明（初始化脚本缓存，不拖慢启动）
+# carapace: argument completion with descriptions for thousands of commands
+# (init script is cached so startup stays fast)
 if (( $+commands[carapace] )); then
   export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
   _carapace_init="${XDG_CACHE_HOME:-$HOME/.cache}/carapace/init.zsh"
@@ -71,7 +74,7 @@ if (( $+commands[carapace] )); then
     mkdir -p "${_carapace_init:h}" && carapace _carapace zsh >| "$_carapace_init"
   fi
   source "$_carapace_init"
-  compdef _git git            # git 保留 zsh 自带的补全（更完整）
+  compdef _git git            # keep zsh's own git completion (more complete)
   unset _carapace_init
 fi
 
@@ -96,8 +99,8 @@ export npm_config_prefix="$HOME/.local/lib/node_modules"
 export CHEAT_COLORS=true
 export CHEAT_USER_DIR="$HOME/.mycheat"
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
-# 统一配色：Catppuccin Mocha（bat / delta / eza / lazygit / fzf）
-export BAT_THEME_DARK="Catppuccin Mocha" BAT_THEME_LIGHT="Catppuccin Latte"   # bat ≥ 0.25 自动检测终端深浅色
+# Shared colours: Catppuccin (bat / delta / eza / lazygit / fzf)
+export BAT_THEME_DARK="Catppuccin Mocha" BAT_THEME_LIGHT="Catppuccin Latte"   # bat >= 0.25 detects the terminal background
 export EZA_CONFIG_DIR="$HOME/.config/eza"
 export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
 export LESS='-R -F -i -M'
@@ -115,11 +118,11 @@ path=(
 
 # -- aliases -------------------------------------------------------------------
 alias grep='grep --color=auto'
-alias vim='nvim' vi='nvim'           # 默认用 nvim（LazyVim）；原版 vim 用 \\vim 或 command vim
-alias t='tmux new -A -s main'        # 有 main 会话就接入，没有就新建
-alias ts='tmux-sessionizer'          # fzf 选项目目录 → 打开对应 tmux 会话
-alias ghd='gh dash'                  # GitHub 面板：PR / review / issue / CI（tmux 前缀 B 弹窗）
-alias cw='claude --worktree --tmux' # 并行 Claude：新建 git worktree + 独立 tmux 会话（cw 名字 可选）
+alias vim='nvim' vi='nvim'           # nvim (LazyVim) by default; plain vim via \\vim or command vim
+alias t='tmux new -A -s main'        # attach to session main, create it if missing
+alias ts='tmux-sessionizer'          # pick a project dir with fzf -> open its tmux session
+alias ghd='gh dash'                  # GitHub dashboard: PRs / reviews / issues / CI (tmux prefix B popup)
+alias cw='claude --worktree --tmux' # parallel Claude: new git worktree + its own tmux session (optional name)
 if (( $+commands[eza] )); then
   alias ls='eza --group-directories-first --icons=auto'
   alias ll='eza -lh --git --group-directories-first --icons=auto'
@@ -135,12 +138,12 @@ fi
 alias reload='exec zsh'
 alias path='print -l $path'
 alias cheat='glow -p ~/.cheatsheet.md 2>/dev/null || bat -pp --language=md ~/.cheatsheet.md 2>/dev/null || cat ~/.cheatsheet.md'
-(( $+commands[glow] )) && function mdv { glow -p "${@:-.}"; }  # mdv 文件/目录：渲染 markdown（md 是 omz 的 mkdir -p）
+(( $+commands[glow] )) && function mdv { glow -p "${@:-.}"; }  # mdv file/dir: render markdown (md is omz's mkdir -p)
 
 nman() { vim -c "Nman $*" || echo "No manual entry for $*"; }
 prev() { local PREV=$(fc -lrn | head -n 1); sh -c "pet new $(printf %q "$PREV")"; }
 mkcd() { mkdir -p "$1" && cd "$1"; }
-# thefuck：命令打错后输入 fuck 自动修正（首次调用才加载，不影响启动速度）
+# thefuck: type fuck to fix the last command (loaded on first use, no startup cost)
 (( $+commands[thefuck] )) && fuck() { unfunction fuck; eval "$(thefuck --alias)"; fuck "$@"; }
 
 # -- fzf -----------------------------------------------------------------------
@@ -161,11 +164,11 @@ if (( $+commands[fzf] )); then
                --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8,selected-bg:#45475a,border:#585b70,label:#cdd6f4' )"
   export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :300 {} 2>/dev/null || eza --tree --level=2 --color=always {}'"
   export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {} | head -100'"
-  [[ -n $TMUX ]] && export FZF_TMUX=1 FZF_TMUX_OPTS='-p 80%,60%'   # tmux 里用浮动窗口
+  [[ -n $TMUX ]] && export FZF_TMUX=1 FZF_TMUX_OPTS='-p 80%,60%'   # use a popup inside tmux
 fi
 [[ -f "$BINSCRIPT/zsh/fzf_custom.zsh" ]] && source "$BINSCRIPT/zsh/fzf_custom.zsh"
 
-# fzf-tab：Tab 补全时用 fzf 并预览
+# fzf-tab: fzf with preview for Tab completion
 zstyle ':completion:*' menu no
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*:descriptions' format '[%d]'
@@ -179,10 +182,10 @@ zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word 
 [[ -n $TMUX ]] && zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 # -- tools ---------------------------------------------------------------------
-(( $+commands[zoxide] ))   && eval "$(zoxide init zsh)"     # z <dir> 智能跳转, zi 交互选择
+(( $+commands[zoxide] ))   && eval "$(zoxide init zsh)"     # z <dir> smart jump, zi interactive
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 
-# yazi 文件管理器：y 打开，退出后 shell 跳到最后浏览的目录
+# yazi file manager: y opens it; on quit the shell cds to the last directory
 y() {
   local tmp="$(mktemp -t yazi-cwd.XXXXXX)" cwd
   yazi "$@" --cwd-file="$tmp"
@@ -194,25 +197,25 @@ y() {
 autoload -U up-line-or-beginning-search down-line-or-beginning-search edit-command-line
 zle -N up-line-or-beginning-search; zle -N down-line-or-beginning-search; zle -N edit-command-line
 for m in viins vicmd; do
-  bindkey -M $m '^P' up-line-or-beginning-search      # 按已输入前缀搜索历史
+  bindkey -M $m '^P' up-line-or-beginning-search      # history search by typed prefix
   bindkey -M $m '^N' down-line-or-beginning-search
-  bindkey -M $m '^[[A' up-line-or-beginning-search    # ↑ ↓ 同上
+  bindkey -M $m '^[[A' up-line-or-beginning-search    # same for Up / Down
   bindkey -M $m '^[[B' down-line-or-beginning-search
-  bindkey -M $m '^X^E' edit-command-line              # 在 vim 里编辑当前命令
+  bindkey -M $m '^X^E' edit-command-line              # edit the current command in the editor
 done
-bindkey -M viins '^@' autosuggest-accept              # Ctrl-Space 接受整条建议
-bindkey -M viins '^F' forward-word                    # Ctrl-F 接受建议的一个词
-bindkey -M viins '^[.' insert-last-word               # Alt-. 插入上条命令最后一个参数
+bindkey -M viins '^@' autosuggest-accept              # Ctrl-Space accepts the whole suggestion
+bindkey -M viins '^F' forward-word                    # Ctrl-F accepts one word
+bindkey -M viins '^[.' insert-last-word               # Alt-. inserts the last argument of the previous command
 bindkey -M viins '^W' backward-kill-word
 bindkey -M viins '^U' backward-kill-line
-bindkey -M viins '^[l' clear-screen                   # Alt-l 清屏（C-l 已用于 tmux 切 pane）
+bindkey -M viins '^[l' clear-screen                   # Alt-l clears the screen (C-l moves between tmux panes)
 bindkey -M vicmd '^[l' clear-screen
 ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(forward-word)
 
-# atuin：Ctrl-r 全屏历史搜索（带目录 / 耗时 / 退出码），↑ 保持前缀搜索
+# atuin: Ctrl-r full-screen history search (dir / duration / exit code); Up keeps prefix search
 (( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
 
-# fzf-git：Ctrl-g 再按 f 文件 / b 分支 / h 提交 / s stash / t tag / r 远端 / l reflog / w worktree / ? 帮助
+# fzf-git: Ctrl-g then f files / b branches / h commits / s stash / t tags / r remotes / l reflog / w worktrees / ? help
 [[ -f "$HOME/.local/share/fzf-git.sh/fzf-git.sh" ]] && source "$HOME/.local/share/fzf-git.sh/fzf-git.sh"
 
 # -- Android -------------------------------------------------------------------
@@ -229,7 +232,7 @@ if [[ $OSTYPE == linux* ]]; then
   alias diff='diff --color=auto' ip='ip -color=auto' dmesg='dmesg --color=always'
   (( $+commands[ruby] )) && export GEM_HOME="$HOME/.gem" && path=("$(ruby -e 'print Gem.user_dir')/bin" $path)
   [[ -f "$BINSCRIPT/zsh/pacman_cmd.zsh" ]] && (( $+commands[pacman] )) && source "$BINSCRIPT/zsh/pacman_cmd.zsh"
-  # tty1 自动 startx，tty2 自动 sway
+  # tty1 runs startx, tty2 runs sway
   if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
     exec startx
   elif [[ ! $DISPLAY && $XDG_VTNR -eq 2 ]]; then
@@ -238,10 +241,11 @@ if [[ $OSTYPE == linux* ]]; then
   fi
 fi
 
-# 本机私有配置
+# Machine-local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
-# 输入法：vi 模式按 Esc 进入普通模式时自动切到英文（macism，brew install laishulu/homebrew/macism）
+# Input method: switch to English when Esc enters vi normal mode
+# (macism, brew install laishulu/homebrew/macism)
 if (( $+commands[macism] )); then
   _ime_to_english() { [[ $KEYMAP == vicmd ]] && { macism com.apple.keylayout.USExtended >/dev/null 2>&1 &! } }
   autoload -Uz add-zle-hook-widget && add-zle-hook-widget zle-keymap-select _ime_to_english

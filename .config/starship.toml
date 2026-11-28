@@ -1,5 +1,5 @@
 "$schema" = 'https://starship.rs/config-schema.json'
-# 极简两行提示符（只用终端的 16 色，随 Ghostty 深浅主题自动变化，无色块）：
+# Minimal two-line prompt (terminal's 16 colours only, follows Ghostty light/dark, no colour blocks):
 #   ~/Code/project  main [!2?1]  py 3.12  3s
 #   ❯
 command_timeout = 800

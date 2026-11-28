@@ -85,8 +85,9 @@ tmux_conf_24b_colour=true
 #   - tmux_conf_theme_synchronized
 tmux_conf_theme=enabled
 
-# default theme：跟随系统深浅色。Ghostty 切换主题时 tmux 触发 client-light/dark-theme 钩子，
-# 设置 @theme 后重载配置（钩子见文件后面）。深色 = Catppuccin Mocha，浅色 = Catppuccin Latte
+# default theme: follows system light/dark. When Ghostty switches theme, tmux fires the
+# client-light/dark-theme hooks, which set @theme and reload this file (hooks further down).
+# dark = Catppuccin Mocha, light = Catppuccin Latte
 %if "#{==:#{@theme},light}"
 tmux_conf_theme_colour_1="#e6e9ef"    # mantle
 tmux_conf_theme_colour_2="#ccd0da"    # surface0
@@ -146,7 +147,7 @@ tmux_conf_theme_colour_17="#94e2d5"    # teal
 
 # window style
 tmux_conf_theme_window_fg="default"
-tmux_conf_theme_window_bg="$tmux_conf_theme_colour_1"   # 不在焦点的 pane 稍暗（mantle）
+tmux_conf_theme_window_bg="$tmux_conf_theme_colour_1"   # unfocused panes slightly darker (mantle)
 
 # highlight focused pane, possible values are:
 #   - true
@@ -155,7 +156,7 @@ tmux_conf_theme_highlight_focused_pane=true
 
 # focused pane colours:
 tmux_conf_theme_focused_pane_fg="default"
-tmux_conf_theme_focused_pane_bg="default"           # 当前 pane 保持终端原背景
+tmux_conf_theme_focused_pane_bg="default"           # focused pane keeps the terminal background
 
 # pane border style, possible values are:
 #   - thin (default)
@@ -438,8 +439,9 @@ unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
 
-# 按前缀 C-a 时先把输入法切成英文（macism，约 30ms），后面的字母就不会被中文输入法截走。
-# 做法：不用 tmux 自带的前缀识别，而是由 C-a 自己切输入法再进入 prefix 按键表；C-a C-a 仍然发送 C-a。
+# Pressing C-a first switches the input method to English (macism, ~30ms) so the next key
+# is not swallowed by the Chinese IME. Instead of tmux's own prefix handling, C-a switches
+# the IME and then enters the prefix key table; C-a C-a still sends C-a.
 if-shell 'command -v macism' {
   set -g prefix None
   bind -n C-a run-shell -b 'macism com.apple.keylayout.USExtended >/dev/null 2>&1' \; switch-client -T prefix
@@ -462,7 +464,7 @@ bind-key -n C-j if-shell "$is_vim" "send-keys C-j" "select-pane -D"
 bind-key -n C-k if-shell "$is_vim" "send-keys C-k" "select-pane -U"
 bind-key -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
 
-# 更快的 Esc、焦点事件（vim autoread）、真彩色
+# fast Esc, focus events (vim autoread), true colour
 set -sg escape-time 10
 set -g focus-events on
 set -as terminal-features ',xterm-ghostty:RGB,xterm-256color:RGB'
@@ -472,7 +474,7 @@ set -g display-time 2000
 set -g status-interval 5
 set -g status-position top
 set -g pane-border-status top
-# pane 标题：编号 + 正在运行的程序 + 目录（多开 Claude / vim 时一眼分清）
+# pane title: index + running program + directory (tells several Claude / vim panes apart)
 set -g pane-border-lines heavy
 set -g popup-border-lines rounded
 %if "#{==:#{@theme},light}"
@@ -487,22 +489,23 @@ set -g @floax-border-color '#cba6f7'
 set -g @floax-text-color '#cdd6f4'
 %endif
 
-# 跟随系统深浅色（Ghostty 会把主题变化通知 tmux）
+# follow system light/dark (Ghostty reports theme changes to tmux)
 set-hook -g client-light-theme 'set -g @theme light ; source-file -q ~/.config/tmux/tmux.conf'
 set-hook -g client-dark-theme 'set -g @theme dark ; source-file -q ~/.config/tmux/tmux.conf'
 
-# 前缀 ? 弹窗查看速查表（原来的按键列表改到 前缀 /，/ 原来是 describe-key）
-bind ? display-popup -E -w 85% -h 85% -T ' 速查表 ' "glow -p $HOME/.cheatsheet.md || bat --style=plain --paging=always --language=md $HOME/.cheatsheet.md"
-bind / display-popup -E -w 85% -h 85% -T ' tmux 快捷键 ' "tmux list-keys -T prefix | sed 's/^bind-key *-T prefix *//' | less"
+# prefix ? shows the cheatsheet in a popup (key list moved to prefix /, which was describe-key)
+bind ? display-popup -E -w 85% -h 85% -T ' Cheatsheet ' "glow -p $HOME/.cheatsheet.md || bat --style=plain --paging=always --language=md $HOME/.cheatsheet.md"
+bind / display-popup -E -w 85% -h 85% -T ' tmux keys ' "tmux list-keys -T prefix | sed 's/^bind-key *-T prefix *//' | less"
 
-# 新增浮窗快捷键
-#   <prefix> s  会话 / 项目切换（tmux-sessionizer：已有会话 + zoxide 目录 + git 仓库）
+# Popup keys
+#   <prefix> s  switch session / project (tmux-sessionizer: sessions + zoxide dirs + git repos)
 #   <prefix> g  lazygit
-#   <prefix> w  当前目录下的临时浮动终端
-#   <prefix> i  btop 系统监控（原 display-message）
-#   <prefix> B  gh-dash：我的 PR / 待 review / issue / CI
-# 常用浮窗用小写字母，避免中文输入法截走 Shift+字母；原来的 tmux 内置功能挪到大写
-bind s display-popup -E -w 75% -h 65% -T ' 󰆍 会话 / 项目 ' "$HOME/.bin/tmux-sessionizer"
+#   <prefix> w  scratch floating terminal in the current directory
+#   <prefix> i  btop system monitor (was display-message)
+#   <prefix> B  gh-dash: my PRs / review requests / issues / CI
+# Popups use lowercase keys so the Chinese IME cannot swallow Shift+letter; the tmux
+# built-ins they replaced moved to uppercase
+bind s display-popup -E -w 75% -h 65% -T ' 󰆍 Sessions / projects ' "$HOME/.bin/tmux-sessionizer"
 bind g display-popup -E -w 90% -h 90% -d '#{pane_current_path}' lazygit
 bind w display-popup -E -w 80% -h 75% -d '#{pane_current_path}'
 bind i display-popup -E -w 90% -h 90% -T ' 󰍛 btop ' btop
@@ -513,7 +516,7 @@ bind G switch-client -T move
 bind O select-pane -t :.+
 unbind Q
 set -g @tpm-update 'U'
-# copy-mode vi：v 选择、C-v 块选择、y 复制
+# copy-mode vi: v select, C-v block select, y copy
 bind -T copy-mode-vi v send -X begin-selection
 bind -T copy-mode-vi C-v send -X rectangle-toggle
 bind -T copy-mode-vi y send -X copy-selection-and-cancel
@@ -579,10 +582,10 @@ set -g @floax-width '80%'
 set -g @floax-height '80%'
 set -g @floax-change-path 'true'
 
-# 恢复原生按键（之前被插件占用；配置重载时也能还原）
+# restore built-in keys taken by plugins (also restored on config reload)
 bind n next-window
 bind Space next-layout
-# 左右分屏（原由 tmux-pain-control 提供；oh-my-tmux 自带 - / _ 上下 / 左右分屏、H/J/K/L 调整大小）
+# side-by-side split (was tmux-pain-control; oh-my-tmux already has - / _ splits and H/J/K/L resize)
 bind | split-window -h -c "#{pane_current_path}"
 bind '\' split-window -h -c "#{pane_current_path}"
 
@@ -601,7 +604,8 @@ set -g @shell_mode 'vi'
 set -g @resurrect-capture-pane-contents 'on'
 set -g @resurrect-strategy-vim 'session'
 set -g @resurrect-strategy-nvim 'session'
-# 恢复会话时把 Claude 也带回来，并接上该目录最近一次对话（只匹配以 claude 开头的命令）
+# On restore, bring Claude back and continue that directory's latest conversation
+# (only matches commands that start with claude)
 set -g @resurrect-processes '"claude->claude --continue"'
 set -g @continuum-restore 'on'
 set -g @continuum-save-interval '15'
@@ -609,7 +613,7 @@ set -g @cpu_percentage_format '%3.0f%%'
 set -g @ram_percentage_format '%3.0f%%'
 
 set -g @fzf-url-bind 'u'
-set -g @fzf-url-fzf-options '-p 70%,50% --prompt="打开链接> " --multi -0 --no-preview'
+set -g @fzf-url-fzf-options '-p 70%,50% --prompt="open url> " --multi -0 --no-preview'
 set -g @prefix_highlight_show_copy_mode 'on'
 set -g @prefix_highlight_copy_mode_attr 'fg=white,bg=blue'
 

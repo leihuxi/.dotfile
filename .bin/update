@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
-# 一键更新：brew、oh-my-zsh、oh-my-tmux + tmux 插件、nvim 插件 + Mason 工具、gh 扩展、yazi、ccusage、vimrc
-# 用法：update        （某一步失败不影响其它步，最后汇总）
+# Update everything: brew, oh-my-zsh, oh-my-tmux + tmux plugins, nvim plugins + Mason tools,
+# gh extensions, yazi, ccusage, vimrc.
+# Usage: update     (a failing step does not stop the others; failures are listed at the end)
 export PATH="/opt/homebrew/bin:$PATH"
+case $1 in
+  -h | --help) sed -n '2,4s/^# \{0,1\}//p' "$0"; exit 0 ;;
+  "") ;;
+  *) echo "update: takes no arguments (try --help)" >&2; exit 2 ;;
+esac
 failed=()
 step() {
   local name=$1; shift
@@ -12,13 +18,13 @@ step() {
 step brew               bash -c 'brew update && brew upgrade && brew cleanup -q'
 step oh-my-zsh          env ZSH="${ZSH:-$HOME/.oh-my-zsh}" zsh "${ZSH:-$HOME/.oh-my-zsh}/tools/upgrade.sh"
 step oh-my-tmux         git -C "$HOME/.local/share/oh-my-tmux" pull --ff-only -q
-step "tmux 插件"        "$HOME/.config/tmux/plugins/tpm/bin/update_plugins" all
-# tmux-thumbs 没有 arm64 预编译包，插件更新后要重新编译
+step "tmux plugins"     "$HOME/.config/tmux/plugins/tpm/bin/update_plugins" all
+# tmux-thumbs has no arm64 binary, so rebuild it after the plugin updates
 step tmux-thumbs        bash -c 'cd "$HOME/.config/tmux/plugins/tmux-thumbs" && cargo build --release -q'
-step "nvim 插件"        nvim --headless "+Lazy! sync" +qa
-step "Mason 工具"       nvim --headless "+Lazy! load mason.nvim" -c 'lua
+step "nvim plugins"     nvim --headless "+Lazy! sync" +qa
+step "Mason tools"      nvim --headless "+Lazy! load mason.nvim" -c 'lua
   local reg = require("mason-registry")
-  reg.refresh() -- 同步刷新；之后不用 vim.wait（headless 下会立刻返回），由安装回调里退出
+  reg.refresh() -- synchronous; no vim.wait afterwards (returns at once in headless mode), quit from the install callback
   local pending = 0
   for _, p in ipairs(reg.get_installed_packages()) do
     local cur, new = p:get_installed_version(), p:get_latest_version()
@@ -26,20 +32,20 @@ step "Mason 工具"       nvim --headless "+Lazy! load mason.nvim" -c 'lua
       pending = pending + 1
       print(p.name .. " " .. cur .. " -> " .. new .. "\n")
       p:install({}, vim.schedule_wrap(function(ok)
-        print(p.name .. (ok and " 已更新" or " 更新失败") .. "\n")
+        print(p.name .. (ok and " updated" or " update failed") .. "\n")
         pending = pending - 1
         if pending == 0 then vim.cmd("qa!") end
       end))
     end
   end
-  if pending == 0 then print("Mason 工具都是最新\n"); vim.cmd("qa!") end'
-step "gh 扩展"          gh extension upgrade --all
+  if pending == 0 then print("Mason tools are up to date\n"); vim.cmd("qa!") end'
+step "gh extensions"    gh extension upgrade --all
 step yazi               ya pkg upgrade
 step ccusage            npm install --global --silent ccusage@latest
 step "vimrc (MacVim)"   git -C "$HOME/.vim_runtime" pull --ff-only -q
 
 echo
 if ((${#failed[@]})); then
-  printf '\033[1;31m失败：%s\033[0m\n' "${failed[*]}"; exit 1
+  printf '\033[1;31mFailed: %s\033[0m\n' "${failed[*]}"; exit 1
 fi
-printf '\033[1;32m全部更新完成\033[0m\n'
+printf '\033[1;32mAll updates done\033[0m\n'

@@ -18,7 +18,7 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- LazyVim extras（语言支持 / 测试 / 编辑增强）
+    -- LazyVim extras (languages / testing / editing)
     { import = "lazyvim.plugins.extras.lang.python" },
     { import = "lazyvim.plugins.extras.lang.go" },
     { import = "lazyvim.plugins.extras.lang.rust" },
@@ -35,7 +35,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
     { import = "lazyvim.plugins.extras.util.dot" },
     { import = "lazyvim.plugins.extras.ui.treesitter-context" },
-    { import = "lazyvim.plugins.extras.ai.claudecode" }, -- <leader>a…：nvim 里开 Claude、发选区、审 diff
+    { import = "lazyvim.plugins.extras.ai.claudecode" }, -- <leader>a...: Claude in nvim, send selection, review diffs
     -- import/override with your plugins
     { import = "plugins" },
   },

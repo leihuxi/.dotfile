@@ -1,4 +1,4 @@
--- 额外的 LSP：Swift 用 Xcode 自带的 sourcekit-lsp（mason 不提供）
+-- Extra LSP: Swift via Xcode's sourcekit-lsp (not available from mason)
 return {
   {
     "neovim/nvim-lspconfig",

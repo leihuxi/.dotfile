@@ -2,7 +2,7 @@
 
 # shellcheck source=./logger.sh
 source "$(dirname "${BASH_SOURCE[0]}")/logger.sh"
-# 设置包的安装目录
+# Package install directory
 export npm_config_prefix="$HOME/.local/lib/node_modules"
 export PYTHONUSERBASE="$HOME/.local"
 export GEM_HOME="$HOME/.gem"
@@ -180,7 +180,7 @@ install_dotfile() {
     chmod u+x $HOME/.bin/cht.sh/cht
     info "dotfile:cheat.sh install successfully!"
 
-    #切换到zsh
+    # switch to zsh
     if sudo chsh -s /bin/zsh; then
         info "change zsh successfully!"
     else
@@ -296,7 +296,7 @@ is_macos() {
     [[ "$(uname)" == "Darwin" ]]
 }
 
-# 把仓库里的文件链接到 $HOME（已有文件先备份到 ~/.bakconfig）
+# Link a repo file into $HOME (existing files are backed up to ~/.bakconfig first)
 link_file() {
     local src="$DOTFILE/$1" dst="$HOME/${2:-$1}"
     if [[ "$(readlink "$dst")" == "$src" ]]; then
@@ -316,7 +316,8 @@ git_clone_or_pull() {
     fi
 }
 
-# tmux-thumbs 官方只有 Intel Mac 预编译包，这里用 brew 的 rust 本地编译（tpm 会把已存在的目录视为已安装）
+# tmux-thumbs only ships Intel Mac binaries, so build it with brew's rust
+# (tpm treats an existing directory as installed)
 install_tmux_extras() {
     local dir="$HOME/.config/tmux/plugins/tmux-thumbs"
     git_clone_or_pull https://github.com/fcsonline/tmux-thumbs "$dir"
@@ -328,7 +329,7 @@ install_tmux_extras() {
     fi
 }
 
-# Claude Code × tmux：状态栏用量（ccusage）+ Claude 等你时窗口标签显示 󰚩（hooks）
+# Claude Code x tmux: usage in the status bar (ccusage) + 󰚩 on the window tab while Claude waits (hooks)
 install_claude_tmux() {
     npm install --global ccusage@latest || warning "ccusage install failed"
     local settings="$HOME/.claude/settings.json" notify="~/.bin/claude-tmux-notify"
@@ -348,14 +349,14 @@ install_macos() {
     DOTFILE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     mkdir -p "$HOME/.bakconfig"
 
-    ### Homebrew + 软件
+    ### Homebrew + packages
     if ! command -v brew >/dev/null 2>&1; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
     eval "$(/opt/homebrew/bin/brew shellenv)"
     brew bundle --file "$DOTFILE/Brewfile"
 
-    ### oh-my-zsh + 插件
+    ### oh-my-zsh + plugins
     if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
         RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     else
@@ -370,7 +371,7 @@ install_macos() {
     git_clone_or_pull https://github.com/junegunn/fzf-git.sh "$HOME/.local/share/fzf-git.sh"
     info "dotfile:oh-my-zsh install successfully!"
 
-    ### oh-my-tmux（XDG 布局，插件由 oh-my-tmux 自动安装到 ~/.config/tmux/plugins）
+    ### oh-my-tmux (XDG layout; oh-my-tmux installs plugins into ~/.config/tmux/plugins)
     if [[ -d "$HOME/.local/share/oh-my-tmux/.git" ]]; then
         git -C "$HOME/.local/share/oh-my-tmux" pull --ff-only -q
     else
@@ -380,7 +381,7 @@ install_macos() {
     ln -sfn "$HOME/.local/share/oh-my-tmux/.tmux.conf" "$HOME/.config/tmux/tmux.conf"
     info "dotfile:oh-my-tmux install successfully!"
 
-    ### 配置文件（软链接，修改后直接在仓库里提交）
+    ### Config files (symlinks: edit and commit them in the repo)
     link_file .zshrc
     link_file .tmux.conf.local .config/tmux/tmux.conf.local
     link_file .gitconfig
@@ -415,11 +416,11 @@ install_macos() {
     install_claude_tmux
     gh extension install dlvhdr/gh-dash 2>/dev/null || gh extension upgrade gh-dash || warning "gh-dash install failed (gh auth login?)"
 
-    ### vim（leihuxi/vimrc）
+    ### vim (leihuxi/vimrc)
     install_vim
 
     [[ "$SHELL" == */zsh ]] || chsh -s /bin/zsh
-    info "all installed successfully! 打开 Ghostty，输入 t 进入 tmux，cheat 查看快捷键"
+    info "all installed successfully! Open Ghostty, type t for tmux and cheat for the key cheatsheet"
 }
 
 main() {

@@ -1,6 +1,6 @@
--- tmux 集成
+-- tmux integration
 return {
-  -- C-h/j/k/l 在 nvim 分屏与 tmux pane 之间无缝切换（tmux 端已配置）
+  -- C-h/j/k/l move between nvim splits and tmux panes (tmux side is configured)
   {
     "christoomey/vim-tmux-navigator",
     cmd = { "TmuxNavigateLeft", "TmuxNavigateDown", "TmuxNavigateUp", "TmuxNavigateRight", "TmuxNavigatePrevious" },
@@ -13,7 +13,7 @@ return {
     init = function() vim.g.tmux_navigator_save_on_switch = 1 end,
   },
 
-  -- ,v* 把代码发到 tmux 旁边的 pane 执行（与 vim 配置相同）
+  -- ,v* send code to the neighbouring tmux pane to run (same as the vim config)
   {
     "preservim/vimux",
     cmd = { "VimuxRunCommand", "VimuxPromptCommand", "VimuxRunLastCommand" },
@@ -38,13 +38,13 @@ return {
         { "<leader>vr", function()
             vim.cmd.update()
             local cmd = runners[vim.bo.filetype]
-            if not cmd then return vim.notify("未配置 " .. vim.bo.filetype .. " 的运行命令", vim.log.levels.WARN) end
+            if not cmd then return vim.notify("no run command configured for " .. vim.bo.filetype, vim.log.levels.WARN) end
             vim.fn.VimuxRunCommand(cmd .. " " .. vim.fn.shellescape(vim.fn.expand("%:p")))
           end, desc = "Run File" },
       }
     end,
   },
 
-  -- Session.vim（配合 tmux-resurrect 的 @resurrect-strategy-nvim 'session'）
+  -- Session.vim (used by tmux-resurrect's @resurrect-strategy-nvim 'session')
   { "tpope/vim-obsession", cmd = "Obsession" },
 }

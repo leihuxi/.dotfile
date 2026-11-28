@@ -14,7 +14,7 @@ trap 'custom_exit; exit' SIGINT SIGQUIT
 custom_exit() {
     error "you hit Ctrl-C/Ctrl-\, now exiting.."
 }
-##安装参数,适合一个硬盘
+## install parameters, for a single disk
 bios_order=1
 boot_order=2
 swap_order=3
