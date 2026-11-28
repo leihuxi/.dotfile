@@ -390,6 +390,7 @@ install_macos() {
     link_file .bin/claude-tmux-status
     link_file .bin/claude-tmux-notify
     link_file .bin/claude-format
+    link_file .bin/claude-statusline
     link_file .claude/settings.json
     link_file .gitignore_global
     link_file .mycheat

@@ -159,5 +159,11 @@
       "Bash(git show --output*)",
       "Bash(git show --textconv*)"
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.bin/claude-statusline",
+    "padding": 0,
+    "refreshInterval": 30
   }
 }

@@ -36,6 +36,7 @@ cask "ghostty"
 cask "input-source-pro"          # 按 App 自动切输入法（Ghostty 默认英文）
 cask "macvim-app"
 cask "font-jetbrains-mono-nerd-font"
+cask "font-jetbrains-maple-mono-nf"  # JetBrains Mono + CJK at 2 columns (Ghostty font)
 
 # Claude Code 自动格式化（.bin/claude-format）
 brew "ruff"

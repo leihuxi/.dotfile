@@ -1,5 +1,8 @@
 # Ghostty — 查看全部选项: ghostty +show-config --default --docs
-font-family = JetBrainsMono Nerd Font
+# Latin from JetBrains Mono + CJK from Maple Mono at exactly 2 columns, so mixed
+# Chinese/English text lines up; the old Nerd Font stays as a fallback for icons.
+font-family = "JetBrains Maple Mono"
+font-family = "JetBrainsMono Nerd Font"
 font-size = 14
 adjust-cell-height = 10%
 
