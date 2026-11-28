@@ -6,7 +6,8 @@ font-family = "JetBrainsMono Nerd Font"
 font-size = 14
 adjust-cell-height = 10%
 
-theme = light:Catppuccin Latte,dark:Catppuccin Mocha   # follows system light/dark
+# follows system light/dark (Ghostty has no trailing comments: keep # on its own line)
+theme = light:Catppuccin Latte,dark:Catppuccin Mocha
 background-opacity = 0.96
 background-blur = true
 
